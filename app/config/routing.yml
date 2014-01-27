@@ -1,0 +1,23 @@
+homepage:
+    path: /
+    defaults: { _controller: MylkBlogBundle:Default:index }
+
+post:
+    path: /post/{postid}
+    defaults: { _controller: MylkBlogBundle:Default:postView }
+
+admin_homepage:
+    path: /admin
+    defaults: { _controller: MylkBlogBundle:Admin:index }
+
+admin_login:
+    path: /admin/login
+    defaults: { _controller: MylkBlogBundle:Admin:login }
+
+admin_login_check:
+    path: /admin/login/check
+    defaults: { _controller: MylkBlogBundle:Admin:loginCheck }
+
+admin_logout:
+    path: /admin/logout
+    defaults: { _controller: MylkBlogBundle:Admin:logout }
