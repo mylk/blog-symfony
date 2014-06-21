@@ -1,146 +1,93 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Theme Preview | Previewing Another WordPress Blog</title>
-    <link rel="stylesheet" type="text/css" media="all" href="http://wp-themes.com/wp-content/themes/twentyeleven/style.css" />
-    <style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+    <title>{{ pageGlobals.blogPageTitle }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/page.css') }}" />
 </head>
 
-<body class="home blog single-author two-column right-sidebar">
-    <div id="page" class="hfeed">
-        <header id="branding" role="banner">
+<body>
+    <div id="page">
+        <div id="page-header">
             <hgroup>
-                <h1 id="site-title"><span><a href="http://wp-themes.com/" title="Theme Preview" rel="home">Theme Preview</a></span></h1>
-                <h2 id="site-description">Previewing Another WordPress Blog</h2>
+                <h1 class="site-title"><span><a href="{{ path("homepage") }}">{{ pageGlobals.blogTitle }}</a></span></h1>
+                <h2 class="site-description">{{ pageGlobals.blogDescription }}</h2>
             </hgroup>
 
-            <a href="http://wp-themes.com/">
-                <img src="http://wp-themes.com/wp-content/themes/twentyeleven/images/headers/chessboard.jpg" width="1000" height="288" alt="" />
+            <a href="{{ path('homepage') }} ">
+                <img src="/img/{{ pageGlobals.blogMainImage }}" width="1000" height="288" alt="" />
             </a>
 
-            <form method="get" id="searchform" action="http://wp-themes.com/">
-                <label for="s" class="assistive-text">Search</label>
-                <input type="text" class="field" name="s" id="s" placeholder="Search" />
-                <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+            <form id="search-form" method="GET" action="{{ path('search') }}">
+                <input type="text" class="field" name="term" id="term" placeholder="Search" />
+                <input type="submit" />
             </form>
 
-            <nav id="access" role="navigation">
-                <h3 class="assistive-text">Main menu</h3>
-                <div class="skip-link"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
-                <div class="skip-link"><a class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
-                <div class="menu">
-                    <ul>
-                        <li class="current_page_item"><a href="http://wp-themes.com/">Home</a></li>
-                        <li class="page_item page-item-2"><a href="http://wp-themes.com/?page_id=2">About</a></li>
-                        <li class="page_item page-item-46 page_item_has_children">
-                            <a href="http://wp-themes.com/?page_id=46">Parent Page</a>
-                            <ul class='children'>
-                                <li class="page_item page-item-49">
-                                    <a href="http://wp-themes.com/?page_id=49">Sub-page</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+            <div class="menu">
+                <ul>
+                    <li class="current"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li>
+                        <a href="#">Parent item</a>
+                        <ul class='children'>
+                            <li>
+                                <a href="#">Child item</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div id="main">
             <div id="primary">
-                <div id="content" role="main">
-                    <article id="post-14" class="post-14 post type-post status-publish format-standard hentry category-uncategorized tag-wordpress">
-                        <header class="entry-header">
-                            <h1 class="entry-title"><a href="http://wp-themes.com/?p=14" rel="bookmark">More Tags</a></h1>
-                            <div class="entry-meta">
-                                <span class="sep">Posted on </span>
-                                <a href="http://wp-themes.com/?p=14" title="12:09 am" rel="bookmark">
-                                    <time class="entry-date" datetime="2008-06-21T00:09:24+00:00">21 June, 2008</time>
-                                </a>
-                                <span class="by-author">
-                                    <span class="sep"> by </span>
-                                    <span class="author vcard">
-                                        <a class="url fn n" href="http://wp-themes.com/?author=1" title="View all posts by Theme Admin" rel="author">
-                                            Theme Admin
-                                        </a>
-                                    </span>
-                                </span>
-                            </div>
+                {% block content %}
+                <article>
+                    <div class="post-header">
+                        <h1 class="post-title"><a href="#">Hello world!</a></h1>
+                        <div class="post-info">Posted on 21 June, 2014 by admin</div>
+                    </div>
 
-                            <div class="comments-link">
-                                <a href="http://wp-themes.com/?p=14#respond" title="Comment on More Tags"><span class="leave-reply">Reply</span></a>
-                            </div>
-                        </header>
+                    <div class="post-content">
+                        <p>This is the post body.</p>
+                    </div>
 
-                        <div class="entry-content">
-                            <p>More of these posts need tags.</p>
-                        </div><!-- .entry-content -->
-
-                        <footer class="entry-meta">
-                            <span class="cat-links">
-                                <span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>
-                                <a href="http://wp-themes.com/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a>
-                            </span>
-                            <span class="sep"> | </span>
-                            <span class="tag-links">
-                                <span class="entry-utility-prep entry-utility-prep-tag-links">Tagged</span>
-                                <a href="http://wp-themes.com/?tag=wordpress" rel="tag">wordpress</a>
-                            </span>
-
-                            <span class="sep"> | </span>
-                            <span class="comments-link">
-                                <a href="http://wp-themes.com/?p=14#respond" title="Comment on More Tags">
-                                    <span class="leave-reply">Leave a reply</span>
-                                </a>
-                            </span>
-
-                        </footer>
-                    </article>
-                </div>
+                    <div class="post-info">
+                        Category: <a href="#">Uncategorized</a>
+                        |
+                        Tags: <a href="#">A tag</a>
+                        |
+                        <a href="#">Comment</a> <a href="#">(1)</a>
+                    </div>
+                </article>
+                {% endblock content %}
             </div>
 
-            <div id="secondary" class="widget-area" role="complementary">
-                <aside id="search-3" class="widget widget_search">
-                    <form method="get" id="searchform" action="http://wp-themes.com/">
-                        <label for="s" class="assistive-text">Search</label>
-                        <input type="text" class="field" name="s" id="s" placeholder="Search" />
-                        <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
-                    </form>
-                </aside>
-                <aside id="recent-posts-3" class="widget widget_recent_entries">
-                    <h3 class="widget-title">Recent Posts</h3>
+            <div class="widget-area">
+                <div class="widget">
+                    <h3>Categories</h3>
                     <ul>
-                        <li>
-                            <a href="http://wp-themes.com/?p=19">Worth A Thousand Words</a>
-                        </li>
+                        <li><a href="#">First Category</a></li>
                     </ul>
-                </aside>
-                <aside id="recent-comments-3" class="widget widget_recent_comments">
-                    <h3 class="widget-title">Recent Comments</h3>
-                    <ul id="recentcomments">
-                        <li class="recentcomments">
-                            <a href='http://josephscott.org/' rel='external nofollow' class='url'>Joseph Scott</a> on
-                            <a href="http://wp-themes.com/?p=1&#038;cpage=1#comment-509">Hello world!</a>
-                        </li>
-                    </ul>
-                </aside>
-                <aside id="archives-3" class="widget widget_archive"><h3 class="widget-title">Archives</h3>
+                </div>
+                <div class="widget">
+                    <h3>Recent Comments</h3>
                     <ul>
-                        <li><a href='http://wp-themes.com/?m=200810'>October 2008</a></li>
+                        <li>Mr. Mister on <a href="#">Hello world!</a></li>
                     </ul>
-                </aside>
-                <aside id="categories-3" class="widget widget_categories">
-                    <h3 class="widget-title">Categories</h3>
+                </div>
+                <div class="widget">
+                    <h3>Archives</h3>
                     <ul>
-                        <li class="cat-item cat-item-6"><a href="http://wp-themes.com/?cat=6" title="View all posts filed under First Child Category">First Child Category</a></li>
+                        <li><a href='#'>June 2014</a></li>
                     </ul>
-                </aside>
+                </div>
             </div>
         </div>
 
-        <footer id="colophon" role="contentinfo">
-            <div id="site-generator">
-                <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+        <footer>
+            <div class="colophon">
+                Proudly created with <img src="{{ asset('/img/symfony-logo.svg') }}" />
             </div>
         </footer>
     </div>

@@ -1,0 +1,524 @@
+html, body, div, span, h1, h2, h3, p, a, ul, li, form, label {
+  border: 0;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+:focus {
+  outline: 0;
+}
+
+body {
+  background: #fff;
+  line-height: 1;
+}
+
+ul {
+  list-style: none;
+}
+
+a img {
+  border: 0;
+}
+
+article,
+.widget
+footer,
+header,
+hgroup {
+  display: block;
+}
+
+body {
+  padding: 0 2em;
+}
+
+#page {
+  margin: 2em auto;
+  max-width: 1000px;
+}
+
+#page-header hgroup {
+  margin: 2.5em 7.6% 2em
+}
+
+#primary {
+  float: left;
+  margin: 0 -26.4% 0 0;
+  width: 100%;
+}
+
+#primary article {
+  margin: 0 34% 0 7.6%;
+  width: 58.4%;
+}
+
+.widget-area {
+  float: right;
+  margin-right: 7.6%;
+  width: 18.8%;
+}
+
+
+body,
+input {
+  color: #373737;
+  font: 15px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.625;
+}
+
+body {
+  background: #e2e2e2;
+}
+
+#page {
+  background: #fff;
+}
+
+h1,
+h2,
+h3 {
+  clear: both;
+}
+
+p {
+  margin-bottom: 1.625em;
+}
+
+ul {
+  margin: 0 0 1.625em 2.5em;
+}
+
+ul {
+  list-style: square;
+}
+
+ul ul {
+  margin-bottom: 0;
+}
+
+i {
+  font-style: italic;
+}
+
+abbr {
+  border-bottom: 1px dotted #666;
+  cursor: help;
+}
+
+input[type=text] {
+  background: #fafafa;
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+  border: 1px solid #ddd;
+  color: #888;
+}
+
+input[type=text]:focus {
+  color: #373737;
+}
+
+input[type=text] {
+  padding: 3px;
+}
+
+input#term {
+  background: url(../img/search.png) no-repeat 5px 6px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 14px;
+  height: 22px;
+  line-height: 1.2em;
+  padding: 4px 10px 4px 28px;
+}
+
+input[type=submit] {
+  display: none;
+}
+
+a {
+  color: #1982d1;
+  text-decoration: none;
+}
+
+a:focus,
+a:active,
+a:hover {
+  text-decoration: underline;
+}
+
+#page-header {
+  border-top: 2px solid #bbb;
+  padding-bottom: 10px;
+  position: relative;
+  z-index: 9999;
+}
+
+.site-title a {
+  color: #111;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 36px;
+  text-decoration: none;
+}
+
+.site-title a:hover,
+.site-title a:focus,
+.site-title a:active {
+  color: #1982d1;
+}
+
+.site-description {
+  color: #7a7a7a;
+  font-size: 14px;
+}
+
+#page-header img {
+  height: auto;
+  display: block;
+  width: 100%;
+}
+
+.menu {
+  background: #222;
+  /* Show a solid color for older browsers */
+  background: -moz-linear-gradient(#252525, #0a0a0a);
+  background: -o-linear-gradient(#252525, #0a0a0a);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#252525), to(#0a0a0a));
+  /* older webkit syntax */
+  background: -webkit-linear-gradient(#252525, #0a0a0a);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 2px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 2px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 2px;
+  clear: both;
+  display: block;
+  float: left;
+  margin: 0 auto 6px;
+  width: 100%;
+}
+
+.menu ul {
+  font-size: 13px;
+  list-style: none;
+  margin: 0 0 0 -0.8125em;
+  padding-left: 0;
+}
+
+.menu > ul {
+  padding-left: 20px;
+}
+
+.menu li {
+  float: left;
+  position: relative;
+}
+
+.menu a {
+  color: #eee;
+  display: block;
+  line-height: 3.333em;
+  padding: 0 1.2125em;
+  text-decoration: none;
+}
+
+.menu ul ul {
+  -moz-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+  display: none;
+  float: left;
+  margin: 0;
+  position: absolute;
+  top: 3.333em;
+  left: 0;
+  width: 188px;
+  z-index: 99999;
+}
+
+.menu ul ul a {
+  background: #f9f9f9;
+  border-bottom: 1px dotted #ddd;
+  color: #444;
+  font-size: 13px;
+  font-weight: normal;
+  height: auto;
+  line-height: 1.4em;
+  padding: 10px 10px;
+  width: 168px;
+}
+
+.menu li:hover > a,
+.menu a:focus {
+  background: #efefef;
+}
+
+.menu li:hover > a,
+.menu a:focus {
+  background: #f9f9f9;
+  /* Show a solid color for older browsers */
+  background: -moz-linear-gradient(#f9f9f9, #e5e5e5);
+  background: -o-linear-gradient(#f9f9f9, #e5e5e5);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9f9f9), to(#e5e5e5));
+  /* Older webkit syntax */
+  background: -webkit-linear-gradient(#f9f9f9, #e5e5e5);
+  color: #373737;
+}
+
+.menu ul li:hover > ul {
+  display: block;
+}
+
+.menu .current > a {
+  font-weight: bold;
+}
+
+/* Search Form */
+
+#page-header #search-form {
+  position: absolute;
+  top: 3em;
+  right: 7.6%;
+  text-align: right;
+}
+
+#page-header #term {
+  float: right;
+  -webkit-transition-duration: 400ms;
+  -webkit-transition-property: width, background;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-duration: 400ms;
+  -moz-transition-property: width, background;
+  -moz-transition-timing-function: ease;
+  -o-transition-duration: 400ms;
+  -o-transition-property: width, background;
+  -o-transition-timing-function: ease;
+  width: 72px;
+}
+
+#page-header #term:focus {
+  background-color: #f9f9f9;
+  width: 196px;
+}
+
+#main {
+  clear: both;
+  padding: 1.625em 0 0;
+}
+
+.post-title {
+  clear: both;
+  color: #222;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 1.5em;
+  padding-bottom: .3em;
+  padding-top: 15px;
+}
+
+.post-title,
+.post-title a {
+  color: #222;
+  text-decoration: none;
+}
+
+.post-title a:hover,
+.post-title a:focus,
+.post-title a:active {
+  color: #1982d1;
+}
+
+.post-info {
+  color: #666;
+  clear: both;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.post-info a {
+  font-weight: bold;
+}
+
+.post-content {
+  padding: 1.625em 0 0;
+}
+
+.widget-area {
+  font-size: 12px;
+}
+
+.widget {
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  clear: both;
+  margin: 0 0 2.2em;
+}
+
+.widget h3 {
+  color: #666;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 2.6em;
+  text-transform: uppercase;
+}
+
+.widget ul {
+  font-size: 15px;
+  margin: 0;
+}
+
+.widget ul li {
+  color: #777;
+  font-size: 13px;
+}
+
+.widget a {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.widget a:hover,
+.widget a:focus,
+.widget a:active {
+  text-decoration: underline;
+}
+
+footer {
+  clear: both;
+}
+
+
+footer {
+  background: #f9f9f9;
+  border-top: 1px solid #ddd;
+  color: #666;
+  font-size: 12px;
+  line-height: 2.2em;
+  padding: 2.2em 0.5em;
+  text-align: center;
+  position:relative;
+}
+
+footer a {
+  color: #555;
+  font-weight: bold;
+}
+
+.colophon {
+    text-align:left;
+    width: 220px;
+    padding: 0 0 0 400px;
+}
+
+.colophon img {
+    height: 19px;
+    margin: 2px 5px;
+    position: absolute;
+}
+
+.post-comments {
+    padding-top: 50px;
+}
+
+.post-comments h3 {
+    font-size:16px;
+    font-weight:bold;
+    padding-bottom:10px;
+}
+
+.post-comments > div {
+    padding-bottom: 5px;
+}
+
+/* responsive */
+
+@-ms-viewport {
+  width: device-width;
+}
+
+@viewport {
+  width: device-width;
+}
+
+@media (max-width: 800px) {
+  /* Simplify the basic layout */
+
+  #main .widget-area {
+    float: none;
+    margin: 0 7.6%;
+    width: auto;
+  }
+
+}
+
+@media (max-width: 650px) {
+  /* @media (max-width: 650px) Reduce font-sizes for better readability on smaller devices */
+
+  body,
+  input {
+    font-size: 13px;
+  }
+
+  .site-title a {
+    font-size: 24px;
+  }
+
+  .site-description {
+    font-size: 12px;
+  }
+
+  .menu ul {
+    font-size: 12px;
+  }
+
+  .post-title {
+    font-size: 21px;
+  }
+
+  .post-info {
+    font-size: 12px;
+  }
+
+  /* Reposition the site title and description slightly */
+
+  .site-title {
+    padding: 5.30625em 0 0;
+  }
+
+  .site-title,
+  .site-description {
+    margin-right: 0;
+  }
+
+  /* Make sure the logo and search form don't collide */
+
+  #page-header #search-form {
+    top: 1.625em !important;
+  }
+
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  body {
+    padding: 0;
+  }
+
+  #page {
+    margin-top: 0;
+  }
+
+  #page-header {
+    border-top: none;
+  }
+}

@@ -14,10 +14,6 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        # login:
-        #     pattern:  ^/admin/login
-        #     security: false
-
         secured_area:
             pattern:    ^/
             anonymous:  ~

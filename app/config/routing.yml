@@ -1,6 +1,10 @@
 homepage:
     path: /
     defaults: { _controller: MylkBlogBundle:Default:index }
+    
+search:
+    path: /search
+    defaults: { _controller: MylkBlogBundle:Default:search }
 
 post:
     path: /post/{postid}
