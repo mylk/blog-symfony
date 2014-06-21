@@ -15,9 +15,11 @@
                 <h2 class="site-description">{{ pageGlobals.blogDescription }}</h2>
             </hgroup>
 
+            {% if pageGlobals.blogMainImageVisible %}
             <a href="{{ path('homepage') }} ">
                 <img src="/img/{{ pageGlobals.blogMainImage }}" width="1000" height="288" alt="" />
             </a>
+            {% endif %}
 
             <form id="search-form" method="GET" action="{{ path('search') }}">
                 <input type="text" class="field" name="term" id="term" placeholder="Search" />

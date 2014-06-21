@@ -20,3 +20,4 @@ parameters:
         blogTitle: Symfony Blog Demo
         blogDescription: Do you really need a description?
         blogMainImage: nyc.jpg
+        blogMainImageVisible: false
