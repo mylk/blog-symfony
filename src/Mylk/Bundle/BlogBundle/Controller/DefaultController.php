@@ -8,8 +8,14 @@
     {
         public function indexAction(){
             $pageGlobals = $this->container->getParameter("pageGlobals");
+            $em = $this->getDoctrine()->getManager();
+            
+            $posts = $em->getRepository("MylkBlogBundle:Post")->findAll();
 
-            return $this->render("MylkBlogBundle:Default:index.html.twig", array("pageGlobals" => $pageGlobals));
+            return $this->render("MylkBlogBundle:Default:index.html.twig", array(
+                "pageGlobals" => $pageGlobals,
+                "posts" => $posts
+            ));
         }
         
         public function postViewAction(){
