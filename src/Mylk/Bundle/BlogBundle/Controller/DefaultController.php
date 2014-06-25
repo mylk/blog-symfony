@@ -7,8 +7,8 @@
     class DefaultController extends Controller
     {
         public function indexAction(){
-            $pageGlobals = $this->container->getParameter("pageGlobals");
             $em = $this->getDoctrine()->getManager();
+            $pageGlobals = $this->container->getParameter("pageGlobals");
             $paginator = $this->get("knp_paginator");
             
             $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array(), array("createdAt" => "DESC"));
@@ -28,9 +28,18 @@
         }
         
         public function postViewAction(){
+            $em = $this->getDoctrine()->getManager();
             $pageGlobals = $this->container->getParameter("pageGlobals");
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
             
-            return $this->render("MylkBlogBundle:Default:post.html.twig", array("pageGlobals" => $pageGlobals, "post" => array("id" => 1, "title" => "post a")));
+            $postId = $this->getRequest()->get("postid");
+            $post = $em->getRepository("MylkBlogBundle:Post")->find($postId);
+            
+            return $this->render("MylkBlogBundle:Default:post.html.twig", array(
+                "pageGlobals" => $pageGlobals,
+                "categories" => $categories,
+                "post" => $post
+            ));
         }
         
         public function searchAction(){

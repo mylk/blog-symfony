@@ -3,20 +3,20 @@
 {% block content %}
 <article>
     <div class="post-header">
-        <h1 class="post-title"><a href="#">Hello world!</a></h1>
-        <div class="post-info">Posted on 21 June, 2014 by admin</div>
+        <h1 class="post-title"><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></h1>
+        <div class="post-info">Posted on {{ post.createdAt }} by <a href="mailto:{{ post.user.email }}">{{ post.user.username }}</a></div>
     </div>
 
     <div class="post-content">
-        <p>This is the post body.</p>
+        <p>{{ post.content | raw }}</p>
     </div>
 
     <div class="post-info">
-        Category: <a href="#">Uncategorized</a>
+        Category: <a href="#">{{ post.category.title }}</a>
         |
-        Tags: <a href="#">A tag</a>
+        Tags: <a href="#">{{ post.tag.title }}</a>
         |
-        <a href="#">Comment</a> <a href="#">(1)</a>
+        <a href="#">Comment</a> <a href="#">(?)</a>
     </div>
         
     <div class="post-comments">
