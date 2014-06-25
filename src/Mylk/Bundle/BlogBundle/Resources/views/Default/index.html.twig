@@ -76,7 +76,7 @@
                     <h3>Categories</h3>
                     <ul>
                         {% for category in categories %}
-                        <li><a href="#">{{ category.title }}</a></li>
+                        <li><a href="{{ path('category', { categoryid: category.id }) }}">{{ category.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

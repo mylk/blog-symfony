@@ -16,7 +16,7 @@
             
             $pagination = $paginator->paginate(
                 $posts,
-                $this->get('request')->query->get("page", 1),
+                $this->getRequest()->get("page", 1),
                 5
             );
 
@@ -40,6 +40,32 @@
                 "categories" => $categories,
                 "post" => $post
             ));
+        }
+        
+        public function categoryViewAction(){
+            $em = $this->getDoctrine()->getManager();
+            $pageGlobals = $this->container->getParameter("pageGlobals");
+            $paginator = $this->get("knp_paginator");
+            
+            $categoryId = $this->getRequest()->get("categoryid");
+            $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array("category" => $categoryId));
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findAll();
+            
+            $pagination = $paginator->paginate(
+                $posts,
+                $this->getRequest()->get("page", 1),
+                5
+            );
+            
+            return $this->render("MylkBlogBundle:Default:index.html.twig", array(
+                "pageGlobals" => $pageGlobals,
+                "categories" => $categories,
+                "pagination" => $pagination
+            ));
+        }
+        
+        public function tagViewAction(){
+            $tagId = $this->getRequest()->get("tagid");
         }
         
         public function searchAction(){

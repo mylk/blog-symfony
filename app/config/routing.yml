@@ -9,6 +9,14 @@ search:
 post:
     path: /post/{postid}
     defaults: { _controller: MylkBlogBundle:Default:postView }
+    
+category:
+    path: /category/{categoryid}
+    defaults: { _controller: MylkBlogBundle:Default:CategoryView }
+    
+tag:
+    path: /tag/{tagid}
+    defaults: { _controller: MylkBlogBundle:Default:TagView }
 
 admin_homepage:
     path: /admin
