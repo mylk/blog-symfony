@@ -11,10 +11,12 @@
             $em = $this->getDoctrine()->getManager();
             
             $posts = $em->getRepository("MylkBlogBundle:Post")->findAll();
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findAll();
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
                 "pageGlobals" => $pageGlobals,
-                "posts" => $posts
+                "posts" => $posts,
+                "categories" => $categories
             ));
         }
         
