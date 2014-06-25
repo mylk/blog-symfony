@@ -9,14 +9,21 @@
         public function indexAction(){
             $pageGlobals = $this->container->getParameter("pageGlobals");
             $em = $this->getDoctrine()->getManager();
+            $paginator = $this->get("knp_paginator");
             
-            $posts = $em->getRepository("MylkBlogBundle:Post")->findAll();
-            $categories = $em->getRepository("MylkBlogBundle:Category")->findAll();
+            $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array(), array("createdAt" => "DESC"));
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
+            
+            $pagination = $paginator->paginate(
+                $posts,
+                $this->get('request')->query->get("page", 1),
+                5
+            );
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
                 "pageGlobals" => $pageGlobals,
-                "posts" => $posts,
-                "categories" => $categories
+                "categories" => $categories,
+                "pagination" => $pagination
             ));
         }
         

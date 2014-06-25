@@ -44,7 +44,7 @@
         <div id="main">
             <div id="primary">
                 {% block content %}
-                {% for post in posts %}
+                {% for post in pagination %}
                 <article>
                     <div class="post-header">
                         <h1 class="post-title"><a href="#">{{ post.title }}</a></h1>
@@ -64,6 +64,10 @@
                     </div>
                 </article>
                 {% endfor %}
+                    
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
                 {% endblock content %}
             </div>
 

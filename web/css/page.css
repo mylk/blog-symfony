@@ -441,6 +441,11 @@ footer a {
     padding-bottom: 5px;
 }
 
+.pagination {
+    padding-left:47%;
+    padding-bottom:30px;
+}
+
 /* responsive */
 
 @-ms-viewport {
