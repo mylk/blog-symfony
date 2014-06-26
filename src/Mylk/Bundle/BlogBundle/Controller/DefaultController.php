@@ -65,7 +65,24 @@
         }
         
         public function tagViewAction(){
+            $em = $this->getDoctrine()->getManager();
+            $pageGlobals = $this->container->getParameter("pageGlobals");
+            $paginator = $this->get("knp_paginator");
+            
             $tagId = $this->getRequest()->get("tagid");
+            $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array("tag" => $tagId));
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findAll();
+            $pagination = $paginator->paginate(
+                $posts,
+                $this->getRequest()->get("page", 1),
+                5
+            );
+            
+            return $this->render("MylkBlogBundle:Default:index.html.twig", array(
+                "pageGlobals" => $pageGlobals,
+                "categories" => $categories,
+                "pagination" => $pagination
+            ));
         }
         
         public function searchAction(){

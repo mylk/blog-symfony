@@ -12,9 +12,9 @@
     </div>
 
     <div class="post-info">
-        Category: <a href="#">{{ post.category.title }}</a>
+        Category: <a href="{{ path('category', { categoryid: post.category.id }) }}">{{ post.category.title }}</a>
         |
-        Tags: <a href="#">{{ post.tag.title }}</a>
+        Tags: <a href="{{ path('tag', { tagid: post.tag.id }) }}">{{ post.tag.title }}</a>
         |
         <a href="#">Comment</a> <a href="#">(?)</a>
     </div>
