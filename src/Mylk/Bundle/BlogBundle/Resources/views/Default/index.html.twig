@@ -21,8 +21,8 @@
             </a>
             {% endif %}
 
-            <form id="search-form" method="GET" action="{{ path('search') }}">
-                <input type="text" class="field" name="term" id="term" placeholder="Search" />
+            <form id="search-form" method="POST" action="{{ path('search') }}">
+                <input type="text" name="term" id="term" placeholder="Search" />
                 <input type="submit" />
             </form>
 

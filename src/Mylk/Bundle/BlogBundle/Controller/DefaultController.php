@@ -9,13 +9,13 @@
             $em = $this->getDoctrine()->getManager();
             $page_globals = $this->container->getParameter("page_globals");
             $paginator = $this->get("knp_paginator");
-            $repo = $this->getDoctrine()->getRepository("MylkBlogBundle:Post");
+            $postRepo = $this->getDoctrine()->getRepository("MylkBlogBundle:Post");
             
             $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
-            $archive = $repo->getArchive();
+            $archive = $postRepo->getArchive();
 
             // get posts by sticky and creation date order
-            $posts = $repo->findAllByStickyAndDate();
+            $posts = $postRepo->findAllByStickyAndDate();
             
             $pagination = $paginator->paginate(
                 $posts,
@@ -34,13 +34,13 @@
         public function postViewAction(){
             $em = $this->getDoctrine()->getManager();
             $page_globals = $this->container->getParameter("page_globals");
-            $repo = $em->getRepository("MylkBlogBundle:Post");
+            $postRepo = $em->getRepository("MylkBlogBundle:Post");
             
             $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
-            $archive = $repo->getArchive();
+            $archive = $postRepo->getArchive();
             
             $postId = $this->getRequest()->get("postid");
-            $post = $repo->find($postId);
+            $post = $postRepo->find($postId);
             
             return $this->render("MylkBlogBundle:Default:post.html.twig", array(
                 "page_globals" => $page_globals,
@@ -130,6 +130,27 @@
         }
 
         public function searchAction(){
-            return new HttpResponse("@TODO");
+            $em = $this->getDoctrine()->getManager();
+            $page_globals = $this->container->getParameter("page_globals");
+            $paginator = $this->get("knp_paginator");
+            $postRepo = $em->getRepository("MylkBlogBundle:Post");
+
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
+            $archive = $postRepo->getArchive();
+            
+            $posts = $postRepo->findBySearchTerm($this->getRequest()->get("term"));
+
+            $pagination = $paginator->paginate(
+                $posts,
+                $this->getRequest()->get("page", 1),
+                $page_globals["posts_per_page"]
+            );
+            
+            return $this->render("MylkBlogBundle:Default:index.html.twig", array(
+                "page_globals" => $page_globals,
+                "categories" => $categories,
+                "archive" => $archive,
+                "pagination" => $pagination
+            ));
         }
     }
