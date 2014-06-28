@@ -11,8 +11,15 @@
             $pageGlobals = $this->container->getParameter("pageGlobals");
             $paginator = $this->get("knp_paginator");
             
-            $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array(), array("createdAt" => "DESC"));
             $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
+
+            // get posts by sticky and creation date order
+            $repo = $this->getDoctrine()->getRepository("MylkBlogBundle:Post");
+            $query = $repo->createQueryBuilder("p")
+                    ->addOrderBy("p.sticky", "DESC")
+                    ->addOrderBy("p.createdAt", "DESC")
+                    ->getQuery();
+            $posts = $query->getResult();
             
             $pagination = $paginator->paginate(
                 $posts,
@@ -49,7 +56,7 @@
             
             $categoryId = $this->getRequest()->get("categoryid");
             $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array("category" => $categoryId));
-            $categories = $em->getRepository("MylkBlogBundle:Category")->findAll();
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
             
             $pagination = $paginator->paginate(
                 $posts,
@@ -71,7 +78,7 @@
             
             $tagId = $this->getRequest()->get("tagid");
             $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array("tag" => $tagId));
-            $categories = $em->getRepository("MylkBlogBundle:Category")->findAll();
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
             $pagination = $paginator->paginate(
                 $posts,
                 $this->getRequest()->get("page", 1),

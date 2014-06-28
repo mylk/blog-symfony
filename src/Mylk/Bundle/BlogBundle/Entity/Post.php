@@ -31,6 +31,11 @@
         protected $createdAt;
         
         /**
+         * @ORM\Column(type="boolean", nullable=false)
+         */
+        protected $sticky;
+        
+        /**
          * @ORM\ManyToOne(targetEntity="User")
          * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
          */
