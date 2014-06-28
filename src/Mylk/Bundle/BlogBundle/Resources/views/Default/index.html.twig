@@ -89,7 +89,9 @@
                 <div class="widget">
                     <h3>Archives</h3>
                     <ul>
-                        <li><a href='#'>June 2014</a></li>
+                        {% for date in archive %}
+                            <li><a href="{{ path('archive', { year: date.year, month: date.month }) }}">{{ date.monthName }} {{ date.year }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

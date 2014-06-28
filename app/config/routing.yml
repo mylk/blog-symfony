@@ -17,6 +17,10 @@ category:
 tag:
     path: /tag/{tagid}
     defaults: { _controller: MylkBlogBundle:Default:TagView }
+    
+archive:
+    path: /{year}/{month}
+    defaults: { _controller: MylkBlogBundle:Default:ArchiveView }
 
 admin_homepage:
     path: /admin

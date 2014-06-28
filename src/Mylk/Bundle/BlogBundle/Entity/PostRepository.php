@@ -5,14 +5,49 @@
 
     class PostRepository extends EntityRepository{
         public function findAllByStickyAndDate(){
-            $qb = $this->getEntityManager()->createQueryBuilder();
+            $query = $this->getEntityManager()->createQueryBuilder();
 
-            $qb->select("p")
+            $query->select("p")
                 ->from($this->getEntityName(), "p")
                 ->orderBy("p.sticky", "DESC")
                 ->addOrderBy("p.createdAt", "DESC");
 
-            return $qb->getQuery()->getResult();
+            return $query->getQuery()->getResult();
+        }
+        
+        public function getArchive(){
+            $dateTime = new \DateTime;
+            
+            $query = $this->getEntityManager()->createQuery("
+                SELECT DISTINCT(SUBSTRING(p.createdAt, 1, 7)) AS yearMonth
+                FROM MylkBlogBundle:Post p
+                ORDER BY yearMonth DESC
+            ");
+            $results = $query->getResult();
+            $dates = array();
+            
+            foreach($results as $date){
+                $date = explode("-", $date["yearMonth"]);
+                array_push($dates, array(
+                    "year" => $date[0],
+                    "month" => $date[1],
+                    "monthName" => $dateTime->createFromFormat("!m", $date[1])->format("F"))
+                );
+            };
+            
+            return $dates;
+        }
+
+        public function findByYearMonth($date){
+            $query = $this->getEntityManager()->createQuery("
+                SELECT p
+                FROM MylkBlogBundle:Post p
+                WHERE p.createdAt LIKE CONCAT(:year, '-', :month, '%')
+                ORDER BY p.createdAt DESC
+            ")
+            ->setParameters(array("year" => $date["year"], "month" => $date["month"]));
+
+            return $query->getResult();
         }
     }
 ?>
