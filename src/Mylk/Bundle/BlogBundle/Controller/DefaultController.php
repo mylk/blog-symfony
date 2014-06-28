@@ -15,11 +15,7 @@
 
             // get posts by sticky and creation date order
             $repo = $this->getDoctrine()->getRepository("MylkBlogBundle:Post");
-            $query = $repo->createQueryBuilder("p")
-                    ->addOrderBy("p.sticky", "DESC")
-                    ->addOrderBy("p.createdAt", "DESC")
-                    ->getQuery();
-            $posts = $query->getResult();
+            $posts = $repo->findAllByStickyAndDate();
             
             $pagination = $paginator->paginate(
                 $posts,

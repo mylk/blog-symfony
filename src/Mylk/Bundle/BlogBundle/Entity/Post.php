@@ -4,7 +4,7 @@
     use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @ORM\Entity
+     * @ORM\Entity(repositoryClass="Mylk\Bundle\BlogBundle\Entity\PostRepository")
      * @ORM\Table(name="posts")
      */
     class Post{
@@ -79,6 +79,14 @@
         
         public function setCreatedAt($createdAt){
             $this->createdAt = $createdAt;
+        }
+
+        public function getSticky(){
+            return $this->sticky;
+        }
+        
+        public function setSticky($sticky){
+            $this->sticky = $sticky;
         }
         
         public function getUser(){
