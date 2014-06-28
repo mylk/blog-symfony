@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>{{ pageGlobals.blogPageTitle }}</title>
+    <title>{{ page_globals.blog_page_title }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/page.css') }}" />
 </head>
 
@@ -11,13 +11,13 @@
     <div id="page">
         <div id="page-header">
             <hgroup>
-                <h1 class="site-title"><span><a href="{{ path("homepage") }}">{{ pageGlobals.blogTitle }}</a></span></h1>
-                <h2 class="site-description">{{ pageGlobals.blogDescription }}</h2>
+                <h1 class="site-title"><span><a href="{{ path("homepage") }}">{{ page_globals.blog_title }}</a></span></h1>
+                <h2 class="site-description">{{ page_globals.blog_description }}</h2>
             </hgroup>
 
-            {% if pageGlobals.blogMainImageVisible %}
+            {% if page_globals.blog_main_image_visible %}
             <a href="{{ path('homepage') }} ">
-                <img src="/img/{{ pageGlobals.blogMainImage }}" width="1000" height="288" alt="" />
+                <img src="/img/{{ page_globals.blog_main_image }}" width="1000" height="288" alt="" />
             </a>
             {% endif %}
 

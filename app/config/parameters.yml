@@ -15,12 +15,13 @@ parameters:
     mailer_user: null
     mailer_password: null
 
-    pageGlobals:
-        blogPageTitle: Symfony Blog Demo
-        blogTitle: Symfony Blog Demo
-        blogDescription: Do you really need a description?
-        blogMainImage: nyc.jpg
-        blogMainImageVisible: false
+    page_globals:
+        blog_page_title: Symfony Blog Demo
+        blog_title: Symfony Blog Demo
+        blog_description: Do you really need a description?
+        blog_main_image: nyc.jpg
+        blog_main_image_visible: false
+        posts_per_page: 5
 
     knp_paginator:
         page_range: 5                      # default page range used in pagination control
