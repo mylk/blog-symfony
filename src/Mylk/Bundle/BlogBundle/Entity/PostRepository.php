@@ -56,12 +56,23 @@
             $query->select("p")
                 ->from($this->getEntityName(), "p")
                 ->add("where", $query->expr()->orx(
-                    $query->expr()->like('p.title', ':term'),
-                    $query->expr()->like('p.content', ':term')
+                    $query->expr()->like("p.title", ":term"),
+                    $query->expr()->like("p.content", ":term")
                 ))
                 ->orderBy("p.createdAt", "DESC")
                 ->setParameter("term", "%$term%");
             
+            return $query->getQuery()->getResult();
+        }
+        
+        public function findLatests(){
+            $query = $this->getEntityManager()->createQueryBuilder();
+            
+            $query->select("p")
+                    ->from($this->getEntityName(), "p")
+                    ->orderBy("p.createdAt", "DESC")
+                    ->setMaxResults(20);
+
             return $query->getQuery()->getResult();
         }
     }

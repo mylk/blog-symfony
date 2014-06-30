@@ -2,6 +2,7 @@
     namespace Mylk\Bundle\BlogBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Mylk\Bundle\BlogBundle\Utils\RssFeedGenerator;
     use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
     class DefaultController extends Controller{
@@ -72,6 +73,29 @@
             $posts = $postRepo->findBySearchTerm($term);
 
             return $this->renderBlog($posts);
+        }
+        
+        public function rssAction(){
+            $em = $this->getDoctrine()->getManager();
+            $page_globals = $this->container->getParameter("page_globals");
+            $repo = $em->getRepository("MylkBlogBundle:Post");
+            $posts = $repo->findLatests();
+            
+            $rss = new RssFeedGenerator();
+            $feed = $rss->generate(
+                $posts,
+                $config = array(
+                    // true requests a full URL
+                    "rssURL" => $this->generateUrl("rss", array(), true),
+                    "homepageURL" => $this->generateUrl("homepage", array(), true),
+                    "blogTitle" => $page_globals["blog_title"],
+                    "blogDescription" => $page_globals["blog_description"]
+                )
+            );
+
+            $response = new HttpResponse($feed);
+            $response->headers->set("Content-Type", "text/xml; charset=UTF-8");
+            return $response;
         }
         
         private function renderBlog($content){

@@ -21,6 +21,10 @@ tag:
 archive:
     path: /{year}/{month}
     defaults: { _controller: MylkBlogBundle:Default:ArchiveView }
+    
+rss:
+    path: /rss
+    defaults: { _controller: MylkBlogBundle:Default:rss }
 
 admin_homepage:
     path: /admin
