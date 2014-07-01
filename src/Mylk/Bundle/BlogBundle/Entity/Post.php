@@ -42,9 +42,12 @@
         protected $user;
         
         /**
-         * @ORM\ManyToOne(targetEntity="Tag")
-         * @ORM\JoinColumn(name="tagId", referencedColumnName="id")
-         */
+         * @ORM\ManyToMany(targetEntity="Tag")
+         * @ORM\JoinTable(name="posts_tags",
+         *      joinColumns={@ORM\JoinColumn(name="postId", referencedColumnName="id")},
+         *      inverseJoinColumns={@ORM\JoinColumn(name="tagId", referencedColumnName="id")}
+         * )
+         **/
         protected $tag;
 
         /**
