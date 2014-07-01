@@ -18,20 +18,11 @@
         public function postViewAction(){
             $em = $this->getDoctrine()->getManager();
             $postRepo = $em->getRepository("MylkBlogBundle:Post");
-            
-            $page_globals = $this->container->getParameter("page_globals");
-            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
-            $archive = $postRepo->getArchive();
    
             $postId = $this->getRequest()->get("postid");
             $post = $postRepo->find($postId);
             
-            return $this->render("MylkBlogBundle:Default:post.html.twig", array(
-                "page_globals" => $page_globals,
-                "categories" => $categories,
-                "archive" => $archive,
-                "post" => $post
-            ));
+            return $this->renderBlog(array($post));
         }
         
         public function categoryViewAction(){
