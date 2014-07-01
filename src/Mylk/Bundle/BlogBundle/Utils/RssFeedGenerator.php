@@ -20,12 +20,27 @@
             foreach($posts as $post){
                 $item = $channel->addChild("item");
                 $item->addChild("title", $post->getTitle());
-                $item->addChild("description", $post->getContent());
+                // the first 150 chars as description
+                $item->addChild("description", substr($post->getContent(), 0, 150));
                 $item->addChild("guid", "http://localhost:8000/post/" . $post->getId());
-                $item->addChild("pubDate", $post->getCreatedAt());
+                // converts the date to the rss standards
+                $item->addChild("pubDate", $this->toRFC2822($post->getCreatedAt()));
             };
             
             return $rss->asXML();
+        }
+
+        // converts dates to format of "Tue, 04 Feb 2014 00:33:05 +0200"
+        private function toRFC2822($datetime){
+            list($date, $time) = explode(" ", $datetime);
+            list($y, $m, $d) = explode("-", $date);
+            list($h, $i, $s) = explode(":", $time);
+            
+            // set an arbitrary timezone
+            // date_default_timezone_set("Europe/Athens");
+
+            // uses default timezone as set in php.ini, date.timezone
+            return date("r", mktime($h, $i, $s, $m, $d, $y));
         }
     }
 ?>
