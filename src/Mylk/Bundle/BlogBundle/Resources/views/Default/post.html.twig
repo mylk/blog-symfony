@@ -2,7 +2,12 @@
 <article>
     <div class="post-header">
         <h1 class="post-title"><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></h1>
-        <div class="post-info">Posted on {{ post.createdAt }} by <a href="mailto:{{ post.user.email }}">{{ post.user.username }}</a></div>
+        <div class="post-info">
+            {% if post.sticky %}
+                <img src="{{ asset('/img/sticky.png') }}" />
+            {% endif %}
+            Posted on {{ post.createdAt }} by <a href="mailto:{{ post.user.email }}">{{ post.user.username }}</a>
+        </div>
     </div>
 
     <div class="post-content">
