@@ -37,19 +37,19 @@
         
         /**
          * @ORM\ManyToOne(targetEntity="User")
-         * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+         * @ORM\JoinColumn(name="userId", referencedColumnName="id")
          */
         protected $user;
         
         /**
          * @ORM\ManyToOne(targetEntity="Tag")
-         * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+         * @ORM\JoinColumn(name="tagId", referencedColumnName="id")
          */
         protected $tag;
 
         /**
          * @ORM\ManyToOne(targetEntity="Category")
-         * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+         * @ORM\JoinColumn(name="categoryId", referencedColumnName="id")
          */
         protected $category;
         
