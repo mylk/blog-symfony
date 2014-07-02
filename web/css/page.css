@@ -113,8 +113,8 @@ abbr {
   cursor: help;
 }
 
-input[type=text] {
-  background: #fafafa;
+#search-form input[type=text] {
+  background-color: #fafafa;
   -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
@@ -122,15 +122,11 @@ input[type=text] {
   color: #888;
 }
 
-input[type=text]:focus {
+#search-form input[type=text]:focus {
   color: #373737;
 }
 
-input[type=text] {
-  padding: 3px;
-}
-
-input#term {
+#search-form input {
   background: url(../img/search.png) no-repeat 5px 6px;
   -moz-border-radius: 2px;
   border-radius: 2px;

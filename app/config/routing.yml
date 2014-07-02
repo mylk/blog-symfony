@@ -12,19 +12,26 @@ post:
     
 category:
     path: /category/{categoryid}
-    defaults: { _controller: MylkBlogBundle:Default:CategoryView }
+    defaults: { _controller: MylkBlogBundle:Default:categoryView }
     
 tag:
     path: /tag/{tagid}
-    defaults: { _controller: MylkBlogBundle:Default:TagView }
+    defaults: { _controller: MylkBlogBundle:Default:tagView }
     
 archive:
     path: /{year}/{month}
-    defaults: { _controller: MylkBlogBundle:Default:ArchiveView }
+    defaults: { _controller: MylkBlogBundle:Default:archiveView }
+    requirements:
+        year: \d+
+        month: \d+
     
 rss:
     path: /rss
     defaults: { _controller: MylkBlogBundle:Default:rss }
+    
+comment_submit:
+    path: /comment/submit
+    defaults: { _controller: MylkBlogBundle:Default:commentSubmit }
 
 admin_homepage:
     path: /admin

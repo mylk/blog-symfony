@@ -3,6 +3,7 @@
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Mylk\Bundle\BlogBundle\Utils\RssFeedGenerator;
+    use Mylk\Bundle\BlogBundle\Form\CommentType;
     use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
     class DefaultController extends Controller{
@@ -89,6 +90,10 @@
             return $response;
         }
         
+        public function commentSubmitAction(){
+            return new HttpResponse("@TODO: comment submission");
+        }
+        
         private function renderBlog($posts){
             $em = $this->getDoctrine()->getManager();
             $page_globals = $this->container->getParameter("page_globals");
@@ -98,6 +103,7 @@
             $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
             $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findBy(array(), array("createdAt" => "DESC"));
             $tags = $this->getDoctrine()->getRepository("MylkBlogBundle:Tag")->findAll();
+            $comment_form = $this->createForm(new CommentType());
 
             $pagination = $paginator->paginate(
                 $posts,
@@ -111,7 +117,8 @@
                 "archive" => $archive,
                 "comments" => $comments,
                 "tags" => $tags,
-                "pagination" => $pagination
+                "pagination" => $pagination,
+                "comment_form" => $comment_form->createView()
             ));
         }
     }
