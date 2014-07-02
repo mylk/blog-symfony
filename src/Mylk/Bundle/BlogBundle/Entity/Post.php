@@ -2,12 +2,18 @@
     namespace Mylk\Bundle\BlogBundle\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
+    // you should always initialize the collections of your @OneToMany associations in the constructor of your entitie
+    use Doctrine\Common\Collections\ArrayCollection;
 
     /**
      * @ORM\Entity(repositoryClass="Mylk\Bundle\BlogBundle\Entity\PostRepository")
      * @ORM\Table(name="posts")
      */
     class Post{
+        public function __construct(){
+            $this->tag = new ArrayCollection();
+        }
+        
         /**
          * @ORM\Column(type="integer")
          * @ORM\Id
@@ -55,6 +61,11 @@
          * @ORM\JoinColumn(name="categoryId", referencedColumnName="id")
          */
         protected $category;
+        
+        /**
+         * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+         */
+        private $comments;
         
         public function getId(){
             return $this->id;
@@ -114,6 +125,10 @@
         
         public function setCategory($category){
             $this->category = $category;
+        }
+        
+        public function getComments(){
+            return $this->comments;
         }
     }
 ?>
