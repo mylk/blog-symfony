@@ -93,10 +93,11 @@
             $em = $this->getDoctrine()->getManager();
             $page_globals = $this->container->getParameter("page_globals");
             $paginator = $this->get("knp_paginator");
-            $postRepo = $this->getDoctrine()->getRepository("MylkBlogBundle:Post");
 
             $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
-            $archive = $postRepo->getArchive();
+            $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
+            $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findBy(array(), array("createdAt" => "DESC"));
+            $tags = $this->getDoctrine()->getRepository("MylkBlogBundle:Tag")->findAll();
 
             $pagination = $paginator->paginate(
                 $posts,
@@ -108,6 +109,8 @@
                 "page_globals" => $page_globals,
                 "categories" => $categories,
                 "archive" => $archive,
+                "comments" => $comments,
+                "tags" => $tags,
                 "pagination" => $pagination
             ));
         }

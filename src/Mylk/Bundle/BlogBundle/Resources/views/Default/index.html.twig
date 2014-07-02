@@ -69,7 +69,9 @@
                 <div class="widget">
                     <h3>Recent Comments</h3>
                     <ul>
-                        <li>Mr. Mister on <a href="#">Hello world!</a></li>
+                        {% for comment in comments %}
+                        <li>{{ comment.username }} on <a href="{{ path('post', { postid: comment.post.id }) }}">{{ comment.post.title }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="widget">
@@ -79,6 +81,12 @@
                             <li><a href="{{ path('archive', { year: date.year, month: date.month }) }}">{{ date.monthName }} {{ date.year }}</a></li>
                         {% endfor %}
                     </ul>
+                </div>
+                <div class="widget">
+                    <h3>Tags</h3>
+                    {% for tag in tags %}
+                        <a href="{{ path('tag', { tagid: tag.id }) }}">{{ tag.title }}</a>&nbsp;
+                    {% endfor %}
                 </div>
             </div>
         </div>
