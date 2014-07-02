@@ -89,7 +89,7 @@
             return $response;
         }
         
-        private function renderBlog($content){
+        private function renderBlog($posts){
             $em = $this->getDoctrine()->getManager();
             $page_globals = $this->container->getParameter("page_globals");
             $paginator = $this->get("knp_paginator");
@@ -99,7 +99,7 @@
             $archive = $postRepo->getArchive();
 
             $pagination = $paginator->paginate(
-                $content,
+                $posts,
                 $this->getRequest()->get("page", 1),
                 $page_globals["posts_per_page"]
             );
