@@ -33,6 +33,8 @@ comment_submit:
     path: /comment/submit
     defaults: { _controller: MylkBlogBundle:Default:commentSubmit }
 
+
+
 admin_homepage:
     path: /admin
     defaults: { _controller: MylkBlogBundle:Admin:index }
@@ -48,3 +50,8 @@ admin_login_check:
 admin_logout:
     path: /admin/logout
     defaults: { _controller: MylkBlogBundle:Admin:logout }
+
+
+
+gregwar_captcha_routing:
+    resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"

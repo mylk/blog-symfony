@@ -32,6 +32,8 @@
     </div>
     
     {% if app.request.get("postid") %}
+    {% form_theme comment_form "MylkBlogBundle:Default:captcha.html.twig" %}
+        
     <a name="post-comments"></a>
     <div class="post-comments">
         <h3>Comments</h3>
@@ -49,6 +51,9 @@
                 <tr>
                     <td>{{ form_label(comment_form.content) }}</td>
                     <td>{{ form_widget(comment_form.content) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">{{ form_widget(comment_form.captcha) }}</td>
                 </tr>
                 <tr>
                     <td colspan="2" align="right">{{ form_widget(comment_form.send) }}</td>

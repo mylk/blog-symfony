@@ -1,3 +1,6 @@
 nbproject/
 app/cache/*
 app/logs/*
+composer.lock
+web/img/captcha/*
+!web/img/captcha/.gitkeep

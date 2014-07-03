@@ -442,8 +442,12 @@ footer a {
     padding-bottom:30px;
 }
 
-/* responsive */
+input.captcha {
+    float:right;
+    margin-top:11px;
+}
 
+/* responsive */
 @-ms-viewport {
   width: device-width;
 }

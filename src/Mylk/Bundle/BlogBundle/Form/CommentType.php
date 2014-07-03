@@ -23,6 +23,7 @@
                         "cols" => 40)
                     )
                 )
+                ->add("captcha", "captcha")
                 ->add("send", "submit");
         }
 
