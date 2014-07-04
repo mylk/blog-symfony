@@ -17,12 +17,14 @@
                 ->add("username", "text", array("required" => true))
                 ->add("email", "email", array("required" => true))
                 ->add("content", "textarea", array(
+                    "label" => "Comment",
                     "required" => true,
                     "attr" => array(
                         "rows" => 8,
                         "cols" => 40)
                     )
                 )
+                ->add("post", "hidden")
                 ->add("captcha", "captcha")
                 ->add("send", "submit");
         }

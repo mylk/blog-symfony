@@ -4,7 +4,7 @@
     use Doctrine\ORM\Mapping as ORM;
     
     /**
-     * @ORM\Entity
+     * @ORM\Entity(repositoryClass="Mylk\Bundle\BlogBundle\Entity\CommentRepository")
      * @ORM\Table(name="comments")
      */
     class Comment{
@@ -40,6 +40,10 @@
          * @ORM\JoinColumn(name="postId", referencedColumnName="id")
          */
         private $post;
+        
+        public function __construct(){
+            $this->createdAt = \date("Y-m-d H:i:s");
+        }
         
         public function getId(){
             return $this->id;

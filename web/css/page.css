@@ -447,6 +447,16 @@ input.captcha {
     margin-top:11px;
 }
 
+.alert-error {
+    padding:10px !important;
+    margin-bottom:20px;
+    border:1px solid transparent;
+    border-radius:4px;
+    color:#a94442;
+    background-color:#f2dede;
+    border-color:#ebccd1;
+}
+
 /* responsive */
 @-ms-viewport {
   width: device-width;

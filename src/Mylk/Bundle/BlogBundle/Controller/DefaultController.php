@@ -4,7 +4,10 @@
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Mylk\Bundle\BlogBundle\Utils\RssFeedGenerator;
     use Mylk\Bundle\BlogBundle\Form\CommentType;
+    use Mylk\Bundle\BlogBundle\Entity\Comment;
     use Symfony\Component\HttpFoundation\Response as HttpResponse;
+    use Symfony\Component\HttpFoundation\RedirectResponse;
+    use Symfony\Component\HttpFoundation\Session\Session;
 
     class DefaultController extends Controller{
         public function indexAction(){
@@ -91,7 +94,46 @@
         }
         
         public function commentSubmitAction(){
-            return new HttpResponse("@TODO: comment submission");
+            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            $postRepo = $em->getRepository("MylkBlogBundle:Post");
+                    
+            $form = $this->createForm(new CommentType(), new Comment());
+            
+            if($request->isMethod("POST")){
+                $form->handleRequest($request);
+                $session = new Session();
+                
+                $comment = $form->getData();
+                $postId = $comment->getPost();
+                
+                if($form->isValid()){
+                    $post = $postRepo->find($postId);
+                    
+                    if($post){
+                        $comment->setPost($post);
+
+                        $em->persist($comment);
+                        $em->flush();
+                    }else{
+                        // user faked the hidden field that contains the post id?
+                        $session->getFlashBag()->add("error", "Comment could not be added to the post.");
+                        
+                        $lastPostUrl = $this->getRequest()->headers->get("referer");
+                        return new RedirectResponse($lastPostUrl);
+                    };
+                }else{
+                    $errors = $this->getErrorMessages($form);
+
+                    foreach($errors as $errorKey => $errorMsgs){
+                        foreach($errorMsgs as $errorMsg){
+                            $session->getFlashBag()->add("error", "$errorKey: $errorMsg");
+                        };
+                    };
+                    
+                    return new RedirectResponse($this->generateUrl("post", array("postid" => $postId)));
+                };
+            };
         }
         
         private function renderBlog($posts){
@@ -101,9 +143,11 @@
 
             $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
             $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
-            $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findBy(array(), array("createdAt" => "DESC"));
+            $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findLatests();
             $tags = $this->getDoctrine()->getRepository("MylkBlogBundle:Tag")->findAll();
-            $comment_form = $this->createForm(new CommentType());
+            $comment_form = $this->createForm(new CommentType(), new Comment(), array(
+                "action" => $this->generateUrl("comment_submit"),
+                "method" => "POST"));
 
             $pagination = $paginator->paginate(
                 $posts,
@@ -120,5 +164,21 @@
                 "pagination" => $pagination,
                 "comment_form" => $comment_form->createView()
             ));
+        }
+        
+        private function getErrorMessages($form){
+            $errors = array();
+
+            foreach($form->getErrors() as $key => $error){
+                    $errors[] = $error->getMessage();
+            };
+
+            foreach($form->all() as $child){
+                if(!$child->isValid()){
+                    $errors[$child->getName()] = $this->getErrorMessages($child);
+                };
+            };
+
+            return $errors;
         }
     }
