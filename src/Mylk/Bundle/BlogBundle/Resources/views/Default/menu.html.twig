@@ -1,0 +1,29 @@
+<ul>
+    {% for menuItem in menu_items %}
+        {# construct the link url #}
+        {% if menuItem.urlDiscr == "route" %}
+            {% set menuItemUrl = path(menuItem.url) %}
+        {% else %}
+            {% set menuItemUrl = menuItem.url %}
+        {% endif %}
+
+        {# construct the link class #}
+        {% if menuItemUrl == app.request.requestUri %}
+            {% set menuItemClass = "current" %}
+        {% else %}
+            {% set menuItemClass = "" %}
+        {% endif %}
+        
+        <li>
+            <a class="{{ menuItemClass }}" href="{{ menuItemUrl }}">{{ menuItem.title }}</a>
+ 
+            {# add the submenu items #}
+            {% if "children" in menuItem | keys %}
+                {{ include(
+                    "MylkBlogBundle:Default:menu.html.twig",
+                    { "menu_items": menuItem.children }
+                ) }}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

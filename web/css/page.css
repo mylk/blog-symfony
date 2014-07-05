@@ -272,7 +272,7 @@ a:hover {
   display: block;
 }
 
-.menu .current > a {
+.menu a.current {
   font-weight: bold;
 }
 

@@ -141,6 +141,9 @@
             $page_globals = $this->container->getParameter("page_globals");
             $paginator = $this->get("knp_paginator");
 
+            $menu_items = $em->getRepository("MylkBlogBundle:MenuItem")->findAll();
+            $menu_items = $this->prepareMenu($menu_items);
+            
             $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
             $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
             $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findLatests();
@@ -157,6 +160,7 @@
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
                 "page_globals" => $page_globals,
+                "menu_items" => $menu_items,
                 "categories" => $categories,
                 "archive" => $archive,
                 "comments" => $comments,
@@ -164,6 +168,25 @@
                 "pagination" => $pagination,
                 "comment_form" => $comment_form->createView()
             ));
+        }
+        
+        private function prepareMenu($menuItems, $parentId = null){
+            $result = array();
+
+            foreach($menuItems as $item){
+                $item = $item->toArray();
+
+                if($item["parent"] == $parentId){
+                    $result[$item["id"]] = $item;
+                    $children =  $this->prepareMenu($menuItems, $item["id"]);
+
+                    if($children){
+                        $result[$item["id"]]["children"] = $children;
+                    };
+                };
+            };
+
+            return $result;
         }
         
         private function getErrorMessages($form){

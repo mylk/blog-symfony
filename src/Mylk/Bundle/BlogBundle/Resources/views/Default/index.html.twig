@@ -27,18 +27,10 @@
             </form>
 
             <div class="menu">
-                <ul>
-                    <li class="current"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li>
-                        <a href="#">Parent item</a>
-                        <ul class='children'>
-                            <li>
-                                <a href="#">Child item</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                {{ include(
+                    "MylkBlogBundle:Default:menu.html.twig",
+                    { "menu_items": menu_items }
+                ) }}
             </div>
         </div>
         <div id="main">
