@@ -8,8 +8,19 @@
     border-color:#ebccd1;
 }
 
+/* for the symfony natice form errors, presented as lists */
 .alert-error > ul {
     margin:0 0 0px 25px !important;
+}
+
+.alert-success {
+    padding:10px !important;
+    margin-bottom:20px;
+    border:1px solid transparent;
+    border-radius:4px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
 }
 
 input[type="text"], textarea {

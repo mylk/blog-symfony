@@ -45,6 +45,8 @@
                     
                     $em->persist($post);
                     $em->flush();
+                    
+                    $session->getFlashBag()->add("success", "Post was successfully created!");
                 }else{
                     $errors = $this->getErrorMessages($form);
                     
@@ -59,18 +61,77 @@
                 };
             };
             
-            return $this->render("MylkBlogBundle:Admin:postNew.html.twig", array("form" => $form->createView()));
+            return $this->render("MylkBlogBundle:Admin:post.html.twig", array("form" => $form->createView()));
         }
         
         public function postEditAction(){
+            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            $session = new Session();
             
+            $postId = $request->get("postid");
+            $post = $em->getRepository("MylkBlogBundle:Post")->find($postId);
+            
+            $form = $this->createForm(new PostType(), $post, array(
+                "method" => "POST",
+                "action" => $this->generateUrl("admin_post_edit", array("postid" => $postId))
+            ));
+            
+            if($request->isMethod("POST")){
+                $form->handleRequest($request);
+                
+                if($form->isValid()){
+                    $post = $form->getData();
+                    
+                    $em->persist($post);
+                    $em->flush();
+                    
+                    $session->getFlashBag()->add("success", "Post was successfully updated!");
+                }else{
+                    $errors = $this->getErrorMessages($form);
+                    
+                    // itterate through the errors of each form field
+                    foreach($errors as $errorKey => $errorMsgs){
+                        // itterate through the errors of each form field's children
+                        foreach($errorMsgs as $errorMsg){
+                            // $errorKey is the field name
+                            $session->getFlashBag()->add("error", "$errorKey: $errorMsg");
+                        };
+                    };
+                };
+            };
+            
+            return $this->render("MylkBlogBundle:Admin:post.html.twig", array("form" => $form->createView()));
         }
         
-        public function postViewAction(){
+        public function postListAction(){
+            $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-            $posts = $em->getRepository("MylkBlogBundle:Post")->findBy(array(), array("createdAt" => "DESC"));
+            $postRepo = $em->getRepository("MylkBlogBundle:Post");
+            $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
             
-            return $this->render("MylkBlogBundle:Admin:postView.html.twig", array("posts" => $posts));
+            $delete = $request->get("delete");
+            
+            if($delete){
+                foreach($delete as $postId){
+                    $post = $postRepo->find($postId);
+                    $comments = $commentRepo->findBy(array("post" => $post));
+                    
+                    if($comments){
+                        foreach($comments as $comment){
+                            $em->remove($comment);
+                        };
+                    };
+                    
+                    $em->remove($post);
+                };
+                
+                $em->flush();
+            };
+            
+            $posts = $postRepo->findBy(array(), array("createdAt" => "DESC"));
+            
+            return $this->render("MylkBlogBundle:Admin:postList.html.twig", array("posts" => $posts));
         }
         
         private function getErrorMessages($form){
