@@ -12,6 +12,7 @@
     class Post{
         public function __construct(){
             $this->tag = new ArrayCollection();
+            $this->createdAt = \date("Y-m-d H:i:s");
         }
         
         /**
@@ -37,15 +38,15 @@
         protected $createdAt;
         
         /**
+         * @ORM\ManyToOne(targetEntity="User")
+         * @ORM\JoinColumn(name="createdBy", referencedColumnName="id")
+         */
+        protected $createdBy;
+        
+        /**
          * @ORM\Column(type="boolean", nullable=false)
          */
         protected $sticky;
-        
-        /**
-         * @ORM\ManyToOne(targetEntity="User")
-         * @ORM\JoinColumn(name="userId", referencedColumnName="id")
-         */
-        protected $user;
         
         /**
          * @ORM\ManyToMany(targetEntity="Tag")
@@ -103,12 +104,12 @@
             $this->sticky = $sticky;
         }
         
-        public function getUser(){
-            return $this->user;
+        public function getCreatedBy(){
+            return $this->createdBy;
         }
         
-        public function setUser($user){
-            $this->user = $user;
+        public function setCreatedBy($createdBy){
+            $this->createdBy = $createdBy;
         }
         
         public function getTag(){

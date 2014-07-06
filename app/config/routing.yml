@@ -51,6 +51,20 @@ admin_logout:
     path: /admin/logout
     defaults: { _controller: MylkBlogBundle:Admin:logout }
 
+admin_post_view:
+    path: /admin/post/view
+    defaults: { _controller: MylkBlogBundle:Admin:postView }
+    
+admin_post_new:
+    path: /admin/post/new
+    defaults: { _controller: MylkBlogBundle:Admin:postNew }
+    
+admin_post_edit:
+    path: /admin/post/edit/{postid}
+    defaults: { _controller: MylkBlogBundle:Admin:postEdit }
+    requirements:
+        postid: \d+
+
 
 
 gregwar_captcha_routing:

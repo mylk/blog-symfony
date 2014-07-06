@@ -6,7 +6,7 @@
             {% if post.sticky %}
                 <img src="{{ asset('/img/sticky.png') }}" />
             {% endif %}
-            Posted on {{ post.createdAt }} by <a href="mailto:{{ post.user.email }}">{{ post.user.username }}</a>
+            Posted on {{ post.createdAt }} by <a href="mailto:{{ post.createdBy.email }}">{{ post.createdBy.username }}</a>
         </div>
     </div>
 

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{% block title %}Blog Admin{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
-    <script type="text/javascript" src="{{ asset('/jsjquery-1.10.2.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
 </head>
 <body>
     <span id="markerTheme" class="hidden"></span>
@@ -14,8 +14,8 @@
           <div class="navbar-inner">
             <a class="brand" href="#">Blog Admin</a>
             <ul class="nav">
-                <li><a href="{# url('admin_posts') #}">Posts</a></li>
-                <li><a href="{# url('admin_posts_new') #}">New Post</a></li>
+                <li><a href="{{ path('admin_post_view') }}">Posts</a></li>
+                <li><a href="{{ path('admin_post_new') }}">New Post</a></li>
                 <li><a href=#>|</a></li>
                 <li><a href="{# url('admin_category_categories') #}">Categories</a></li>
                 <li><a href="{# url('admin_category_new') #}">New Category</a></li>
@@ -25,16 +25,14 @@
             </ul>    
           </div>
         </div>
-        <div>
-        </div>
-
+            
+        <div class="content">
         {% block content %}
         {% endblock %}
+        </div>
+
         <div id="footer">
         </div>
     </div>
-
-    {% block scripts_body %}
-    {% endblock %}
 </body>
 </html>

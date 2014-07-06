@@ -1,0 +1,32 @@
+{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+
+{% block content %}
+    <form>
+        <table width="100%">
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Created At</th>
+                <th>Created By</th>
+            </tr>
+        {% for post in posts %}
+            <tr>
+                <td width="30"><input type="checkbox" name="delete[]" /></td>
+                <td width="150">
+                    <a href="{{ path('admin_post_edit', { postid: post.id }) }}">
+                        {{ post.title | slice(0, 15) }}{% if post.title | length > 15 %}...{% endif %}
+                    </a>
+                </td>
+                <td>
+                    {{ post.content | slice(0, 55) }}{% if post.content | length > 55 %}...{% endif %}
+                </td>
+                <td width="150" align="center">{{ post.createdAt }}</td>
+                <td width="100" align="center">{{ post.createdBy.username }}</td>
+            </tr>
+        {% endfor %}
+            <tr><td colspan="100%">&nbsp;</td></tr>
+            <tr><td colspan="100%"><input type="submit" value="Delete" /></td></tr>
+        </table>
+    </form>
+{% endblock%}

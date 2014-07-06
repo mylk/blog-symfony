@@ -125,14 +125,17 @@
                 }else{
                     $errors = $this->getErrorMessages($form);
 
+                    // itterate through the errors of each form field
                     foreach($errors as $errorKey => $errorMsgs){
+                        // itterate through the errors of each form field's children
                         foreach($errorMsgs as $errorMsg){
+                            // $errorKey is the field name
                             $session->getFlashBag()->add("error", "$errorKey: $errorMsg");
                         };
                     };
-                    
-                    return new RedirectResponse($this->generateUrl("post", array("postid" => $postId)));
                 };
+                
+                return new RedirectResponse($this->generateUrl("post", array("postid" => $postId)));
             };
         }
         
@@ -196,6 +199,8 @@
                     $errors[] = $error->getMessage();
             };
 
+            // forms have no common errors, each form field has its own,
+            // just like a form did. fields can have children elements
             foreach($form->all() as $child){
                 if(!$child->isValid()){
                     $errors[$child->getName()] = $this->getErrorMessages($child);
