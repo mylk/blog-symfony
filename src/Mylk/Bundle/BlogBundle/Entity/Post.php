@@ -11,7 +11,7 @@
      */
     class Post{
         public function __construct(){
-            $this->tag = new ArrayCollection();
+            $this->tags = new ArrayCollection();
             $this->createdAt = \date("Y-m-d H:i:s");
         }
         
@@ -55,7 +55,8 @@
          *      inverseJoinColumns={@ORM\JoinColumn(name="tagId", referencedColumnName="id")}
          * )
          **/
-        protected $tag;
+        // could keep only the first line of the above annotation, but the defaults wouldn't match our table names
+        protected $tags;
 
         /**
          * @ORM\ManyToOne(targetEntity="Category")
@@ -112,12 +113,12 @@
             $this->createdBy = $createdBy;
         }
         
-        public function getTag(){
-            return $this->tag;
+        public function getTags(){
+            return $this->tags;
         }
         
-        public function setTag($tag){
-            $this->tag = $tag;
+        public function setTags($tags){
+            $this->tags = $tags;
         }
         
         public function getCategory(){

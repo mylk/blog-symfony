@@ -21,7 +21,7 @@
                     )
                 ))
                 ->add("sticky", "checkbox", array("required" => false))
-                ->add("tag", "entity", array(
+                ->add("tags", "entity", array(
                     "class"    => "MylkBlogBundle:Tag",
                     "property" => "title",
                     "multiple" => true,

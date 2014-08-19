@@ -41,10 +41,11 @@
         
         public function tagViewAction(){
             $em = $this->getDoctrine()->getManager();
-            $postRepo = $em->getRepository("MylkBlogBundle:Post");
+            $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
 
             $tagId = $this->getRequest()->get("tagid");
-            $posts = $postRepo->findBy(array("tag" => $tagId));
+            $tag = $tagRepo->find($tagId);
+            $posts = $tag->getPosts();
             
             return $this->renderBlog($posts);
         }
