@@ -1,7 +1,7 @@
 homepage:
     path: /
     defaults: { _controller: MylkBlogBundle:Default:index }
-    
+
 search:
     path: /search
     defaults: { _controller: MylkBlogBundle:Default:search }
@@ -9,26 +9,26 @@ search:
 post:
     path: /post/{postid}
     defaults: { _controller: MylkBlogBundle:Default:postView }
-    
+
 category:
     path: /category/{categoryid}
     defaults: { _controller: MylkBlogBundle:Default:categoryView }
-    
+
 tag:
     path: /tag/{tagid}
     defaults: { _controller: MylkBlogBundle:Default:tagView }
-    
+
 archive:
     path: /{year}/{month}
     defaults: { _controller: MylkBlogBundle:Default:archiveView }
     requirements:
         year: \d+
         month: \d+
-    
+
 rss:
     path: /rss
     defaults: { _controller: MylkBlogBundle:Default:rss }
-    
+
 comment_submit:
     path: /comment/submit
     defaults: { _controller: MylkBlogBundle:Default:commentSubmit }
@@ -54,16 +54,40 @@ admin_logout:
 admin_post_list:
     path: /admin/post/list
     defaults: { _controller: MylkBlogBundle:Admin:postList }
-    
+
 admin_post_new:
     path: /admin/post/new
     defaults: { _controller: MylkBlogBundle:Admin:postNew }
-    
+
 admin_post_edit:
     path: /admin/post/edit/{postid}
     defaults: { _controller: MylkBlogBundle:Admin:postEdit }
     requirements:
         postid: \d+
+
+admin_category_list:
+    path: /admin/category/list
+    defaults: { _controller: MylkBlogBundle:Admin:categoryList }
+
+admin_category_new:
+    path: /admin/category/new
+    defaults: { _controller: MylkBlogBundle:Admin:categoryNew }
+
+admin_category_edit:
+    path: /admin/category/edit
+    defaults: { _controller: MylkBlogBundle:Admin:categoryEdit }
+
+admin_tag_list:
+    path: /admin/tag/list
+    defaults: { _controller: MylkBlogBundle:Admin:tagList }
+
+admin_tag_new:
+    path: /admin/tag/new
+    defaults: { _controller: MylkBlogBundle:Admin:tagNew }
+
+admin_tag_edit:
+    path: /admin/tag/edit
+    defaults: { _controller: MylkBlogBundle:Admin:tagEdit }
 
 
 

@@ -1,3 +1,0 @@
-mylk_blog_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: MylkBlogBundle:Default:index }

@@ -1,0 +1,41 @@
+{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+
+{% block content %}
+    {% if form is defined %}
+        <div>Deleting a category, will also delete all corresponding posts and comments.</div>
+        <div>Do you want to continue?</div>
+        <br />
+        {{ form_start(form) }}
+        <table>
+            <tr>
+                <td>{{ form_widget(form.yes) }}</td>
+                <td>{{ form_widget(form.no) }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">{{ form_rest(form) }}</td>
+            </tr>
+        </table>
+        {{ form_end(form) }}
+    {% else %}
+    <form method="POST" action="{{ app.request.requestUri }}">
+        <table>
+            <tr>
+                <th></th>
+                <th>Title</th>
+            </tr>
+            {% for category in categories %}
+            <tr>
+                <td width="30"><input type="checkbox" name="delete[]" value="{{ category.id }}" /></td>
+                <td>
+                    <a href="{{ path('admin_category_edit', { categoryid: category.id }) }}">
+                        {{ category.title }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="100%">&nbsp;</td></tr>
+            <tr><td colspan="100%"><input type="submit" value="Delete" /></td></tr>
+        </table>
+    </form>
+    {% endif %}
+{% endblock%}

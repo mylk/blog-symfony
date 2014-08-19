@@ -1,0 +1,24 @@
+{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+
+{% block content %}
+    <form method="POST" action="{{ app.request.requestUri }}">
+        <table>
+            <tr>
+                <th></th>
+                <th>Title</th>
+            </tr>
+            {% for tag in tags %}
+            <tr>
+                <td width="30"><input type="checkbox" name="delete[]" value="{{ tag.id }}" /></td>
+                <td>
+                    <a href="{{ path('admin_tag_edit', { tagid: tag.id }) }}">
+                        {{ tag.title }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="100%">&nbsp;</td></tr>
+            <tr><td colspan="100%"><input type="submit" value="Delete" /></td></tr>
+        </table>
+    </form>
+{% endblock%}
