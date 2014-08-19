@@ -40,6 +40,10 @@ input[type="radio"]{
     margin:-7px 0 0;
 }
 
+.container {
+    width:100%;
+}
+
 .content {
-    margin-top:60px;
+    padding:50px;
 }
