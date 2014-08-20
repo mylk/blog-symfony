@@ -25,6 +25,11 @@
          */
         protected $email;
         
+        /**
+         * @ORM\Column(type="string", length=20, nullable=false)
+         */
+        protected $lastLogin;
+        
         public function getId(){
             return $this->id;
         }
@@ -43,6 +48,14 @@
         
         public function setEmail($email){
             $this->email = $email;
+        }
+        
+        public function getLastLogin(){
+            return $this->lastLogin;
+        }
+        
+        public function setLastLogin($lastLogin){
+            $this->lastLogin = $lastLogin;
         }
     }
 ?>
