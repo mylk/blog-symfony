@@ -17,7 +17,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Mylk\Bundle\BlogBundle\MylkBlogBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Gregwar\CaptchaBundle\GregwarCaptchaBundle()
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

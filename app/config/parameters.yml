@@ -10,10 +10,12 @@ parameters:
     database_user: root
     database_password: toor
 
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_transport: gmail
+    mailer_encryption: ~
+    mailer_auth_mode: ~
+    mailer_host: ~
+    mailer_user: YOUR_USERNAME
+    mailer_password: YOUR_PASSWORD
 
     page_globals:
         blog_page_title: Symfony Blog Demo
