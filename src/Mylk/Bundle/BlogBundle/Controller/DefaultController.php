@@ -8,6 +8,7 @@
     use Symfony\Component\HttpFoundation\Response as HttpResponse;
     use Symfony\Component\HttpFoundation\RedirectResponse;
     use Symfony\Component\HttpFoundation\Session\Session;
+    use Mylk\Bundle\BlogBundle\Event\Comment as CommentEvent;
 
     class DefaultController extends Controller{
         public function indexAction(){
@@ -116,6 +117,10 @@
 
                         $em->persist($comment);
                         $em->flush();
+                        
+                        // fire a comment_added event
+                        $dispatcher = $this->container->get("event_dispatcher");
+                        $dispatcher->dispatch("mylk_blogbundle.comment_added", new CommentEvent($post, $comment));
                     }else{
                         // user faked the hidden field that contains the post id?
                         $session->getFlashBag()->add("error", "Comment could not be added to the post.");
