@@ -17,7 +17,7 @@ parameters:
     mailer_user: YOUR_USERNAME
     mailer_password: YOUR_PASSWORD
     
-    comment_notified_emails: [milonas.ko@gmail.com, milonas.ko@gmail.com]
+    comment_notified_emails: [milonas.ko@gmail.com]
 
     page_globals:
         blog_page_title: Symfony Blog Demo
