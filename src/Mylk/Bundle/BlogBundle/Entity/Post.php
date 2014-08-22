@@ -132,5 +132,17 @@
         public function getComments(){
             return $this->comments;
         }
+        
+        public function getCommentators(){
+            $commentators = array();
+            
+            foreach($this->getComments() as $comment){
+                $commentators[] = $comment->getEmail();
+            };
+            
+            $commentators = \array_unique($commentators);
+            
+            return $commentators;
+        }
     }
 ?>
