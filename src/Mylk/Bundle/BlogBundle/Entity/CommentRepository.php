@@ -11,7 +11,7 @@
             $query->select("c")
                     ->from($this->getEntityName(), "c")
                     ->orderBy("c.createdAt", "DESC")
-                    ->setMaxResults(10);
+                    ->setMaxResults(3);
             
             return $query->getQuery()->getResult();
         }
