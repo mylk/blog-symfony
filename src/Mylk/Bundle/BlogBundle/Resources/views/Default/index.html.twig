@@ -67,6 +67,14 @@
                     </ul>
                 </div>
                 <div class="widget">
+                    <h3>Most commented</h3>
+                    <ul>
+                        {% for post in most_commented %}
+                        <li><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="widget">
                     <h3>Recent Comments</h3>
                     <ul>
                         {% for comment in comments %}

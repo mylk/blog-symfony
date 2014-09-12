@@ -161,6 +161,7 @@
             $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
             $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findLatests();
             $popular = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findPopular();
+            $most_commented = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findMostCommented();
             $tags = $this->getDoctrine()->getRepository("MylkBlogBundle:Tag")->findAll();
             $comment_form = $this->createForm(new CommentType(), new Comment(), array(
                 "action" => $this->generateUrl("comment_submit"),
@@ -179,6 +180,7 @@
                 "archive" => $archive,
                 "comments" => $comments,
                 "popular" => $popular,
+                "most_commented" => $most_commented,
                 "tags" => $tags,
                 "pagination" => $pagination,
                 "comment_form" => $comment_form->createView()

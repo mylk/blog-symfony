@@ -87,5 +87,32 @@
             
             return $query->getQuery()->getResult();
         }
+        
+        public function findMostCommented(){
+//            SELECT p.id, p.title, (
+//                SELECT COUNT(c.id)
+//                FROM MylkBlogBundle:Comment c WHERE c.post = p.id
+//            ) AS commentCount,
+//            p.createdAt
+//            FROM MylkBlogBundle:Post p
+//            ORDER BY commentCount DESC,
+//            p.createdAt DESC
+            
+            $query = $this->getEntityManager()->createQueryBuilder();
+
+            $query->select("p.id, p.title")
+                ->addSelect(
+                    "(
+                        SELECT COUNT(c.id)
+                        FROM MylkBlogBundle:Comment c WHERE c.post = p.id
+                    ) AS commentCount"
+                )
+                ->from($this->getEntityName(), "p")
+                ->orderBy("commentCount", "DESC")
+                ->addOrderBy("p.createdAt", "DESC")
+                ->setMaxResults(3);
+
+            return $query->getQuery()->getResult();
+        }
     }
 ?>
