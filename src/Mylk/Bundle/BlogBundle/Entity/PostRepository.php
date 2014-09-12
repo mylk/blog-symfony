@@ -75,5 +75,17 @@
 
             return $query->getQuery()->getResult();
         }
+        
+        public function findPopular(){
+            $query = $this->getEntityManager()->createQueryBuilder();
+            
+            $query->select("p")
+                    ->from($this->getEntityName(), "p")
+                    ->orderBy("p.views", "DESC")
+                    ->addOrderBy("p.createdAt", "DESC")
+                    ->setMaxResults(3);
+            
+            return $query->getQuery()->getResult();
+        }
     }
 ?>
