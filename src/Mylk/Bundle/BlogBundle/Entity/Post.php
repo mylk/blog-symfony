@@ -44,6 +44,17 @@
         protected $createdBy;
         
         /**
+         * @ORM\Column(type="string", length=20, nullable=true)
+         */
+        protected $updatedAt;
+        
+        /**
+         * @ORM\ManyToOne(targetEntity="User")
+         * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id", nullable=true)
+         */
+        protected $updatedBy;
+        
+        /**
          * @ORM\Column(type="boolean", nullable=false)
          */
         protected $sticky;
@@ -96,14 +107,6 @@
         public function setCreatedAt($createdAt){
             $this->createdAt = $createdAt;
         }
-
-        public function getSticky(){
-            return $this->sticky;
-        }
-        
-        public function setSticky($sticky){
-            $this->sticky = $sticky;
-        }
         
         public function getCreatedBy(){
             return $this->createdBy;
@@ -111,6 +114,30 @@
         
         public function setCreatedBy($createdBy){
             $this->createdBy = $createdBy;
+        }
+        
+        public function getUpdatedAt(){
+            return $this->updatedAt;
+        }
+        
+        public function setUpdatedAt(){
+            $this->updatedAt = \date("Y-m-d H:i:s");
+        }
+        
+        public function getUpdatedBy(){
+            return $this->updatedBy;
+        }
+        
+        public function setUpdatedBy($updatedBy){
+            $this->updatedBy = $updatedBy;
+        }
+
+        public function getSticky(){
+            return $this->sticky;
+        }
+        
+        public function setSticky($sticky){
+            $this->sticky = $sticky;
         }
         
         public function getTags(){

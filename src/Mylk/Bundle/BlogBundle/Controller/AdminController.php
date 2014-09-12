@@ -65,6 +65,8 @@
             $em = $this->getDoctrine()->getManager();
             $session = new Session();
             
+            $userRepo = $em->getRepository("MylkBlogBundle:User");
+            
             $postId = $request->get("postid");
             $post = $em->getRepository("MylkBlogBundle:Post")->findOneBy(array("id" => $postId));
             
@@ -78,6 +80,12 @@
                 
                 if($form->isValid()){
                     $post = $form->getData();
+                    
+                    $username = $this->getUser()->getUsername();
+                    $user = $userRepo->findOneBy(array("username" => $username));
+                    
+                    $post->setUpdatedAt();
+                    $post->setUpdatedBy($user);
                     
                     $em->persist($post);
                     $em->flush();

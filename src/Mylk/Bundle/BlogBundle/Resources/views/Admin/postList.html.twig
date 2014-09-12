@@ -9,6 +9,8 @@
                 <th>Content</th>
                 <th>Created At</th>
                 <th>Created By</th>
+                <th>Updated At</th>
+                <th>Updated By</th>
             </tr>
             {% for post in posts %}
             <tr>
@@ -23,6 +25,20 @@
                 </td>
                 <td width="150" align="center">{{ post.createdAt }}</td>
                 <td width="100" align="center">{{ post.createdBy.username }}</td>
+                <td width="150" align="center">
+                    {% if post.updatedAt is not null %}
+                        {{ post.updatedAt }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td width="100" align="center">
+                    {% if post.updatedBy is not null %}
+                        {{ post.updatedBy.username }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
             <tr><td colspan="100%">&nbsp;</td></tr>
