@@ -13,6 +13,7 @@
         public function __construct(){
             $this->tags = new ArrayCollection();
             $this->createdAt = \date("Y-m-d H:i:s");
+            $this->views = 0;
         }
         
         /**
@@ -80,6 +81,11 @@
          */
         private $comments;
         
+        /**
+         * @ORM\Column(type="integer", nullable=false)
+         */
+        protected $views;
+
         public function getId(){
             return $this->id;
         }
@@ -170,6 +176,18 @@
             $commentators = \array_unique($commentators);
             
             return $commentators;
+        }
+
+        public function getViews(){
+            return $this->views;
+        }
+
+        public function setViews($views){
+            $this->views = $views;
+        }
+
+        public function addView(){
+            $this->setViews($this->getViews() + 1);
         }
     }
 ?>

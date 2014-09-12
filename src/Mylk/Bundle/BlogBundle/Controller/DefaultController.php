@@ -26,6 +26,10 @@
    
             $postId = $this->getRequest()->get("postid");
             $post = $postRepo->find($postId);
+
+            $post->addView();
+            $em->persist($post);
+            $em->flush();
             
             return $this->renderBlog(array($post));
         }
