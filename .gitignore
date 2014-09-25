@@ -2,5 +2,7 @@ nbproject/
 app/cache/*
 app/logs/*
 composer.lock
+composer.phar
+mysql-bin.index
 web/img/captcha/*
 !web/img/captcha/.gitkeep
