@@ -123,8 +123,10 @@
                         $em->flush();
                         
                         // fire a comment_added event
-                        $dispatcher = $this->container->get("event_dispatcher");
-                        $dispatcher->dispatch("mylk_blogbundle.comment_added", new CommentEvent($post, $comment));
+                        if($this->mailerIsSetUp()){
+                            $dispatcher = $this->container->get("event_dispatcher");
+                            $dispatcher->dispatch("mylk_blogbundle.comment_added", new CommentEvent($post, $comment));
+                        };
                     }else{
                         // user faked the hidden field that contains the post id?
                         $session->getFlashBag()->add("error", "Comment could not be added to the post.");
@@ -239,5 +241,9 @@
             };
 
             return $errors;
+        }
+
+        private function mailerIsSetUp(){
+            return ($this->container->getParameter("mailer_user") !== "YOUR_USERNAME" && $this->container->getParameter("mailer_password") !== "YOUR_PASSWORD");
         }
     }
