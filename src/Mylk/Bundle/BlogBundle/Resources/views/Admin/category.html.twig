@@ -1,7 +1,7 @@
 {% extends "MylkBlogBundle:Admin:index.html.twig" %}
 
 {% block content %}
-    {{ form_start(form) }}
+    {{ form_start(form, { "attr": { "novalidate": "novalidate" }}) }}
 
     {% if form_errors(form) %}
         <div class="alert-error">{{ form_errors(form) }}</div>
@@ -18,7 +18,7 @@
             {{ success }}
         </div>
     {% endfor %}
-        
+
     <table>
         <tr>
             <td>{{ form_label(form.title) }}</td>

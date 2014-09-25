@@ -2,6 +2,7 @@
     namespace Mylk\Bundle\BlogBundle\Entity;
     
     use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Component\Validator\Constraints as Assert;
     
     /**
      * @ORM\Entity
@@ -17,6 +18,7 @@
         
         /**
          * @ORM\Column(type="string", length=100, nullable=false)
+         * @Assert\NotBlank()
          */
         protected $title;
         

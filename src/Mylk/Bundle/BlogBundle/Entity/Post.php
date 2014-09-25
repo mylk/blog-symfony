@@ -4,6 +4,7 @@
     use Doctrine\ORM\Mapping as ORM;
     // you should always initialize the collections of your @OneToMany associations in the constructor of your entity
     use Doctrine\Common\Collections\ArrayCollection;
+    use Symfony\Component\Validator\Constraints as Assert;
 
     /**
      * @ORM\Entity(repositoryClass="Mylk\Bundle\BlogBundle\Entity\PostRepository")
@@ -25,11 +26,13 @@
 
         /**
          * @ORM\Column(type="string", length=100, nullable=false)
+         * @Assert\NotBlank()
          */
         protected $title;
 
         /**
          * @ORM\Column(type="string", length=2000, nullable=false)
+         * @Assert\NotBlank()
          */
         protected $content;
 
@@ -73,6 +76,7 @@
         /**
          * @ORM\ManyToOne(targetEntity="Category")
          * @ORM\JoinColumn(name="categoryId", referencedColumnName="id")
+         * @Assert\NotBlank()
          */
         protected $category;
         
