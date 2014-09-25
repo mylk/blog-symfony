@@ -1,4 +1,5 @@
-{% block content %}
+{% form_theme comment_form "MylkBlogBundle:Default:captcha.html.twig" %}
+
 <article>
     <div class="post-header">
         <h1 class="post-title"><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></h1>
@@ -35,9 +36,6 @@
         |
         <a href="{{ path('post', { postid: post.id }) }}#post-comments">Comments {{ post.comments | length }}</a>
     </div>
-    
-    {% if app.request.get("postid") %}
-    {% form_theme comment_form "MylkBlogBundle:Default:captcha.html.twig" %}
         
     <a name="post-comments"></a>
     <div class="post-comments">
@@ -92,6 +90,4 @@
             </tr>
         </table>
     </div>
-    {% endif %}
 </article>
-{% endblock content %}
