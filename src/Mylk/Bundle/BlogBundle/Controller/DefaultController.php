@@ -17,13 +17,13 @@
 
             $posts = $postRepo->findAllByStickyAndDate();
 
-            return $this->renderBlog($posts);
+            return $this->renderContent($posts);
         }
         
         public function postViewAction(){
             $em = $this->getDoctrine()->getManager();
             $postRepo = $em->getRepository("MylkBlogBundle:Post");
-   
+
             $postId = $this->getRequest()->get("postid");
             $post = $postRepo->find($postId);
 
@@ -31,7 +31,7 @@
             $em->persist($post);
             $em->flush();
             
-            return $this->renderBlog(array($post));
+            return $this->renderContent(array($post));
         }
         
         public function categoryViewAction(){
@@ -41,7 +41,7 @@
             $categoryId = $this->getRequest()->get("categoryid");
             $posts = $postRepo->findBy(array("category" => $categoryId), array("createdAt" => "DESC"));
    
-            return $this->renderBlog($posts);
+            return $this->renderContent($posts);
         }
         
         public function tagViewAction(){
@@ -52,7 +52,7 @@
             $tag = $tagRepo->find($tagId);
             $posts = $tag->getPosts();
             
-            return $this->renderBlog($posts);
+            return $this->renderContent($posts);
         }
         
         public function archiveViewAction(){
@@ -63,7 +63,7 @@
             $yearMonth = array("year" => $request->get("year"), "month" => $request->get("month"));
             $posts = $repo->findByYearMonth($yearMonth);
             
-            return $this->renderBlog($posts);
+            return $this->renderContent($posts);
         }
 
         public function searchAction(){
@@ -73,7 +73,7 @@
             $term = $this->getRequest()->get("term");
             $posts = $postRepo->findBySearchTerm($term);
 
-            return $this->renderBlog($posts);
+            return $this->renderContent($posts);
         }
         
         public function rssAction(){
@@ -149,7 +149,7 @@
             };
         }
         
-        private function renderBlog($posts){
+        private function renderContent($posts){
             $em = $this->getDoctrine()->getManager();
             $page_globals = $this->container->getParameter("page_globals");
             $paginator = $this->get("knp_paginator");
@@ -157,15 +157,15 @@
             $menu_items = $em->getRepository("MylkBlogBundle:MenuItem")->findAll();
             $menu_items = $this->prepareMenu($menu_items);
             
-            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
-            $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
-            $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findLatests();
-            $popular = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findPopular();
-            $most_commented = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findMostCommented();
-            $tags = $this->getDoctrine()->getRepository("MylkBlogBundle:Tag")->findAll();
-            $comment_form = $this->createForm(new CommentType(), new Comment(), array(
-                "action" => $this->generateUrl("comment_submit"),
-                "method" => "POST"));
+            // generate the comment form if showing a single article
+            if($this->getRequest()->get("_route") === "post"){
+                $comment_form = $this->createForm(new CommentType(), new Comment(), array(
+                    "action" => $this->generateUrl("comment_submit"),
+                    "method" => "POST"))
+                    ->createView();
+            }else{
+                $comment_form = null;
+            };
 
             $pagination = $paginator->paginate(
                 $posts,
@@ -175,6 +175,11 @@
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
                 "menu_items" => $menu_items,
+                "pagination" => $pagination,
+                "comment_form" => $comment_form
+            ));
+        }
+        
         public function renderWidgetsAction(){
             $em = $this->getDoctrine()->getManager();
             
@@ -196,22 +201,22 @@
         }
         
         private function prepareMenu($menuItems, $parentId = null){
-            $result = array();
+            $menu = array();
 
             foreach($menuItems as $item){
                 $item = $item->toArray();
 
                 if($item["parent"] == $parentId){
-                    $result[$item["id"]] = $item;
+                    $menu[$item["id"]] = $item;
                     $children =  $this->prepareMenu($menuItems, $item["id"]);
 
                     if($children){
-                        $result[$item["id"]]["children"] = $children;
+                        $menu[$item["id"]]["children"] = $children;
                     };
                 };
             };
 
-            return $result;
+            return $menu;
         }
         
         private function getErrorMessages($form){
