@@ -2,6 +2,9 @@
     namespace Mylk\Bundle\BlogBundle\Entity;
     
     use Doctrine\ORM\Mapping as ORM;
+    // you should always initialize the collections of your @OneToMany associations in the constructor of your entity
+    use Doctrine\Common\Collections\ArrayCollection;
+    use Symfony\Component\Validator\Constraints as Assert;
 
     /**
      * @ORM\Entity
@@ -24,6 +27,7 @@
         
         /**
          * @ORM\Column(type="string", length=50, nullable=false)
+         * @Assert\NotBlank()
          */
         protected $title;
         

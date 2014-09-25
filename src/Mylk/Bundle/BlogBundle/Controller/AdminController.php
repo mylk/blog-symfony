@@ -259,6 +259,8 @@
                     
                     $session->getFlashBag()->add("success", "Tag was successfully created!");
                     return $this->redirect($this->generateUrl("admin_tag_new"));
+                }else{
+                    $this->getErrorMessages($form);
                 };
             };
             
