@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{{ page_globals.blog_page_title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/page.css') }}" />
+</head>
+
+<body>
+    <div id="page">
+        <div id="page-header">
+            <hgroup>
+                <h1 class="site-title"><span><a href="{{ path("homepage") }}">{{ page_globals.blog_title }}</a></span></h1>
+                <h2 class="site-description">{{ page_globals.blog_description }}</h2>
+            </hgroup>
+
+            {% if page_globals.blog_main_image_visible %}
+            <a href="{{ path('homepage') }} ">
+                <img src="/img/{{ page_globals.blog_main_image }}" width="1000" height="288" alt="" />
+            </a>
+            {% endif %}
+
+            <form id="search-form" method="POST" action="{{ path('search') }}">
+                <input type="text" name="term" id="term" placeholder="Search" />
+                <input type="submit" />
+            </form>
+
+            <div class="menu">
+                {{ include(
+                    "MylkBlogBundle:Default:menu.html.twig",
+                    { "menu_items": menu_items }
+                ) }}
+            </div>
+        </div>
+        <div id="main">
+            <div id="primary">
+                {% block content %}
+                {% endblock content %}
+            </div>
+
+            <div class="widget-area">
+                {{ render(controller("MylkBlogBundle:Default:renderWidgets")) }}
+            </div>
+        </div>
+
+        <footer>
+            <div class="colophon">
+                Proudly created with <img src="{{ asset('/img/symfony-logo.svg') }}" />
+            </div>
+        </footer>
+    </div>
     </body>
 </html>

@@ -175,14 +175,23 @@
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
                 "menu_items" => $menu_items,
+        public function renderWidgetsAction(){
+            $em = $this->getDoctrine()->getManager();
+            
+            $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
+            $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
+            $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findLatests();
+            $popular = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findPopular();
+            $most_commented = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findMostCommented();
+            $tags = $this->getDoctrine()->getRepository("MylkBlogBundle:Tag")->findAll();
+
+            return $this->render("MylkBlogBundle:Default:widgets.html.twig", array(
                 "categories" => $categories,
                 "archive" => $archive,
                 "comments" => $comments,
                 "popular" => $popular,
                 "most_commented" => $most_commented,
                 "tags" => $tags,
-                "pagination" => $pagination,
-                "comment_form" => $comment_form->createView()
             ));
         }
         

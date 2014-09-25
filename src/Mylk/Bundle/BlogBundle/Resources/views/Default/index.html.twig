@@ -1,109 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{{ page_globals.blog_page_title }}</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('/css/page.css') }}" />
-</head>
+{% extends("::base.html.twig") %}
 
-<body>
-    <div id="page">
-        <div id="page-header">
-            <hgroup>
-                <h1 class="site-title"><span><a href="{{ path("homepage") }}">{{ page_globals.blog_title }}</a></span></h1>
-                <h2 class="site-description">{{ page_globals.blog_description }}</h2>
-            </hgroup>
+{% block content %}
 
-            {% if page_globals.blog_main_image_visible %}
-            <a href="{{ path('homepage') }} ">
-                <img src="/img/{{ page_globals.blog_main_image }}" width="1000" height="288" alt="" />
-            </a>
-            {% endif %}
+{% if app.request.attributes.get("_route") == "post" %}
+    {% set template = "" %}
+{% else %}
+    {% set template = "Preview" %}
+{% endif %}
 
-            <form id="search-form" method="POST" action="{{ path('search') }}">
-                <input type="text" name="term" id="term" placeholder="Search" />
-                <input type="submit" />
-            </form>
+{% for post in pagination %}
+    {{ include(
+        "MylkBlogBundle:Default:post" ~ template ~ ".html.twig",
+        { "post": post }
+    ) }}
+{% endfor %}
 
-            <div class="menu">
-                {{ include(
-                    "MylkBlogBundle:Default:menu.html.twig",
-                    { "menu_items": menu_items }
-                ) }}
-            </div>
-        </div>
-        <div id="main">
-            <div id="primary">
-                {% block content %}
-                {% for post in pagination %}
-                    {{ include(
-                        "MylkBlogBundle:Default:post.html.twig",
-                        { "post": post }
-                    ) }}
-                {% endfor %}
-                    
-                <div class="navigation">
-                    {{ knp_pagination_render(pagination) }}
-                </div>
-                {% endblock content %}
-            </div>
-
-            <div class="widget-area">
-                <div class="widget">
-                    <h3>Categories</h3>
-                    <ul>
-                        {% for category in categories %}
-                        <li><a href="{{ path('category', { categoryid: category.id }) }}">{{ category.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="widget">
-                    <h3>Most popular</h3>
-                    <ul>
-                        {% for post in popular %}
-                        <li><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="widget">
-                    <h3>Most commented</h3>
-                    <ul>
-                        {% for post in most_commented %}
-                        <li><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="widget">
-                    <h3>Recent Comments</h3>
-                    <ul>
-                        {% for comment in comments %}
-                        <li>{{ comment.username }} on <a href="{{ path('post', { postid: comment.post.id }) }}">{{ comment.post.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="widget">
-                    <h3>Archives</h3>
-                    <ul>
-                        {% for date in archive %}
-                            <li><a href="{{ path('archive', { year: date.year, month: date.month }) }}">{{ date.monthName }} {{ date.year }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="widget">
-                    <h3>Tags</h3>
-                    {% for tag in tags %}
-                        <a href="{{ path('tag', { tagid: tag.id }) }}">{{ tag.title }}</a>&nbsp;
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <div class="colophon">
-                Proudly created with <img src="{{ asset('/img/symfony-logo.svg') }}" />
-            </div>
-        </footer>
-    </div>
-    </body>
-</html>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+{% endblock content %}

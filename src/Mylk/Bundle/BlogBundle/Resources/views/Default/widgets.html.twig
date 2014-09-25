@@ -1,0 +1,46 @@
+<div class="widget">
+    <h3>Categories</h3>
+    <ul>
+        {% for category in categories %}
+        <li><a href="{{ path('category', { categoryid: category.id }) }}">{{ category.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="widget">
+    <h3>Most popular</h3>
+    <ul>
+        {% for post in popular %}
+        <li><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="widget">
+    <h3>Most commented</h3>
+    <ul>
+        {% for post in most_commented %}
+        <li><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="widget">
+    <h3>Recent Comments</h3>
+    <ul>
+        {% for comment in comments %}
+        <li>{{ comment.username }} on <a href="{{ path('post', { postid: comment.post.id }) }}">{{ comment.post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="widget">
+    <h3>Archives</h3>
+    <ul>
+        {% for date in archive %}
+            <li><a href="{{ path('archive', { year: date.year, month: date.month }) }}">{{ date.monthName }} {{ date.year }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="widget">
+    <h3>Tags</h3>
+    {% for tag in tags %}
+        <a href="{{ path('tag', { tagid: tag.id }) }}">{{ tag.title }}</a>&nbsp;
+    {% endfor %}
+</div>
