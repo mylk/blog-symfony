@@ -150,12 +150,8 @@
         }
         
         private function renderContent($posts){
-            $em = $this->getDoctrine()->getManager();
             $page_globals = $this->container->getParameter("page_globals");
             $paginator = $this->get("knp_paginator");
-
-            $menu_items = $em->getRepository("MylkBlogBundle:MenuItem")->findAll();
-            $menu_items = $this->prepareMenu($menu_items);
             
             // generate the comment form if showing a single article
             if($this->getRequest()->get("_route") === "post"){
@@ -174,7 +170,6 @@
             );
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
-                "menu_items" => $menu_items,
                 "pagination" => $pagination,
                 "comment_form" => $comment_form
             ));
@@ -198,6 +193,15 @@
                 "most_commented" => $most_commented,
                 "tags" => $tags,
             ));
+        }
+        
+        public function renderMenuAction(){
+            $em = $this->getDoctrine()->getManager();
+            $_menuItems = $em->getRepository("MylkBlogBundle:MenuItem")->findAll();
+            
+            $menuItems = $this->prepareMenu($_menuItems);
+
+            return $this->render("MylkBlogBundle:Default:menu.html.twig", array("menu_items" => $menuItems));
         }
         
         private function prepareMenu($menuItems, $parentId = null){

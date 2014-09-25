@@ -27,10 +27,7 @@
             </form>
 
             <div class="menu">
-                {{ include(
-                    "MylkBlogBundle:Default:menu.html.twig",
-                    { "menu_items": menu_items }
-                ) }}
+                {{ render(controller("MylkBlogBundle:Default:renderMenu")) }}
             </div>
         </div>
         <div id="main">
