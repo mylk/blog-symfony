@@ -106,6 +106,7 @@
             $em = $this->getDoctrine()->getManager();
             $postRepo = $em->getRepository("MylkBlogBundle:Post");
             $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
+            $session = new Session();
             
             $delete = $request->get("delete");
             
@@ -124,6 +125,8 @@
                 };
                 
                 $em->flush();
+                
+                $session->getFlashBag()->add("success", "Post(s) successfully removed!");
                 return $this->redirect($this->generateUrl("admin_post_list"));
             };
             
@@ -197,6 +200,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
+            $session = new Session();
 
             $delete = $request->get("delete");
             
@@ -210,6 +214,7 @@
             if($request->isMethod("POST") && $delete){
                 $delete = $request->get("delete");
                 $request->getSession()->set("delete", $delete);
+
                 return $this->render("MylkBlogBundle:Admin:categoryList.html.twig", array("form" => $form->createView()));
             }else if($request->isMethod("POST") && (isset($confirm["yes"]) || isset($confirm["no"]))){
                 $form->handleRequest($request);
@@ -217,6 +222,8 @@
                 if($form->isValid()){
                     if($form->get("yes")->isClicked()){
                         $this->categoryRemove();
+                        
+                        $session->getFlashBag()->add("success", "Category/ies successfully removed!");
                         return $this->redirect($this->generateUrl("admin_category_list"));
                     };
                 }else{
@@ -294,7 +301,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
-            $postRepo = $em->getRepository("MylkBlogBundle:Post");
+            $session = new Session();
             
             $delete = $request->get("delete");
             
@@ -315,6 +322,8 @@
                 };
 
                 $em->flush();
+                
+                $session->getFlashBag()->add("success", "Tag(s) successfully removed!");
                 return $this->redirect($this->generateUrl("admin_tag_list"));
             };
             
