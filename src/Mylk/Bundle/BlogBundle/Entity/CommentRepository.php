@@ -15,5 +15,17 @@
             
             return $query->getQuery()->getResult();
         }
+
+        public function findPendingApproval(){
+            $em = $this->getEntityManager();
+            
+            $query = $em->createQueryBuilder("c");
+            $query->select("c")
+                    ->from($this->getEntityName(), "c")
+                    ->where("c.approved = false")
+                    ->orderBy("c.createdAt", "ASC");
+            
+            return $query->getQuery()->getResult();
+        }
     }
 ?>

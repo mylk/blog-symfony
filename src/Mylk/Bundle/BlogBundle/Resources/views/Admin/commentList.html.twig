@@ -1,0 +1,42 @@
+{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+
+{% block content %}
+    {% for error in app.session.flashbag.get("error") %}
+        <div class="alert-error">
+            {{ error }}
+        </div>
+    {% endfor %}
+
+    {% for success in app.session.flashbag.get("success") %}
+        <div class="alert-success">
+            {{ success }}
+        </div>
+    {% endfor %}
+
+    <form method="POST" action="{{ app.request.requestUri }}">
+        <table width="100%">
+            <tr>
+                <th></th>
+                <th>Post</th>
+                <th>Content</th>
+                <th>Created At</th>
+                <th>Created By</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for comment in comments %}
+            <tr>
+                <td width="30"><input type="checkbox" name="delete[]" value="{{ comment.id }}" /></td>
+                <td width="30"><a href="{{ path('post', { postid: comment.post.id }) }}">{{ comment.post.title | slice(0, 55) }}</a></td>
+                <td width="150" align="center">{{ comment.content | slice(0, 55) }}</td>
+                <td width="150" align="center">{{ comment.createdAt }}</td>
+                <td width="100" align="center">{{ comment.username }}</td>
+                <td width="20" align="center"><img src="{{ asset('img/approve.png') }}" /></td>
+                <td width="20" align="center"><img src="{{ asset('img/reject.png') }}" /></td>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="100%">&nbsp;</td></tr>
+            <tr><td colspan="100%"><input type="submit" value="Delete" /></td></tr>
+        </table>
+    </form>
+{% endblock%}

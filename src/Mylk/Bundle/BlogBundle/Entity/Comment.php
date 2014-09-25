@@ -41,8 +41,14 @@
          */
         private $post;
         
+        /**
+         * @ORM\Column(type="boolean", nullable=false)
+         */
+        private $approved;
+        
         public function __construct(){
             $this->createdAt = \date("Y-m-d H:i:s");
+            $this->approved = false;
         }
         
         public function getId(){
@@ -87,6 +93,22 @@
         
         public function setPost($post){
             $this->post = $post;
+        }
+
+        public function getApproved(){
+            return $this->approved;
+        }
+
+        public function setApproved($approved){
+            $this->approved = $approved;
+        }
+        
+        public function approve(){
+            $this->approved = true;
+        }
+        
+        public function reject(){
+            $this->approved = false;
         }
     }
 ?>

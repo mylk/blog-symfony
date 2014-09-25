@@ -91,6 +91,9 @@ admin_tag_edit:
     path: /admin/tag/edit
     defaults: { _controller: MylkBlogBundle:Admin:tagEdit }
 
+admin_comment_list:
+    path: /admin/comment/list
+    defaults: { _controller: MylkBlogBundle:Admin:commentList }
 
 
 gregwar_captcha_routing:

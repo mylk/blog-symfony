@@ -39,7 +39,7 @@
             
             if($request->isMethod("POST")){
                 $form->handleRequest($request);
-                
+
                 if($form->isValid()){
                     // get the username of the logged in user
                     $username = $this->getUser()->getUsername();
@@ -57,7 +57,7 @@
                     $this->getErrorMessages($form);
                 };
             };
-            
+
             return $this->render("MylkBlogBundle:Admin:post.html.twig", array("form" => $form->createView()));
         }
         
@@ -332,6 +332,31 @@
             $tags = $tagRepo->findAll();
             
             return $this->render("MylkBlogBundle:Admin:tagList.html.twig", array("tags" => $tags));
+        }
+        
+        public function commentListAction(){
+            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
+
+            $delete = $request->get("delete");
+
+            if($delete){
+                foreach($delete as $commentId){
+                    $comment = $commentRepo->find($commentId);
+
+                    $em->remove($comment);
+                };
+
+                $em->flush();
+                
+                $session->getFlashBag()->add("success", "Comment(s) successfully removed!");
+                return $this->redirect($this->generateUrl("admin_comment_list"));
+            };
+            
+            $comments = $commentRepo->findPendingApproval();
+            
+            return $this->render("MylkBlogBundle:Admin:commentList.html.twig", array("comments" => $comments));
         }
         
         private function getErrorMessages($form){
