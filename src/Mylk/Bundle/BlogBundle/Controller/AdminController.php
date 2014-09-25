@@ -52,6 +52,7 @@
                     $em->flush();
                     
                     $session->getFlashBag()->add("success", "Post was successfully created!");
+                    return $this->redirect($this->generateUrl("admin_post_new"));
                 }else{
                     $this->getErrorMessages($form);
                 };
@@ -91,6 +92,7 @@
                     $em->flush();
                     
                     $session->getFlashBag()->add("success", "Post was successfully updated!");
+                    return $this->redirect($this->generateUrl("admin_post_edit", array("postid" => $postId)));
                 }else{
                     $this->getErrorMessages($form);
                 };
@@ -122,6 +124,7 @@
                 };
                 
                 $em->flush();
+                return $this->redirect($this->generateUrl("admin_post_list"));
             };
             
             $posts = $postRepo->findBy(array(), array("createdAt" => "DESC"));
@@ -149,6 +152,7 @@
                     $em->flush();
                     
                     $session->getFlashBag()->add("success", "Category was successfully created!");
+                    return $this->redirect($this->generateUrl("admin_category_new"));
                 };
             };
             
@@ -180,6 +184,7 @@
                     $em->flush();
                     
                     $session->getFlashBag()->add("success", "Category was successfully updated!");
+                    return $this->redirect($this->generateUrl("admin_category_edit", array("categoryid" => $categoryId)));
                 }else{
                     $this->getErrorMessages($form);
                 };
@@ -212,6 +217,7 @@
                 if($form->isValid()){
                     if($form->get("yes")->isClicked()){
                         $this->categoryRemove();
+                        return $this->redirect($this->generateUrl("admin_category_list"));
                     };
                 }else{
                     $this->getErrorMessages($form);
@@ -243,6 +249,7 @@
                     $em->flush();
                     
                     $session->getFlashBag()->add("success", "Tag was successfully created!");
+                    return $this->redirect($this->generateUrl("admin_tag_new"));
                 };
             };
             
@@ -274,6 +281,7 @@
                     $em->flush();
                     
                     $session->getFlashBag()->add("success", "Tag was successfully updated!");
+                    return $this->redirect($this->generateUrl("admin_tag_edit", array("tagid" => $tagId)));
                 }else{
                     $this->getErrorMessages($form);
                 };
@@ -307,6 +315,7 @@
                 };
 
                 $em->flush();
+                return $this->redirect($this->generateUrl("admin_tag_list"));
             };
             
             $tags = $tagRepo->findAll();
