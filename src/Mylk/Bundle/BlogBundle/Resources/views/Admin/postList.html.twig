@@ -1,6 +1,18 @@
 {% extends "MylkBlogBundle:Admin:index.html.twig" %}
 
 {% block content %}
+    {% for error in app.session.flashbag.get("error") %}
+        <div class="alert-error">
+            {{ error }}
+        </div>
+    {% endfor %}
+        
+    {% for success in app.session.flashbag.get("success") %}
+        <div class="alert-success">
+            {{ success }}
+        </div>
+    {% endfor %}
+
     <form method="POST" action="{{ app.request.requestUri }}">
         <table width="100%">
             <tr>
