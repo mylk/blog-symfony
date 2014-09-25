@@ -16,11 +16,7 @@
 
     <div class="post-content">
         <p>
-        {% if app.request.get("postid") %}
             {{ post.content | raw }}
-        {% else %}
-            {{ post.content | slice(0,20) | raw }}
-        {% endif %}
         </p>
     </div>
 
