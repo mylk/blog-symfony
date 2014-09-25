@@ -333,9 +333,11 @@
             // itterate through the errors of each form field
             foreach($errors as $errorKey => $errorMsgs){
                 // itterate through the errors of each form field's children
-                foreach($errorMsgs as $errorMsg){
-                    // $errorKey is the field name
-                    $session->getFlashBag()->add("error", "$errorKey: $errorMsg");
+                if(\is_array($errorMsgs)){
+                    foreach($errorMsgs as $errorMsg){
+                        // $errorKey is the field name
+                        $session->getFlashBag()->add("error", "$errorKey: $errorMsg");
+                    };
                 };
             };
             
