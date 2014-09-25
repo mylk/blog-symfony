@@ -156,6 +156,8 @@
                     
                     $session->getFlashBag()->add("success", "Category was successfully created!");
                     return $this->redirect($this->generateUrl("admin_category_new"));
+                }else{
+                    $this->getErrorMessages($form);
                 };
             };
             
