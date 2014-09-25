@@ -174,7 +174,6 @@
             );
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
-                "page_globals" => $page_globals,
                 "menu_items" => $menu_items,
                 "categories" => $categories,
                 "archive" => $archive,
