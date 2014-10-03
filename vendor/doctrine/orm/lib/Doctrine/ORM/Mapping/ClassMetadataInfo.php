@@ -865,8 +865,14 @@ class ClassMetadataInfo implements ClassMetadata
      */
     public function newInstance()
     {
+        // http://www.doctrine-project.org/jira/browse/DDC-3120
+        // fixes unserializing error
         if ($this->_prototype === null) {
-            $this->_prototype = unserialize(sprintf('O:%d:"%s":0:{}', strlen($this->name), $this->name));
+            if (PHP_VERSION_ID >= 50400) {
+                $this->_prototype = $this->reflClass->newInstanceWithoutConstructor();
+            } else {
+                $this->_prototype = unserialize(sprintf('O:%d:"%s":0:{}', strlen($this->name), $this->name));
+            }
         }
 
         return clone $this->_prototype;
