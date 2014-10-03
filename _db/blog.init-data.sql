@@ -18,6 +18,8 @@
 -- Dumping data for table `categories`
 --
 
+USE blog;
+
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` VALUES (9,'Misc'),(10,'Really interesting');
@@ -65,6 +67,16 @@ INSERT INTO `posts_tags` VALUES (14,5),(14,6),(15,7),(16,7);
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'Administrator','ROLE_ADMIN'),(2,'User','ROLE_USER');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `tags`
 --
 
@@ -80,8 +92,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin@admin.com','2014-09-25 10:14:35');
+INSERT INTO `users` VALUES (1,'admin','admin@admin.com','2014-10-03 23:24:23','$2y$12$/WR4f2jmqF0V3.x2WD3XcuWiPwoQ6l84Sw3Mr1Cb8A2hffQfmWFZ6',1),(2,'mylk','milonas.ko@gmail.com','2014-10-03 23:11:11','$2y$12$ShUiRmvpkFX2u4EtC4LUZOES9eTRyh162.UTsUe546BZiPTmDJ4PG',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `users_roles`
+--
+
+LOCK TABLES `users_roles` WRITE;
+/*!40000 ALTER TABLE `users_roles` DISABLE KEYS */;
+INSERT INTO `users_roles` VALUES ('admin','ROLE_ADMIN'),('mylk','ROLE_ADMIN');
+/*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -92,4 +114,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-25 21:02:27
+-- Dump completed on 2014-10-03 23:33:29
