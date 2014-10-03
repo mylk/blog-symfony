@@ -45,11 +45,9 @@ admin_login:
 
 admin_login_check:
     path: /admin/login/check
-    defaults: { _controller: MylkBlogBundle:Admin:loginCheck }
 
 admin_logout:
     path: /admin/logout
-    defaults: { _controller: MylkBlogBundle:Admin:logout }
 
 admin_post_list:
     path: /admin/post/list

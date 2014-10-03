@@ -21,10 +21,6 @@
             return $this->render("MylkBlogBundle:Admin:login.html.twig");
         }
         
-        public function loginCheckAction(){}
-
-        public function logoutAction(){}
-        
         public function postNewAction(){
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
