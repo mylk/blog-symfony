@@ -37,24 +37,24 @@
         protected $content;
 
         /**
-         * @ORM\Column(type="string", length=20, nullable=false)
+         * @ORM\Column(name="created_at", type="string", length=20, nullable=false)
          */
         protected $createdAt;
         
         /**
          * @ORM\ManyToOne(targetEntity="User")
-         * @ORM\JoinColumn(name="createdBy", referencedColumnName="id")
+         * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
          */
         protected $createdBy;
         
         /**
-         * @ORM\Column(type="string", length=20, nullable=true)
+         * @ORM\Column(name="updated_at", type="string", length=20, nullable=true)
          */
         protected $updatedAt;
         
         /**
          * @ORM\ManyToOne(targetEntity="User")
-         * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id", nullable=true)
+         * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
          */
         protected $updatedBy;
         
@@ -66,8 +66,8 @@
         /**
          * @ORM\ManyToMany(targetEntity="Tag")
          * @ORM\JoinTable(name="posts_tags",
-         *      joinColumns={@ORM\JoinColumn(name="postId", referencedColumnName="id")},
-         *      inverseJoinColumns={@ORM\JoinColumn(name="tagId", referencedColumnName="id")}
+         *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+         *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
          * )
          **/
         // could keep only the first line of the above annotation, but the defaults wouldn't match our table names
@@ -75,7 +75,7 @@
 
         /**
          * @ORM\ManyToOne(targetEntity="Category")
-         * @ORM\JoinColumn(name="categoryId", referencedColumnName="id")
+         * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
          * @Assert\NotBlank()
          */
         protected $category;

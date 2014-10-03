@@ -26,7 +26,7 @@
         protected $url;
         
         /**
-         * @ORM\Column(type="string", length=20)
+         * @ORM\Column(name="url_discr", type="string", length=20)
          */
         protected $urlDiscr;
         

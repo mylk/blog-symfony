@@ -15,12 +15,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+CREATE DATABASE blog;
+
+USE blog;
+
 --
 -- Table structure for table `categories`
 --
-
-CREATE DATABASE blog;
-USE blog;
 
 DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -44,12 +45,12 @@ CREATE TABLE `comments` (
   `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `content` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `createdAt` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `postId` int(11) DEFAULT NULL,
+  `created_at` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
   `approved` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_5F9E962AE094D20D` (`postId`),
-  CONSTRAINT `FK_5F9E962AE094D20D` FOREIGN KEY (`postId`) REFERENCES `posts` (`id`)
+  KEY `IDX_5F9E962A4B89032C` (`post_id`),
+  CONSTRAINT `FK_5F9E962A4B89032C` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -65,7 +66,7 @@ CREATE TABLE `menu` (
   `parent` int(11) DEFAULT NULL,
   `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `urlDiscr` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `url_discr` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_7D053A933D8E604F` (`parent`),
   CONSTRAINT `FK_7D053A933D8E604F` FOREIGN KEY (`parent`) REFERENCES `menu` (`id`)
@@ -83,20 +84,20 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `content` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
-  `createdAt` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `sticky` tinyint(1) NOT NULL,
-  `createdBy` int(11) DEFAULT NULL,
-  `categoryId` int(11) DEFAULT NULL,
-  `updatedAt` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updatedBy` int(11) DEFAULT NULL,
+  `updated_at` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `views` int(11) NOT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_885DBAFA9C370B71` (`categoryId`),
-  KEY `IDX_885DBAFAD3564642` (`createdBy`),
-  KEY `IDX_885DBAFAE8DE7170` (`updatedBy`),
-  CONSTRAINT `FK_885DBAFA9C370B71` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`),
-  CONSTRAINT `FK_885DBAFAD3564642` FOREIGN KEY (`createdBy`) REFERENCES `users` (`id`),
-  CONSTRAINT `FK_885DBAFAE8DE7170` FOREIGN KEY (`updatedBy`) REFERENCES `users` (`id`)
+  KEY `IDX_885DBAFADE12AB56` (`created_by`),
+  KEY `IDX_885DBAFA16FE72E1` (`updated_by`),
+  KEY `IDX_885DBAFA12469DE2` (`category_id`),
+  CONSTRAINT `FK_885DBAFA12469DE2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+  CONSTRAINT `FK_885DBAFA16FE72E1` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_885DBAFADE12AB56` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,13 +109,13 @@ DROP TABLE IF EXISTS `posts_tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts_tags` (
-  `postId` int(11) NOT NULL,
-  `tagId` int(11) NOT NULL,
-  PRIMARY KEY (`postId`,`tagId`),
-  KEY `IDX_D5ECAD9FE094D20D` (`postId`),
-  KEY `IDX_D5ECAD9F6F16ADDC` (`tagId`),
-  CONSTRAINT `FK_D5ECAD9F6F16ADDC` FOREIGN KEY (`tagId`) REFERENCES `tags` (`id`),
-  CONSTRAINT `FK_D5ECAD9FE094D20D` FOREIGN KEY (`postId`) REFERENCES `posts` (`id`)
+  `post_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`,`tag_id`),
+  KEY `IDX_D5ECAD9F4B89032C` (`post_id`),
+  KEY `IDX_D5ECAD9FBAD26311` (`tag_id`),
+  CONSTRAINT `FK_D5ECAD9FBAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`),
+  CONSTRAINT `FK_D5ECAD9F4B89032C` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -159,7 +160,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `lastLogin` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `last_login` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
@@ -195,4 +196,4 @@ CREATE TABLE `users_roles` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-03 23:33:36
+-- Dump completed on 2014-10-04  2:35:10

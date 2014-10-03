@@ -38,7 +38,7 @@
         protected $email;
         
         /**
-         * @ORM\Column(type="string", length=20, nullable=false)
+         * @ORM\Column(name="last_login", type="string", length=20, nullable=false)
          */
         protected $lastLogin;
         

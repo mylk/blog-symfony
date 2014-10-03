@@ -31,13 +31,13 @@
         private $content;
         
         /**
-         * @ORM\Column(type="string", length=20, nullable=false)
+         * @ORM\Column(name="created_at", type="string", length=20, nullable=false)
          */
         private $createdAt;
         
         /**
          * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
-         * @ORM\JoinColumn(name="postId", referencedColumnName="id")
+         * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
          */
         private $post;
         
