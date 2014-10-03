@@ -5,11 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{% block title %}Blog Admin{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
 </head>
 <body>
-    <div id="wrapper" class="container">
+    <div id="wrapper" class="container-login">
         <h1>Blog Admin</h1>
-        <form action="{{ path('admin_login_check') }}" method="post" id="login"  class="well">
+
+        <form action="{{ path('admin_login_check') }}" method="post" id="login" class="well">
+            {% for error in app.session.flashbag.get("error") %}
+                <div class="alert-error">
+                    {{ error }}
+                </div>
+            {% endfor %}
+
             <div>
                 <label for="username">Username</label>
                 <input type="text" id="username" name="_username" value="" />

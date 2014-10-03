@@ -10,6 +10,8 @@
     use Mylk\Bundle\BlogBundle\Entity\Category;
     use Mylk\Bundle\BlogBundle\Form\ConfirmType;
     use Symfony\Component\HttpFoundation\Session\Session;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\Security\Core\SecurityContextInterface;
 
     class AdminController extends Controller
     {
@@ -17,7 +19,23 @@
             return $this->render("MylkBlogBundle:Admin:index.html.twig");
         }
         
-        public function loginAction(){
+        public function loginAction(Request $request){
+            $session = $request->getSession();
+
+            $lastErrorField = SecurityContextInterface::AUTHENTICATION_ERROR;
+
+            // get the login error if there is one
+            if($request->attributes->has($lastErrorField)){
+                $error = $request->attributes->get($lastErrorField);
+            }elseif($session !== null && $session->has($lastErrorField)){
+                $error = $session->get($lastErrorField);
+                $session->remove($lastErrorField);
+            }else{
+                $error = "";
+            };
+            
+            if($error) $session->getFlashBag()->add("error", $error->getMessage());
+
             return $this->render("MylkBlogBundle:Admin:login.html.twig");
         }
         
