@@ -8,7 +8,7 @@
     border-color:#ebccd1;
 }
 
-/* for the symfony natice form errors, presented as lists */
+/* for the symfony native form errors, presented as lists */
 .alert-error > ul {
     margin:0 0 0px 25px !important;
 }

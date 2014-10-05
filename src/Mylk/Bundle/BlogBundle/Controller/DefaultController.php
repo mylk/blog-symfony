@@ -128,6 +128,8 @@
                             $dispatcher = $this->container->get("event_dispatcher");
                             $dispatcher->dispatch("mylk_blogbundle.comment_added", new CommentEvent($post, $comment));
                         };
+
+                        $session->getFlashBag()->add("success", "Comment successfully submitted.");
                     }else{
                         // user faked the hidden field that contains the post id?
                         $session->getFlashBag()->add("error", "Comment could not be added to the post.");
@@ -159,7 +161,7 @@
             // generate the comment form if showing a single article
             if($this->getRequest()->get("_route") === "post"){
                 $comment_form = $this->createForm(new CommentType(), new Comment(), array(
-                    "action" => $this->generateUrl("comment_submit"),
+                    "action" => $this->generateUrl("comment_submit") . "#submit-comment",
                     "method" => "POST"))
                     ->createView();
             }else{
