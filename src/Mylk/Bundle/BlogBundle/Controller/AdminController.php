@@ -21,6 +21,7 @@
         
         public function loginAction(Request $request){
             $session = $request->getSession();
+            if(!$session->isStarted()) $session->start();
 
             $lastErrorField = SecurityContextInterface::AUTHENTICATION_ERROR;
 
@@ -43,6 +44,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $userRepo = $em->getRepository("MylkBlogBundle:User");
             
@@ -79,6 +81,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $userRepo = $em->getRepository("MylkBlogBundle:User");
             
@@ -121,6 +124,7 @@
             $postRepo = $em->getRepository("MylkBlogBundle:Post");
             $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $delete = $request->get("delete");
             
@@ -153,6 +157,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $form = $this->createForm(new CategoryType, new Category, array(
                 "method" => "POST",
@@ -182,6 +187,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
             $categoryId = $request->get("categoryid");
@@ -217,6 +223,7 @@
             $em = $this->getDoctrine()->getManager();
             $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
 
             $delete = $request->get("delete");
             
@@ -256,6 +263,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $form = $this->createForm(new TagType, new Tag, array(
                 "method" => "POST",
@@ -285,6 +293,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
             $tagId = $request->get("tagid");
@@ -320,6 +329,7 @@
             $em = $this->getDoctrine()->getManager();
             $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
             
             $delete = $request->get("delete");
             
@@ -378,6 +388,7 @@
         private function getErrorMessages($form){
             $errors = array();
             $session = new Session();
+            if(!$session->isStarted()) $session->start();
 
             foreach($form->getErrors() as $key => $error){
                     $errors[] = $error->getMessage();
