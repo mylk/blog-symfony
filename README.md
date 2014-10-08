@@ -84,3 +84,12 @@ The following administration account is already set up:
 
     Usename: admin
     Password: adminpass
+
+## Testing
+
+Testing the application requires database dumps have been imported.
+For instructions, check the sections "Datbase schema creation" and "Database initialization".
+
+To run the provided tests:
+
+    phpunit -c app/ src/Mylk/Bundle/BlogBundle/Tests/
