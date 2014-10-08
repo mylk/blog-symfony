@@ -3,13 +3,9 @@
 This a blog impementation built on top of the Symfony2 framework.
 It's still a work in progress.
 
-&nbsp;
-
 # Why did you do this?
 
 For fun, but also to keep my Symfony knowledge in shape.
-
-&nbsp;
 
 # Using the app
 
@@ -56,9 +52,15 @@ Let Doctrine do the job for you:
     app/console doctrine:schema:create
     app/console doctrine:schema:update --force
 
+Or, if you prefer creating the schema using the MySQL client:
+
+    mysql -uroot -ptoor --default-character-set=utf8 blog < _db/blog.init-schema.sql
+
 ## Database initialization
 
     mysql -uroot -ptoor --default-character-set=utf8 blog < _db/blog.init-data.sql
+
+Remember, the application assumes that your database setup has a user "root" with password "toor".
 
 ## Run the application
 

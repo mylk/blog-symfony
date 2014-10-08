@@ -7,4 +7,4 @@
 - [x] DB managed user authentication for the administration panel
 - [x] Write unit tests
 - [ ] Write a decent README, including features
-
+- [ ] Performance, decrease executed queries
