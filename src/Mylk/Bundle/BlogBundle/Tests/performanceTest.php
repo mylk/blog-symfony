@@ -21,6 +21,9 @@ class performanceTest extends WebTestCase
 
             // execution time
             $this->assertLessThan(200, $profile->getCollector("time")->getDuration(), sprintf("Failed while checking execution time (token %s)", $profileToken));
+
+            // memory load
+            $this->assertLessThan(26.0, ($profile->getCollector("memory")->getMemory() / 1024000), sprintf("Failed while checking memory load (token %s)", $profileToken));
         }
     }
 }
