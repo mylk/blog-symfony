@@ -108,8 +108,7 @@
             
             if($request->isMethod("POST")){
                 $form->handleRequest($request);
-                $session = new Session();
-                if(!$session->isStarted()) $session->start();
+                $session = $request->getSession();
                 
                 $comment = $form->getData();
                 $postId = $comment->getPost();
