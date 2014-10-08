@@ -331,14 +331,14 @@ a:hover {
   color: #1982d1;
 }
 
-.post-info {
+.post-info, comment-info {
   color: #666;
   clear: both;
   font-size: 12px;
   line-height: 18px;
 }
 
-.post-info a {
+.post-info a, comment-info a {
   font-weight: bold;
 }
 
