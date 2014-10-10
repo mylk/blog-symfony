@@ -90,6 +90,11 @@
          */
         protected $views;
 
+        /**
+         * @ORM\Column(name="comments_closed", type="boolean", nullable=false)
+         */
+        protected $commentsClosed;
+
         public function getId(){
             return $this->id;
         }
@@ -192,6 +197,14 @@
 
         public function addView(){
             $this->setViews($this->getViews() + 1);
+        }
+
+        public function setCommentsClosed($commentsClosed){
+            $this->commentsClosed = $commentsClosed;
+        }
+
+        public function getCommentsClosed(){
+            return $this->commentsClosed;
         }
     }
 ?>

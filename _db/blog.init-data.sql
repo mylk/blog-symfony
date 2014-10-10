@@ -1,8 +1,8 @@
--- MySQL dump 10.15  Distrib 10.0.13-MariaDB, for Linux (i686)
+-- MySQL dump 10.15  Distrib 10.0.14-MariaDB, for Linux (i686)
 --
 -- Host: localhost    Database: blog
 -- ------------------------------------------------------
--- Server version	10.0.13-MariaDB-log
+-- Server version	10.0.14-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -13,8 +13,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-USE blog;
 
 --
 -- Dumping data for table `categories`
@@ -32,7 +30,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (21,'Kostas','milonas.ko@gmail.com','Interesting fact...','2014-09-25 20:48:15',15,0),(22,'Kostas','milonas.ko@gmail.com','GO!','2014-09-25 20:49:12',14,0),(23,'Kostas','milonas.ko@gmail.com','Self control.','2014-09-25 20:54:36',14,0),(24,'Kostas','milonas.ko@gmail.com','Testing the mailer','2014-09-25 20:55:38',14,0);
+INSERT INTO `comments` VALUES (21,'Kostas','milonas.ko@gmail.com','Interesting fact...','2014-09-25 20:48:15',15,0),(22,'Kostas','milonas.ko@gmail.com','GO!','2014-09-25 20:49:12',14,0),(23,'Kostas','milonas.ko@gmail.com','Self control.','2014-09-25 20:54:36',14,0),(24,'Kostas','milonas.ko@gmail.com','Testing the mailer','2014-09-25 20:55:38',14,0),(25,'test','test@test.com','this is a comment','2014-10-10 15:03:14',14,0);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +50,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (14,'Welcome to my blog','This is my blog implemented on top of the Symfony2 framework.\r\n<br />\r\nThat\'s a sticky post...','2014-09-25 20:38:06',1,'2014-10-04 02:33:58',12,1,1,9),(15,'A post about flying cats','The undisputable truth is that cats can fly indeed.','2014-09-25 20:39:44',0,'1',9,1,NULL,9),(16,'Yet another interesting post','If every star of the milky way was a grain of salt, we would fill an olympic sized pool.','2014-09-25 20:44:51',0,'1',10,1,NULL,10);
+INSERT INTO `posts` VALUES (14,'Welcome to my blog','This is my blog implemented on top of the Symfony2 framework.\r\n<br />\r\nThat\'s a sticky post...','2014-09-25 20:38:06',1,'2014-10-04 02:33:58',156,1,1,9,0,0),(15,'A post about flying cats','The undisputable truth is that cats can fly indeed.','2014-09-25 20:39:44',0,NULL,9,1,NULL,9,0,0),(16,'Yet another interesting post','If every star of the milky way was a grain of salt, we would fill an olympic sized pool.','2014-09-25 20:44:51',0,NULL,18,1,NULL,10,0,1);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +90,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin@admin.com','2014-10-04 02:32:23','$2y$12$/WR4f2jmqF0V3.x2WD3XcuWiPwoQ6l84Sw3Mr1Cb8A2hffQfmWFZ6',1),(2,'mylk','milonas.ko@gmail.com','2014-10-03 23:11:11','$2y$12$ShUiRmvpkFX2u4EtC4LUZOES9eTRyh162.UTsUe546BZiPTmDJ4PG',0);
+INSERT INTO `users` VALUES (1,'admin','admin@admin.com','2014-10-10 16:05:39','$2y$12$/WR4f2jmqF0V3.x2WD3XcuWiPwoQ6l84Sw3Mr1Cb8A2hffQfmWFZ6',1),(2,'mylk','milonas.ko@gmail.com','2014-10-03 23:11:11','$2y$12$ShUiRmvpkFX2u4EtC4LUZOES9eTRyh162.UTsUe546BZiPTmDJ4PG',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,4 +112,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-04  2:35:07
+-- Dump completed on 2014-10-10 16:10:38

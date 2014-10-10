@@ -33,6 +33,7 @@ select {
 
 label {
     min-width:100px;
+    padding-right:10px;
 }
 
 input[type="checkbox"],

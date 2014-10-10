@@ -1,41 +1,46 @@
 <a name="submit-comment"></a>
 <h3>Leave a comment</h3>
 
-{% for error in app.session.flashbag.get("error") %}
-    <div class="alert-error">
-        {{ error }}
-    </div>
-{% endfor %}
+{% if not post.commentsClosed %}
+    {% for error in app.session.flashbag.get("error") %}
+        <div class="alert-error">
+            {{ error }}
+        </div>
+    {% endfor %}
 
-{% for success in app.session.flashbag.get("success") %}
-    <div class="alert-success">
-        {{ success }}
-    </div>
-{% endfor %}
-{{ form_start(comment_form) }}
-<table>
-    <tr>
-        <td>{{ form_label(comment_form.username) }}</td>
-        <td>{{ form_widget(comment_form.username) }}</td>
-    </tr>
-    <tr>
-        <td>{{ form_label(comment_form.email) }}</td>
-        <td>{{ form_widget(comment_form.email) }}</td>
-    </tr>
-    <tr>
-        <td>{{ form_label(comment_form.content) }}</td>
-        <td>{{ form_widget(comment_form.content) }}</td>
-    </tr>
-    <tr>
-        <td colspan="2">{{ form_widget(comment_form.post, {"attr": { "value": post.id } }) }}</td>
-    </tr>
-    <tr>
-        <td colspan="2">{{ form_widget(comment_form.captcha) }}</td>
-    </tr>
-    <tr>
-        <td colspan="2" align="right">{{ form_widget(comment_form.send) }}</td>
-    </tr>
-    <tr style="display:none;">
-        <td>{{ form_rest(comment_form) }}</td>
-    </tr>
-</table>
+    {% for success in app.session.flashbag.get("success") %}
+        <div class="alert-success">
+            {{ success }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(comment_form) }}
+    <table>
+        <tr>
+            <td>{{ form_label(comment_form.username) }}</td>
+            <td>{{ form_widget(comment_form.username) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(comment_form.email) }}</td>
+            <td>{{ form_widget(comment_form.email) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(comment_form.content) }}</td>
+            <td>{{ form_widget(comment_form.content) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">{{ form_widget(comment_form.post, {"attr": { "value": post.id } }) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">{{ form_widget(comment_form.captcha) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">{{ form_widget(comment_form.send) }}</td>
+        </tr>
+        <tr style="display:none;">
+            <td>{{ form_rest(comment_form) }}</td>
+        </tr>
+    </table>
+{% else %}
+    <h2>Comments are closed for this post.</h2>
+{% endif %}

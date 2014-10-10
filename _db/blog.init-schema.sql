@@ -1,8 +1,8 @@
--- MySQL dump 10.15  Distrib 10.0.13-MariaDB, for Linux (i686)
+-- MySQL dump 10.15  Distrib 10.0.14-MariaDB, for Linux (i686)
 --
 -- Host: localhost    Database: blog
 -- ------------------------------------------------------
--- Server version	10.0.13-MariaDB-log
+-- Server version	10.0.14-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -51,7 +51,7 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`id`),
   KEY `IDX_5F9E962A4B89032C` (`post_id`),
   CONSTRAINT `FK_5F9E962A4B89032C` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,6 +91,8 @@ CREATE TABLE `posts` (
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `comments_protected` tinyint(1) NOT NULL,
+  `comments_closed` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_885DBAFADE12AB56` (`created_by`),
   KEY `IDX_885DBAFA16FE72E1` (`updated_by`),
@@ -114,8 +116,8 @@ CREATE TABLE `posts_tags` (
   PRIMARY KEY (`post_id`,`tag_id`),
   KEY `IDX_D5ECAD9F4B89032C` (`post_id`),
   KEY `IDX_D5ECAD9FBAD26311` (`tag_id`),
-  CONSTRAINT `FK_D5ECAD9FBAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`),
-  CONSTRAINT `FK_D5ECAD9F4B89032C` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
+  CONSTRAINT `FK_D5ECAD9F4B89032C` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
+  CONSTRAINT `FK_D5ECAD9FBAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,4 +198,4 @@ CREATE TABLE `users_roles` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-04  2:35:10
+-- Dump completed on 2014-10-10 15:28:19

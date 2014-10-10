@@ -116,7 +116,8 @@
                 if($form->isValid()){
                     $post = $postRepo->find($postId);
                     
-                    if($post){
+                    // check if comments are closed too, in case someone found his way through this action
+                    if($post && $post->getCommentsClosed() === false){
                         $comment->setPost($post);
 
                         $em->persist($comment);
@@ -129,6 +130,8 @@
                         };
 
                         $session->getFlashBag()->add("success", "Comment successfully submitted.");
+                    }else if($post && $post->getCommentsClosed() === true){
+                        $session->getFlashBag()->add("error", "Comment submission failed. Comments are closed for this post.");
                     }else{
                         // user faked the hidden field that contains the post id?
                         $session->getFlashBag()->add("error", "Comment could not be added to the post.");
