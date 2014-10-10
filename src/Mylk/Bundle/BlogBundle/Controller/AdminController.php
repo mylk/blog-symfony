@@ -43,8 +43,7 @@
         public function postNewAction(){
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $userRepo = $em->getRepository("MylkBlogBundle:User");
             
@@ -80,8 +79,7 @@
         public function postEditAction(){
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $userRepo = $em->getRepository("MylkBlogBundle:User");
             
@@ -123,8 +121,7 @@
             $em = $this->getDoctrine()->getManager();
             $postRepo = $em->getRepository("MylkBlogBundle:Post");
             $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $delete = $request->get("delete");
             
@@ -156,8 +153,7 @@
         public function categoryNewAction(){
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $form = $this->createForm(new CategoryType, new Category, array(
                 "method" => "POST",
@@ -186,8 +182,7 @@
         public function categoryEditAction(){
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
             $categoryId = $request->get("categoryid");
@@ -222,8 +217,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
 
             $delete = $request->get("delete");
             
@@ -262,8 +256,7 @@
         public function tagNewAction(){
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $form = $this->createForm(new TagType, new Tag, array(
                 "method" => "POST",
@@ -292,8 +285,7 @@
         public function tagEditAction(){
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
             $tagId = $request->get("tagid");
@@ -328,8 +320,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
-            $session = new Session();
-            if(!$session->isStarted()) $session->start();
+            $session = $request->getSession();
             
             $delete = $request->get("delete");
             
@@ -364,6 +355,7 @@
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
+            $session = $request->getSession();
 
             $delete = $request->get("delete");
 
