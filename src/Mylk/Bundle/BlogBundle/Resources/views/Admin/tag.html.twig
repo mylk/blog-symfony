@@ -4,17 +4,17 @@
     {{ form_start(form, { "attr": { "novalidate": "novalidate" }}) }}
 
     {% if form_errors(form) %}
-        <div class="alert-error">{{ form_errors(form) }}</div>
+        <div class="alert alert-error">{{ form_errors(form) }}</div>
     {% endif %}
         
     {% for error in app.session.flashbag.get("error") %}
-        <div class="alert-error">
+        <div class="alert alert-error">
             {{ error }}
         </div>
     {% endfor %}
         
     {% for success in app.session.flashbag.get("success") %}
-        <div class="alert-success">
+        <div class="alert alert-success">
             {{ success }}
         </div>
     {% endfor %}

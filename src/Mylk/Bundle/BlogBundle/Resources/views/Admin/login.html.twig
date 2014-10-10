@@ -13,7 +13,7 @@
 
         <form action="{{ path('admin_login_check') }}" method="post" id="login" class="well">
             {% for error in app.session.flashbag.get("error") %}
-                <div class="alert-error">
+                <div class="alert alert-error">
                     {{ error }}
                 </div>
             {% endfor %}

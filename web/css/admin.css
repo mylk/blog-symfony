@@ -1,26 +1,31 @@
-.alert-error {
+.alert {
     padding:10px !important;
     margin-bottom:20px;
     border:1px solid transparent;
     border-radius:4px;
+}
+
+.alert-error {
     color:#a94442;
     background-color:#f2dede;
     border-color:#ebccd1;
 }
 
-/* for the symfony native form errors, presented as lists */
-.alert-error > ul {
-    margin:0 0 0px 25px !important;
-}
-
 .alert-success {
-    padding:10px !important;
-    margin-bottom:20px;
-    border:1px solid transparent;
-    border-radius:4px;
     color: #3c763d;
     background-color: #dff0d8;
     border-color: #d6e9c6;
+}
+
+.alert-warn {
+    color: #8a6d3b;
+    background-color: #f8efc0;
+    border-color: #f5e79e;
+}
+
+/* for the symfony native form errors, presented as lists */
+.alert-error > ul {
+    margin:0 0 0px 25px !important;
 }
 
 input[type="text"], textarea {
