@@ -14,6 +14,12 @@
         </div>
     {% endfor %}
 
+    {% for warn in app.session.flashbag.get("warn") %}
+        <div class="alert-warn">
+            {{ warn }}
+        </div>
+    {% endfor %}
+
     {{ form_start(comment_form) }}
     <table>
         <tr>

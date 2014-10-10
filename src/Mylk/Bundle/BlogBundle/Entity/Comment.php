@@ -42,7 +42,7 @@
         private $post;
         
         /**
-         * @ORM\Column(type="boolean", nullable=false)
+         * @ORM\Column(type="boolean", nullable=true)
          */
         private $approved;
         

@@ -18,7 +18,7 @@
             {{ success }}
         </div>
     {% endfor %}
-        
+
     <table>
         <tr>
             <td>{{ form_label(form.title) }}</td>
@@ -39,6 +39,10 @@
         <tr>
             <td>{{ form_label(form.sticky) }}</td>
             <td>{{ form_widget(form.sticky) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.commentsProtected) }}</td>
+            <td>{{ form_widget(form.commentsProtected) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.commentsClosed) }}</td>

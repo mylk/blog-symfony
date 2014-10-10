@@ -11,6 +11,7 @@
     use Mylk\Bundle\BlogBundle\Form\ConfirmType;
     use Symfony\Component\HttpFoundation\Session\Session;
     use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Security\Core\SecurityContextInterface;
 
     class AdminController extends Controller
@@ -375,6 +376,30 @@
             $comments = $commentRepo->findPendingApproval();
             
             return $this->render("MylkBlogBundle:Admin:commentList.html.twig", array("comments" => $comments));
+        }
+        
+        public function commentApproveAction(){
+            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
+            
+            $commentId = $request->get("id");
+            $outcome = $request->get("outcome");
+            
+            $comment = $commentRepo->find($commentId);
+            
+            if($comment){
+                if($outcome === "approved"){
+                    $comment->setApproved(true);
+                }else if($outcome === "rejected"){
+                    $comment->setApproved(false);
+                };
+            };
+
+            $em->persist($comment);
+            $em->flush();
+            
+            return new Response();
         }
         
         private function getErrorMessages($form){

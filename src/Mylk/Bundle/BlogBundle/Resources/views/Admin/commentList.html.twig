@@ -1,5 +1,10 @@
 {% extends "MylkBlogBundle:Admin:index.html.twig" %}
 
+{% block javascripts %}
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/admin.js"></script>
+{% endblock %}
+
 {% block content %}
     {% for error in app.session.flashbag.get("error") %}
         <div class="alert-error">
@@ -31,8 +36,8 @@
                 <td width="150" align="center">{{ comment.content | slice(0, 55) }}</td>
                 <td width="150" align="center">{{ comment.createdAt }}</td>
                 <td width="100" align="center">{{ comment.username }}</td>
-                <td width="20" align="center"><img src="{{ asset('img/approve.png') }}" /></td>
-                <td width="20" align="center"><img src="{{ asset('img/reject.png') }}" /></td>
+                <td width="20" align="center" data-comment-id="{{ comment.id }}" data-approval-outcome="approved"><img src="{{ asset('img/approve.png') }}" /></td>
+                <td width="20" align="center" data-comment-id="{{ comment.id }}" data-approval-outcome="rejected"><img src="{{ asset('img/reject.png') }}" /></td>
             </tr>
             {% endfor %}
             <tr><td colspan="100%">&nbsp;</td></tr>

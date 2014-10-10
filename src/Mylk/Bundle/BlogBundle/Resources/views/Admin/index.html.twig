@@ -6,6 +6,8 @@
     <title>{% block title %}Blog Admin{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
+    {% block javascripts %}
+    {% endblock %}
 </head>
 <body>
     <span id="markerTheme" class="hidden"></span>

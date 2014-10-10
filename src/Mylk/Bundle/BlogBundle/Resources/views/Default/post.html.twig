@@ -37,7 +37,7 @@
     <div class="post-comments">
         <h3>Comments</h3>
         
-        {% for comment in post.comments %}
+        {% for comment in comments %}
         <div>
             <div>
                 <div class="comment-info">Posted on {{ comment.createdAt }} by <a href="mailto:{{ comment.email }}">{{ comment.username }}</a></div>

@@ -47,11 +47,11 @@ CREATE TABLE `comments` (
   `content` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `post_id` int(11) DEFAULT NULL,
-  `approved` tinyint(1) NOT NULL,
+  `approved` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_5F9E962A4B89032C` (`post_id`),
   CONSTRAINT `FK_5F9E962A4B89032C` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,4 +198,4 @@ CREATE TABLE `users_roles` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-10 15:28:19
+-- Dump completed on 2014-10-10 19:57:20

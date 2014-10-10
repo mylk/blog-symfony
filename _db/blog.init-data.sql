@@ -14,6 +14,8 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+USE blog;
+
 --
 -- Dumping data for table `categories`
 --
@@ -30,7 +32,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (21,'Kostas','milonas.ko@gmail.com','Interesting fact...','2014-09-25 20:48:15',15,0),(22,'Kostas','milonas.ko@gmail.com','GO!','2014-09-25 20:49:12',14,0),(23,'Kostas','milonas.ko@gmail.com','Self control.','2014-09-25 20:54:36',14,0),(24,'Kostas','milonas.ko@gmail.com','Testing the mailer','2014-09-25 20:55:38',14,0),(25,'test','test@test.com','this is a comment','2014-10-10 15:03:14',14,0);
+INSERT INTO `comments` VALUES (21,'Kostas','milonas.ko@gmail.com','Interesting fact...','2014-09-25 20:48:15',15,NULL),(22,'Kostas','milonas.ko@gmail.com','GO!','2014-09-25 20:49:12',14,1),(23,'Kostas','milonas.ko@gmail.com','Self control.','2014-09-25 20:54:36',14,1),(24,'Kostas','milonas.ko@gmail.com','Testing the mailer','2014-09-25 20:55:38',14,0);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +52,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (14,'Welcome to my blog','This is my blog implemented on top of the Symfony2 framework.\r\n<br />\r\nThat\'s a sticky post...','2014-09-25 20:38:06',1,'2014-10-04 02:33:58',156,1,1,9,0,0),(15,'A post about flying cats','The undisputable truth is that cats can fly indeed.','2014-09-25 20:39:44',0,NULL,9,1,NULL,9,0,0),(16,'Yet another interesting post','If every star of the milky way was a grain of salt, we would fill an olympic sized pool.','2014-09-25 20:44:51',0,NULL,18,1,NULL,10,0,1);
+INSERT INTO `posts` VALUES (14,'Welcome to my blog','This is my blog implemented on top of the Symfony2 framework.\r\n<br />\r\nThat\'s a sticky post...','2014-09-25 20:38:06',1,'2014-10-10 16:32:26',207,1,1,9,1,0),(15,'A post about flying cats','The undisputable truth is that cats can fly indeed.','2014-09-25 20:39:44',0,'2014-10-10 17:05:07',31,1,1,9,0,0),(16,'Yet another interesting post','If every star of the milky way was a grain of salt, we would fill an olympic sized pool.','2014-09-25 20:44:51',0,'2014-10-10 16:20:56',35,1,1,10,0,1);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,4 +114,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-10 16:10:38
+-- Dump completed on 2014-10-10 19:57:24

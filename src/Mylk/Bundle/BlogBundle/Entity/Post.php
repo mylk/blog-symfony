@@ -91,6 +91,11 @@
         protected $views;
 
         /**
+         * @ORM\Column(name="comments_protected", type="boolean", nullable=false)
+         */
+        protected $commentsProtected;
+
+        /**
          * @ORM\Column(name="comments_closed", type="boolean", nullable=false)
          */
         protected $commentsClosed;
@@ -197,6 +202,14 @@
 
         public function addView(){
             $this->setViews($this->getViews() + 1);
+        }
+
+        public function setCommentsProtected($commentsProtected){
+            $this->commentsProtected = $commentsProtected;
+        }
+
+        public function getCommentsProtected(){
+            return $this->commentsProtected;
         }
 
         public function setCommentsClosed($commentsClosed){

@@ -130,6 +130,10 @@
                         };
 
                         $session->getFlashBag()->add("success", "Comment successfully submitted.");
+                        
+                        if($post->getCommentsProtected()){
+                            $session->getFlashBag()->add("warn", "This post's comments are protected. Your comment is pending for approval before being published.");
+                        };
                     }else if($post && $post->getCommentsClosed() === true){
                         $session->getFlashBag()->add("error", "Comment submission failed. Comments are closed for this post.");
                     }else{
@@ -159,6 +163,10 @@
         private function renderContent($posts){
             $page_globals = $this->container->getParameter("page_globals");
             $paginator = $this->get("knp_paginator");
+            $em = $this->getDoctrine()->getManager();
+            
+            $comments = array();
+            $comment_form = null;
             
             // generate the comment form if showing a single article
             if($this->getRequest()->get("_route") === "post"){
@@ -166,8 +174,13 @@
                     "action" => $this->generateUrl("comment_submit") . "#submit-comment",
                     "method" => "POST"))
                     ->createView();
-            }else{
-                $comment_form = null;
+                
+                $post = $posts[0];
+                
+                // dont try to get comments 
+                if(!$post->getCommentsClosed()){
+                    $comments = $em->getRepository("MylkBlogBundle:Comment")->findAllowedAndApproved($post->getId());
+                };
             };
 
             $pagination = $paginator->paginate(
@@ -178,6 +191,7 @@
 
             return $this->render("MylkBlogBundle:Default:index.html.twig", array(
                 "pagination" => $pagination,
+                "comments" => $comments,
                 "comment_form" => $comment_form
             ));
         }
