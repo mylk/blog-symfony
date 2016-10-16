@@ -6,4 +6,4 @@ composer.phar
 mysql-bin.index
 web/img/captcha/*
 !web/img/captcha/.gitkeep
-vendors/
+vendor/
