@@ -1,7 +1,16 @@
-parameters:
-#    mylk_blog.example.class: Mylk\Bundle\BlogBundle\Example
-
 services:
-#    mylk_blog.example:
-#        class: %mylk_blog.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    mylk_blog.rss_generator:
+        class: Mylk\Bundle\BlogBundle\Service\RssFeedGeneratorService
+        calls: [ [setupDependencies, [%rss_feed_title%, %rss_feed_url_homepage%, %rss_feed_url_feed%, %rss_feed_description%]] ]
+
+    login_listener:
+        class: Mylk\Bundle\BlogBundle\EventListener\LoginListener
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onLoginSuccess }
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    comment_listener:
+        class: Mylk\Bundle\BlogBundle\EventListener\CommentListener
+        tags:
+            - { name: kernel.event_listener, event: mylk_blogbundle.comment_added, method: onComment }
+        arguments: ["@mailer", "@router", "%mailer_user%", "%comment_notified_emails%"]
