@@ -22,6 +22,9 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "gregwar/captcha-bundle": "dev-master"
     },
+    "require-dev": {
+        "phpunit/phpunit": "dev-master"
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
