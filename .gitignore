@@ -1,6 +1,10 @@
 nbproject/
 app/cache/*
 app/logs/*
+app/SymfonyRequirements.php
+app/bootstrap.php.cache
+app/config/parameters.yml
+bin/
 composer.lock
 composer.phar
 mysql-bin.index
