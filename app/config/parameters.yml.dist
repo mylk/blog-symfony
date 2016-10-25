@@ -1,15 +1,43 @@
 parameters:
-    database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: blog
+    database_user: root
+    database_password: toor
 
-    locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    mailer_transport: gmail
+    mailer_encryption: ~
+    mailer_auth_mode: ~
+    mailer_host: ~
+    mailer_user: YOUR_USERNAME
+    mailer_password: YOUR_PASSWORD
+
+    comment_notified_emails: [milonas.ko@gmail.com]
+
+    page_globals:
+        blog_page_title: Symfony Blog Demo
+        blog_title: Symfony Blog Demo
+        blog_description: Do you really need a description?
+        blog_main_image: nyc.jpg
+        blog_main_image_visible: false
+        posts_per_page: 5
+
+    knp_paginator:
+        page_range: 5                      # default page range used in pagination control
+        default_options:
+            page_name: page                # page query parameter name
+            sort_field_name: sort          # sort field query parameter name
+            sort_direction_name: direction # sort direction query parameter name
+            distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        template:
+            pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+            sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+    rss_feed_title: "The title"
+    rss_feed_url_homepage: "http://www.example.com/"
+    rss_feed_url_feed: "http://www.example.com/feed"
+    rss_feed_description: "OSOM"
