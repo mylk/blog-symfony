@@ -1,6 +1,6 @@
 <?php
 
-namespace Mylk\Bundle\BlogBundle\Entity;
+namespace Mylk\Bundle\BlogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
