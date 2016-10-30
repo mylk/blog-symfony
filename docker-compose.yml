@@ -1,0 +1,36 @@
+version: "2"
+services:
+    nginx:
+        build:
+            context: ./
+            dockerfile: build/nginx/Dockerfile
+        ports:
+            - "8000:80"
+        networks:
+            - symfonyblog_net
+        volumes:
+            - ./:/application
+        depends_on: [php]
+        tty: true
+    php:
+        build:
+            context: ./
+            dockerfile: build/php/Dockerfile
+        networks:
+            - symfonyblog_net
+        volumes:
+            - ./:/application
+        depends_on: [mysql]
+        tty: true
+    mysql:
+        image: mysql:latest
+        networks:
+            - symfonyblog_net
+        environment:
+            MYSQL_ROOT_PASSWORD: toor
+            MYSQL_DATABASE: blog
+            MYSQL_USER: blog_user
+            MYSQL_PASSWORD: toor
+networks:
+    symfonyblog_net:
+        driver: "bridge"
