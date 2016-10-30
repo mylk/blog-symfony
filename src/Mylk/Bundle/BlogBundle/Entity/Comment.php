@@ -33,7 +33,7 @@ class Comment
     private $content;
 
     /**
-     * @ORM\Column(name="created_at", type="string", length=20, nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
@@ -50,7 +50,7 @@ class Comment
 
     public function __construct()
     {
-        $this->createdAt = \date("Y-m-d H:i:s");
+        $this->createdAt = new \DateTime();
         $this->approved = false;
     }
 
@@ -67,6 +67,8 @@ class Comment
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail()
@@ -77,6 +79,8 @@ class Comment
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     public function getContent()
@@ -87,6 +91,8 @@ class Comment
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
     }
 
     public function getCreatedAt()
@@ -97,6 +103,8 @@ class Comment
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     public function getPost()
@@ -107,6 +115,8 @@ class Comment
     public function setPost($post)
     {
         $this->post = $post;
+
+        return $this;
     }
 
     public function getApproved()
@@ -117,6 +127,8 @@ class Comment
     public function setApproved($approved)
     {
         $this->approved = $approved;
+
+        return $this;
     }
 
     public function approve()

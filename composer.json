@@ -23,7 +23,8 @@
         "gregwar/captcha-bundle": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "dev-master"
+        "phpunit/phpunit": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "^2.3"
     },
     "scripts": {
         "post-install-cmd": [

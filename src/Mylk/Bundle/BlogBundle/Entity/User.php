@@ -74,6 +74,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
     }
 
     public function getPassword()
@@ -85,6 +87,8 @@ class User implements AdvancedUserInterface, \Serializable
     {
         // create a password hash with bcrypt as defined in security.yml, security.encoders
         $this->password = password_hash($password, PASSWORD_BCRYPT, array("cost" => 12));
+
+        return $this;
     }
 
     public function getEmail()
@@ -95,6 +99,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     public function getLastLogin()
@@ -105,6 +111,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function setLastLogin($lastLogin)
     {
         $this->lastLogin = $lastLogin;
+
+        return $this;
     }
 
     public function getIsActive()
@@ -115,6 +123,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+
+        return $this;
     }
 
     public function getRoles()
@@ -125,6 +135,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function setRoles($roles)
     {
         $this->roles = $roles;
+
+        return $this;
     }
 
     // methods required by AdvancedUserInterface

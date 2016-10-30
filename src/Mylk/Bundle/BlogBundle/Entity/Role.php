@@ -52,6 +52,8 @@ class Role implements RoleInterface
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     public function getRoleName()
@@ -62,6 +64,8 @@ class Role implements RoleInterface
     public function setRoleName($roleName)
     {
         $this->roleName = $roleName;
+
+        return $this;
     }
 
     public function getUsers()

@@ -51,6 +51,8 @@ class Tag
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     public function getPosts()

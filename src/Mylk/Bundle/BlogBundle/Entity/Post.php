@@ -16,7 +16,7 @@ class Post
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->createdAt = \date("Y-m-d H:i:s");
+        $this->createdAt = new \DateTime();
         $this->views = 0;
     }
 
@@ -116,6 +116,8 @@ class Post
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     public function getContent()
@@ -126,6 +128,8 @@ class Post
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
     }
 
     public function getCreatedAt()
@@ -136,6 +140,8 @@ class Post
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     public function getCreatedBy()
@@ -146,6 +152,8 @@ class Post
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
+
+        return $this;
     }
 
     public function getUpdatedAt()
@@ -153,9 +161,11 @@ class Post
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt()
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updatedAt = \date("Y-m-d H:i:s");
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
     public function getUpdatedBy()
@@ -166,6 +176,8 @@ class Post
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
     }
 
     public function getSticky()
@@ -176,6 +188,8 @@ class Post
     public function setSticky($sticky)
     {
         $this->sticky = $sticky;
+
+        return $this;
     }
 
     public function getTags()
@@ -186,6 +200,8 @@ class Post
     public function setTags($tags)
     {
         $this->tags = $tags;
+
+        return $this;
     }
 
     public function getCategory()
@@ -196,6 +212,8 @@ class Post
     public function setCategory($category)
     {
         $this->category = $category;
+
+        return $this;
     }
 
     public function getComments()
@@ -224,6 +242,8 @@ class Post
     public function setViews($views)
     {
         $this->views = $views;
+
+        return $this;
     }
 
     public function addView()
@@ -234,6 +254,8 @@ class Post
     public function setCommentsProtected($commentsProtected)
     {
         $this->commentsProtected = $commentsProtected;
+
+        return $this;
     }
 
     public function getCommentsProtected()
@@ -244,6 +266,8 @@ class Post
     public function setCommentsClosed($commentsClosed)
     {
         $this->commentsClosed = $commentsClosed;
+
+        return $this;
     }
 
     public function getCommentsClosed()

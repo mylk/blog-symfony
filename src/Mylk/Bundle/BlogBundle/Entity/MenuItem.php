@@ -51,6 +51,8 @@ class MenuItem
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     public function getUrl()
@@ -61,6 +63,8 @@ class MenuItem
     public function setUrl($url)
     {
         $this->url = $url;
+
+        return $this;
     }
 
     public function getUrlDiscr()
@@ -71,6 +75,8 @@ class MenuItem
     public function setUrlDiscr($urlDiscr)
     {
         $this->urlDiscr = $urlDiscr;
+
+        return $this;
     }
 
     public function getParent()
@@ -81,6 +87,8 @@ class MenuItem
     public function setParent($parent)
     {
         $this->parent = $parent;
+
+        return $this;
     }
 
     public function toArray()
