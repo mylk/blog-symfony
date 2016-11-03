@@ -12,15 +12,15 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
     private $posts = array(
         array(
             "title" => "Welcome to my blog",
-            "content" => "This is my blog implemented on top of the Symfony2 framework.\r\n<br />\r\nThat\s a sticky post...",
+            "content" => "This is my blog implemented on top of the Symfony2 framework.\r\n<br />\r\nThat's a sticky post...",
             "sticky" => true,
             "views" => 1,
             "category_id" => "category-misc",
             "tags" => array("tag-php", "tag-symfony"),
             "comments_protected" => true,
             "comments_closed" => false,
-            "created_at" => "2016-09-25 20:38:06",
-            "updated_at" => "2016-09-25 20:38:06",
+            "created_at" => "2016-09-24 20:38:06",
+            "updated_at" => "2016-09-24 20:38:06",
             "created_by" => "user-admin",
             "updated_by" => null,
             "reference" => "post-1"
