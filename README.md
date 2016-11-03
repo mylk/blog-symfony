@@ -5,7 +5,7 @@ It's still a work in progress.
 
 # Why did you do this?
 
-For fun, but also to keep my Symfony knowledge in shape.
+For fun and to learn.
 
 # Using the app
 
@@ -52,13 +52,9 @@ Let Doctrine do the job for you:
     app/console doctrine:schema:create
     app/console doctrine:schema:update --force
 
-Or, if you prefer creating the schema using the MySQL client:
-
-    mysql -uroot -ptoor --default-character-set=utf8 blog < _db/blog.init-schema.sql
-
 ## Database initialization
 
-    mysql -uroot -ptoor --default-character-set=utf8 blog < _db/blog.init-data.sql
+    app/console doctrine:fixtures:load -n
 
 Remember, the application assumes that your database setup has a user "root" with password "toor".
 
@@ -69,6 +65,11 @@ The following command assumes that you have PHP >= 5.4.0 which provides a built-
     app/console server:run
 
 The app now runs on localhost:8000, you can visit this address to start using it.
+
+Alternatively, if you have ```docker``` and ```docker-compose``` installed, you can run the application in a container:
+
+    docker-compose build
+    docker-compose up
 
 ## Mailer setup
 
@@ -84,14 +85,14 @@ You can use the administration interface visiting localhost:8000/admin
 
 The following administration account is already set up:
 
-    Usename: admin
+    Username: admin
     Password: adminpass
 
 ## Testing
 
 Testing the application requires database dumps have been imported.
-For instructions, check the sections "Datbase schema creation" and "Database initialization".
+For instructions, check the sections "Database schema creation" and "Database initialization".
 
 To run the provided tests:
 
-    phpunit -c app/ src/Mylk/Bundle/BlogBundle/Tests/
+    bin/phpunit -c app/
