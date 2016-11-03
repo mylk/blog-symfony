@@ -122,9 +122,6 @@ class DefaultController extends Controller
                 if ($post && $post->getCommentsClosed() === false) {
                     $comment->setPost($post);
 
-                    $em->persist($comment);
-                    $em->flush();
-
                     // fire a comment_added event
                     if ($this->mailerIsSetUp()) {
                         $dispatcher = $this->container->get("event_dispatcher");
@@ -135,7 +132,12 @@ class DefaultController extends Controller
 
                     if ($post->getCommentsProtected()) {
                         $session->getFlashBag()->add("warn", "This post's comments are protected. Your comment is pending for approval before being published.");
+                    } else {
+                        $comment->approve();
                     }
+
+                    $em->persist($comment);
+                    $em->flush();
                 } else if ($post && $post->getCommentsClosed() === true) {
                     $session->getFlashBag()->add("error", "Comment submission failed. Comments are closed for this post.");
                 } else {

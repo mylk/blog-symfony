@@ -41,7 +41,7 @@ class CommentRepository extends EntityRepository
         $query = $em->createQueryBuilder("c");
         $query->select("c")
             ->from($this->getEntityName(), "c")
-            ->where("c.post = :postId AND (c.approved = true OR c.approved IS NULL)")
+            ->where("c.post = :postId AND c.approved = true")
             ->orderBy("c.createdAt", "DESC")
             ->setParameter("postId", $postId);
 
