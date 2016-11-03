@@ -5,6 +5,7 @@ namespace Mylk\Bundle\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mylk\Bundle\BlogBundle\Form\CommentType;
 use Mylk\Bundle\BlogBundle\Entity\Comment;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Mylk\Bundle\BlogBundle\Event\CommentEvent;
@@ -18,72 +19,70 @@ class DefaultController extends Controller
 
         $posts = $postRepo->findAllByStickyAndDate();
 
-        return $this->renderContent($posts);
+        return $this->renderPosts($posts);
     }
 
-    public function postViewAction()
+    public function postViewAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
-        $postId = $this->getRequest()->get("postid");
+        $postId = $request->get("postid");
         $post = $postRepo->find($postId);
 
         if ($post) {
             $post->addView();
-            $em->persist($post);
             $em->flush();
         } else {
             $post = null;
         }
 
-        return $this->renderContent(array($post));
+        return $this->renderPosts(array($post));
     }
 
-    public function categoryViewAction()
+    public function categoryViewAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
-        $categoryId = $this->getRequest()->get("categoryid");
+        $categoryId = $request->get("categoryid");
         $posts = $postRepo->findBy(array("category" => $categoryId), array("createdAt" => "DESC"));
 
-        return $this->renderContent($posts);
+        return $this->renderPosts($posts);
     }
 
-    public function tagViewAction()
+    public function tagViewAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
 
-        $tagId = $this->getRequest()->get("tagid");
+        $tagId = $request->get("tagid");
         $tag = $tagRepo->find($tagId);
         $posts = $tag->getPosts();
 
-        return $this->renderContent($posts);
+        return $this->renderPosts($posts);
     }
 
-    public function archiveViewAction()
+    public function archiveViewAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository("MylkBlogBundle:Post");
 
-        $request = $this->getRequest();
         $yearMonth = array("year" => $request->get("year"), "month" => $request->get("month"));
         $posts = $repo->findByYearMonth($yearMonth);
 
-        return $this->renderContent($posts);
+        return $this->renderPosts($posts);
     }
 
-    public function searchAction()
+    public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
-        $term = $this->getRequest()->get("term");
+        $term = $request->get("term");
         $posts = $postRepo->findBySearchTerm($term);
 
-        return $this->renderContent($posts);
+        return $this->renderPosts($posts);
     }
 
     public function rssAction()
@@ -100,19 +99,18 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function commentSubmitAction()
+    public function commentSubmitAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
-        $form = $this->createForm(new CommentType(), new Comment());
+        $comment = new Comment();
+        $form = $this->createForm(new CommentType(), $comment);
 
         if ($request->isMethod("POST")) {
             $form->handleRequest($request);
             $session = $request->getSession();
 
-            $comment = $form->getData();
             $postId = $comment->getPost();
 
             if ($form->isValid()) {
@@ -164,7 +162,7 @@ class DefaultController extends Controller
         }
     }
 
-    private function renderContent($posts)
+    private function renderPosts($posts)
     {
         $page_globals = $this->container->getParameter("page_globals");
         $paginator = $this->get("knp_paginator");
@@ -193,7 +191,7 @@ class DefaultController extends Controller
         }
 
         $pagination = $paginator->paginate(
-                $posts, $this->getRequest()->get("page", 1), $page_globals["posts_per_page"]
+            $posts, $this->getRequest()->get("page", 1), $page_globals["posts_per_page"]
         );
 
         return $this->render("MylkBlogBundle:Default:index.html.twig", array(
@@ -206,13 +204,14 @@ class DefaultController extends Controller
     public function renderWidgetsAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
         $categories = $em->getRepository("MylkBlogBundle:Category")->findBy(array(), array("title" => "ASC"));
-        $archive = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->getArchive();
-        $comments = $this->getDoctrine()->getRepository("MylkBlogBundle:Comment")->findLatests();
-        $popular = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findPopular();
-        $most_commented = $this->getDoctrine()->getRepository("MylkBlogBundle:Post")->findMostCommented();
-        $tags = $this->getDoctrine()->getRepository("MylkBlogBundle:Tag")->findAll();
+        $archive = $postRepo->getArchive();
+        $comments = $em->getRepository("MylkBlogBundle:Comment")->findLatests();
+        $popular = $postRepo->findPopular();
+        $most_commented = $postRepo->findMostCommented();
+        $tags = $em->getRepository("MylkBlogBundle:Tag")->findAll();
 
         return $this->render("MylkBlogBundle:Default:widgets.html.twig", array(
             "categories" => $categories,
@@ -256,6 +255,10 @@ class DefaultController extends Controller
 
     private function mailerIsSetUp()
     {
-        return ($this->container->getParameter("mailer_user") !== "YOUR_USERNAME" && $this->container->getParameter("mailer_password") !== "YOUR_PASSWORD");
+        $container = $this->container;
+        return (
+            $container->getParameter("mailer_user") !== "YOUR_USERNAME"
+            && $container->getParameter("mailer_password") !== "YOUR_PASSWORD"
+        );
     }
 }
