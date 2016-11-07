@@ -12,14 +12,14 @@ use Mylk\Bundle\BlogBundle\Event\CommentEvent;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
         $posts = $postRepo->findAllByStickyAndDate();
 
-        return $this->renderPosts($posts);
+        return $this->renderPosts($posts, $request);
     }
 
     public function postViewAction(Request $request)
@@ -37,7 +37,7 @@ class DefaultController extends Controller
             $post = null;
         }
 
-        return $this->renderPosts(array($post));
+        return $this->renderPosts(array($post), $request);
     }
 
     public function categoryViewAction(Request $request)
@@ -48,7 +48,7 @@ class DefaultController extends Controller
         $categoryId = $request->get("categoryid");
         $posts = $postRepo->findBy(array("category" => $categoryId), array("createdAt" => "DESC"));
 
-        return $this->renderPosts($posts);
+        return $this->renderPosts($posts, $request);
     }
 
     public function tagViewAction(Request $request)
@@ -60,7 +60,7 @@ class DefaultController extends Controller
         $tag = $tagRepo->find($tagId);
         $posts = $tag->getPosts();
 
-        return $this->renderPosts($posts);
+        return $this->renderPosts($posts, $request);
     }
 
     public function archiveViewAction(Request $request)
@@ -71,7 +71,7 @@ class DefaultController extends Controller
         $yearMonth = array("year" => $request->get("year"), "month" => $request->get("month"));
         $posts = $repo->findByYearMonth($yearMonth);
 
-        return $this->renderPosts($posts);
+        return $this->renderPosts($posts, $request);
     }
 
     public function searchAction(Request $request)
@@ -82,7 +82,7 @@ class DefaultController extends Controller
         $term = $request->get("term");
         $posts = $postRepo->findBySearchTerm($term);
 
-        return $this->renderPosts($posts);
+        return $this->renderPosts($posts, $request);
     }
 
     public function rssAction()
@@ -142,7 +142,7 @@ class DefaultController extends Controller
                     // user faked the hidden field that contains the post id?
                     $session->getFlashBag()->add("error", "Comment could not be added to the post.");
 
-                    $lastPostUrl = $this->getRequest()->headers->get("referer");
+                    $lastPostUrl = $request->headers->get("referer");
                     return new RedirectResponse($lastPostUrl);
                 }
             } else {
@@ -162,7 +162,7 @@ class DefaultController extends Controller
         }
     }
 
-    private function renderPosts($posts)
+    private function renderPosts($posts, $request)
     {
         $page_globals = $this->container->getParameter("page_globals");
         $paginator = $this->get("knp_paginator");
@@ -172,7 +172,7 @@ class DefaultController extends Controller
         $comment_form = null;
 
         // showing a single article
-        if ($this->getRequest()->get("_route") === "post") {
+        if ($request->get("_route") === "post") {
             $post = $posts[0];
 
             if ($post !== null) {
@@ -191,7 +191,7 @@ class DefaultController extends Controller
         }
 
         $pagination = $paginator->paginate(
-            $posts, $this->getRequest()->get("page", 1), $page_globals["posts_per_page"]
+            $posts, $request->get("page", 1), $page_globals["posts_per_page"]
         );
 
         return $this->render("MylkBlogBundle:Default:index.html.twig", array(
