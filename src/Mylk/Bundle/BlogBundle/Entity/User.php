@@ -53,12 +53,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\ManyToMany(targetEntity="Role")
-     * @ORM\JoinTable(name="users_roles",
-     *      joinColumns={@ORM\JoinColumn(name="username", referencedColumnName="username")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="role_name", referencedColumnName="role_name")}
-     * )
-     * */
-    // could keep only the first line of the above annotation, but the defaults wouldn't match our table names
+     */
     protected $roles;
 
     public function getId()
