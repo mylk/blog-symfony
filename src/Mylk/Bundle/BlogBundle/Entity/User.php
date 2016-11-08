@@ -53,6 +53,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="users_roles")
      */
     protected $roles;
 
