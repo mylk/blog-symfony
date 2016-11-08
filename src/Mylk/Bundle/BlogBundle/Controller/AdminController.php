@@ -50,15 +50,13 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:login.html.twig");
     }
 
-    public function postNewAction()
+    public function postNewAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-        $userRepo = $em->getRepository("MylkBlogBundle:User");
-
-        $form = $this->createForm(new PostType(), new Post(), array(
+        $post = new Post();
+        $form = $this->createForm(new PostType(), $post, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_post_new")
         ));
@@ -67,13 +65,10 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                // get the username of the logged in user
-                $username = $this->getUser()->getUsername();
-                $user = $userRepo->findOneBy(array("username" => $username));
+                // get the logged in user
+                $user = $this->getUser();
 
-                $post = $form->getData();
                 $post->setCreatedBy($user);
-
                 $em->persist($post);
                 $em->flush();
 
@@ -87,13 +82,10 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:post.html.twig", array("form" => $form->createView()));
     }
 
-    public function postEditAction()
+    public function postEditAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-
-        $userRepo = $em->getRepository("MylkBlogBundle:User");
 
         $postId = $request->get("postid");
         $post = $em->getRepository("MylkBlogBundle:Post")->findOneBy(array("id" => $postId));
@@ -107,15 +99,10 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $post = $form->getData();
+                $user = $this->getUser();
 
-                $username = $this->getUser()->getUsername();
-                $user = $userRepo->findOneBy(array("username" => $username));
-
-                $post->setUpdatedAt();
-                $post->setUpdatedBy($user);
-
-                $em->persist($post);
+                $post->setUpdatedAt(new \DateTime())
+                    ->setUpdatedBy($user);
                 $em->flush();
 
                 $session->getFlashBag()->add("success", "Post was successfully updated!");
@@ -128,9 +115,8 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:post.html.twig", array("form" => $form->createView()));
     }
 
-    public function postListAction()
+    public function postListAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
         $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
@@ -163,13 +149,13 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:postList.html.twig", array("posts" => $posts));
     }
 
-    public function categoryNewAction()
+    public function categoryNewAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-        $form = $this->createForm(new CategoryType, new Category, array(
+        $category = new Category();
+        $form = $this->createForm(new CategoryType(), $category, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_category_new")
         ));
@@ -178,8 +164,6 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $category = $form->getData();
-
                 $em->persist($category);
                 $em->flush();
 
@@ -193,9 +177,8 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:category.html.twig", array("form" => $form->createView()));
     }
 
-    public function categoryEditAction()
+    public function categoryEditAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
@@ -213,9 +196,6 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $category = $form->getData();
-
-                $em->persist($category);
                 $em->flush();
 
                 $session->getFlashBag()->add("success", "Category was successfully updated!");
@@ -228,15 +208,13 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:tag.html.twig", array("form" => $form->createView()));
     }
 
-    public function categoryListAction()
+    public function categoryListAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
         $session = $request->getSession();
 
         $delete = $request->get("delete");
-
 
         $form = $this->createForm(new ConfirmType(), null, array(
             "method" => "POST",
@@ -245,11 +223,10 @@ class AdminController extends Controller
         $confirm = $request->get("mylk_bundle_blogbundle_confirm");
 
         if ($request->isMethod("POST") && $delete) {
-            $delete = $request->get("delete");
-            $request->getSession()->set("delete", $delete);
+            $session->set("delete", $delete);
 
             return $this->render("MylkBlogBundle:Admin:categoryList.html.twig", array("form" => $form->createView()));
-        } else if ($request->isMethod("POST") && (isset($confirm["yes"]) || isset($confirm["no"]))) {
+        } elseif ($request->isMethod("POST") && (isset($confirm["yes"]) || isset($confirm["no"]))) {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
@@ -269,13 +246,13 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:categoryList.html.twig", array("categories" => $categories));
     }
 
-    public function tagNewAction()
+    public function tagNewAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-        $form = $this->createForm(new TagType, new Tag, array(
+        $tag = new Tag();
+        $form = $this->createForm(new TagType(), $tag, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_tag_new")
         ));
@@ -284,8 +261,6 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $tag = $form->getData();
-
                 $em->persist($tag);
                 $em->flush();
 
@@ -299,9 +274,8 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:tag.html.twig", array("form" => $form->createView()));
     }
 
-    public function tagEditAction()
+    public function tagEditAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
@@ -319,9 +293,6 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $tag = $form->getData();
-
-                $em->persist($tag);
                 $em->flush();
 
                 $session->getFlashBag()->add("success", "Tag was successfully updated!");
@@ -334,9 +305,8 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:tag.html.twig", array("form" => $form->createView()));
     }
 
-    public function tagListAction()
+    public function tagListAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
         $session = $request->getSession();
@@ -370,9 +340,8 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:tagList.html.twig", array("tags" => $tags));
     }
 
-    public function commentListAction()
+    public function commentListAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
         $session = $request->getSession();
@@ -397,9 +366,8 @@ class AdminController extends Controller
         return $this->render("MylkBlogBundle:Admin:commentList.html.twig", array("comments" => $comments));
     }
 
-    public function commentApproveAction()
+    public function commentApproveAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
 

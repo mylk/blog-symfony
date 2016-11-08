@@ -35,11 +35,11 @@
                 <td>
                     {{ post.content | slice(0, 55) }}{% if post.content | length > 55 %}...{% endif %}
                 </td>
-                <td width="150" align="center">{{ post.createdAt }}</td>
+                <td width="150" align="center">{{ post.createdAt | date("Y-m-d H:i:s") }}</td>
                 <td width="100" align="center">{{ post.createdBy.username }}</td>
                 <td width="150" align="center">
                     {% if post.updatedAt is not null %}
-                        {{ post.updatedAt }}
+                        {{ post.updatedAt | date("Y-m-d H:i:s") }}
                     {% else %}
                         -
                     {% endif %}
