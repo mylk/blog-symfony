@@ -6,24 +6,26 @@ security:
 
     providers:
         admins:
-            entity: { class: MylkBlogBundle:User, property: username }
+            entity:
+                class: MylkBlogBundle:User
+                property: username
 
     firewalls:
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
         secured_area:
-            pattern:    ^/
-            anonymous:  ~
-            provider:   ~
+            pattern: ^/
+            anonymous: ~
+            provider: admins
             form_login:
                 login_path: admin_login
                 check_path: admin_login_check
-                default_target_path:  admin_homepage
+                default_target_path: admin_homepage
                 csrf_provider: security.csrf.token_manager
             logout:
-                path:   admin_logout
+                path: admin_logout
                 target: admin_login
 
     access_control:

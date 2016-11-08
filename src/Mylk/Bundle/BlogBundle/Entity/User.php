@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 class User implements AdvancedUserInterface, \Serializable
 {
-
     public function __construct()
     {
         $this->isActive = true;
