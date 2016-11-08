@@ -38,6 +38,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $manager->flush();
+        $manager->clear();
     }
 
     /**

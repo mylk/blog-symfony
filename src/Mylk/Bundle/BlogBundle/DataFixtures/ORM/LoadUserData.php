@@ -14,7 +14,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             "username" => "admin",
             "email" => "admin@admin.com",
             "last_login" => "2016-10-10 16:05:39",
-            "password" => '$2y$12$/WR4f2jmqF0V3.x2WD3XcuWiPwoQ6l84Sw3Mr1Cb8A2hffQfmWFZ6',
+            "password" => "adminpass",
             "roles" => array("role-administrator"),
             "is_active" => true,
             "reference" => "user-admin"
@@ -23,7 +23,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             "username" => "mylk",
             "email" => "milonas.ko@gmail.com",
             "last_login" => "2016-10-10 16:05:40",
-            "password" => '$2y$12$ShUiRmvpkFX2u4EtC4LUZOES9eTRyh162.UTsUe546BZiPTmDJ4PG',
+            "password" => "mylkpass",
             "roles" => array("role-user"),
             "is_active" => false,
             "reference" => "user-mylk"
@@ -57,7 +57,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             foreach ($user["roles"] as $role) {
                 $roleEntities[] = $this->getReference($role);
             }
-//            $userEntity->setRoles($roleEntities);
+            $userEntity->setRoles($roleEntities);
         }
         $manager->flush();
     }
