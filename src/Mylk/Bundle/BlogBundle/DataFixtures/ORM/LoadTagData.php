@@ -39,6 +39,7 @@ class LoadTagData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $manager->flush();
+        $manager->clear();
     }
 
     /**

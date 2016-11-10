@@ -98,7 +98,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
             foreach ($post["tags"] as $tag) {
                 $tagEntities[] = $this->getReference($tag);
             }
-//            $postEntity->setTags($tagEntities);
+            $postEntity->setTags($tagEntities);
         }
         $manager->flush();
     }
