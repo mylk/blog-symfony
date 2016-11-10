@@ -1,33 +1,47 @@
 # What is this?
 
-This a blog impementation built on top of the Symfony2 framework.
+This a blog implementation built on top of the Symfony2 framework.
 It's still a work in progress.
+
+I started building this on 2014 and revived it aiming to not having any personal project kept private
+and / or semifinished.
 
 # Why did you do this?
 
 For fun and to learn.
 
-# Using the app
+# Start the app
 
-## Clone the app from this repository
+## Having docker?
+
+If you have ```docker``` and ```docker-compose``` installed, you can run the application in a container:
+
+    docker-compose build
+    docker-compose up
+
+The app now runs on localhost:8000.
+
+Everything is ready and you don't need anything from the following section.
+
+## Not having docker?
+
+### Get the code
+
+Clone the app from this repository
 
     git clone https://github.com/mylk/blog-symfony.git
+
+### Install dependencies
 
 Enter the application directory:
 
     cd blog-symfony
 
-## Directories and Permissions setup
+Get composer, if you don't have it already and run:
 
-Execute the following commands in order to create two Symfony required directories and give the appropriate permissions:
+    composer install
 
-    mkdir app/cache
-    mkdir app/logs
-
-    chmod 775 app/cache
-    chmod 775 app/logs
-
-## Database setup:
+### Database setup:
 
 The app configuration assumes you already have a MySQL instance running.
 It also assumes that you have a user having username and password set to "root" and "toor" respectively.
@@ -45,20 +59,18 @@ If this is not your case modify the following parameter in the aforementioned co
 
     database_name
 
-## Database schema creation:
+### Database schema creation:
 
 Let Doctrine do the job for you:
 
     app/console doctrine:schema:create
     app/console doctrine:schema:update --force
 
-## Database initialization
+### Database initialization
 
     app/console doctrine:fixtures:load -n
 
-Remember, the application assumes that your database setup has a user "root" with password "toor".
-
-## Run the application
+### Run the application
 
 The following command assumes that you have PHP >= 5.4.0 which provides a built-in web server:
 
@@ -66,14 +78,9 @@ The following command assumes that you have PHP >= 5.4.0 which provides a built-
 
 The app now runs on localhost:8000, you can visit this address to start using it.
 
-Alternatively, if you have ```docker``` and ```docker-compose``` installed, you can run the application in a container:
+# Mailer setup
 
-    docker-compose build
-    docker-compose up
-
-## Mailer setup
-
-If you want to use the mailer functionality, to inform users and article composer about comments,
+If you want to use the mailer functionality to inform users and the article composers about comments,
 edit the following in app/config/parameters.yml and add your corresponding Gmail account info:
 
     mailer_user
@@ -88,7 +95,7 @@ The following administration account is already set up:
     Username: admin
     Password: adminpass
 
-## Testing
+# Testing
 
 Testing the application requires database dumps have been imported.
 For instructions, check the sections "Database schema creation" and "Database initialization".
