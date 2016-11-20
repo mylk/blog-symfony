@@ -406,8 +406,10 @@ class AdminController extends Controller
         if ($request->isMethod("POST")) {
             $form->handleRequest($request);
 
-            $em->persist($menuItem);
-            $em->flush();
+            if ($form->isValid()) {
+                $em->persist($menuItem);
+                $em->flush();
+            }
         }
 
         return $this->render("MylkBlogBundle:Admin:menuItem.html.twig", array("form" => $form->createView()));
@@ -431,8 +433,9 @@ class AdminController extends Controller
         if ($request->isMethod("POST")) {
             $form->handleRequest($request);
 
-            $em->persist($menuItem);
-            $em->flush();
+            if ($form->isValid()) {
+                $em->flush();
+            }
         }
 
         return $this->render("MylkBlogBundle:Admin:menuItem.html.twig", array("form" => $form->createView()));
