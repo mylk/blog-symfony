@@ -29,7 +29,7 @@ class CommentListener
         $adminsCommentators = \array_merge($this->commentNotifiedEmails, $commentatorsNotCurrent);
         $adminsCommentatorsUniq = \array_unique($adminsCommentators);
 
-        $postUrl = $this->router->generate("post", array("postid" => $post->getId()), true);
+        $postUrl = $this->router->generate("post", array("postId" => $post->getId()), true);
         $messageBody = sprintf("New comment posted on <a href=\"%s\">%s</a> by the user named \"%s\":<br /><br />%s", $postUrl, $post->getTitle(), $comment->getUsername(), $comment->getContent());
 
         foreach ($adminsCommentatorsUniq as $recipient) {

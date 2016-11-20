@@ -7,15 +7,15 @@ search:
     defaults: { _controller: MylkBlogBundle:Default:search }
 
 post:
-    path: /post/{postid}
+    path: /post/{postId}
     defaults: { _controller: MylkBlogBundle:Default:postView }
 
 category:
-    path: /category/{categoryid}
+    path: /category/{categoryId}
     defaults: { _controller: MylkBlogBundle:Default:categoryView }
 
 tag:
-    path: /tag/{tagid}
+    path: /tag/{tagId}
     defaults: { _controller: MylkBlogBundle:Default:tagView }
 
 archive:

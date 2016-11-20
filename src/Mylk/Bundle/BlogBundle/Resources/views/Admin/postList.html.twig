@@ -28,7 +28,7 @@
             <tr>
                 <td width="30"><input type="checkbox" name="delete[]" value="{{ post.id }}" /></td>
                 <td width="150">
-                    <a href="{{ path('admin_post_edit', { postid: post.id }) }}">
+                    <a href="{{ path('admin_post_edit', { postId: post.id }) }}">
                         {{ post.title | slice(0, 15) }}{% if post.title | length > 15 %}...{% endif %}
                     </a>
                 </td>

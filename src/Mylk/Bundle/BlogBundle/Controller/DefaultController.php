@@ -27,7 +27,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
-        $postId = $request->get("postid");
+        $postId = $request->get("postId");
         $post = $postRepo->find($postId);
 
         if ($post) {
@@ -45,7 +45,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
-        $categoryId = $request->get("categoryid");
+        $categoryId = $request->get("categoryId");
         $posts = $postRepo->findBy(array("category" => $categoryId), array("createdAt" => "DESC"));
 
         return $this->renderPosts($posts, $request);
@@ -56,7 +56,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
 
-        $tagId = $request->get("tagid");
+        $tagId = $request->get("tagId");
         $tag = $tagRepo->find($tagId);
         $posts = $tag->getPosts();
 
@@ -158,7 +158,7 @@ class DefaultController extends Controller
                 }
             }
 
-            return new RedirectResponse($this->generateUrl("post", array("postid" => $postId)));
+            return new RedirectResponse($this->generateUrl("post", array("postId" => $postId)));
         }
     }
 

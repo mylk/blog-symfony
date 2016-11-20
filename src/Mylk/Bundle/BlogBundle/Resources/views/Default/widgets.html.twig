@@ -2,7 +2,7 @@
     <h3>Categories</h3>
     <ul>
         {% for category in categories %}
-        <li><a href="{{ path('category', { categoryid: category.id }) }}">{{ category.title }}</a></li>
+        <li><a href="{{ path('category', { categoryId: category.id }) }}">{{ category.title }}</a></li>
         {% endfor %}
     </ul>
 </div>
@@ -10,7 +10,7 @@
     <h3>Most popular</h3>
     <ul>
         {% for post in popular %}
-        <li><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></li>
+        <li><a href="{{ path('post', { postId: post.id }) }}">{{ post.title }}</a></li>
         {% endfor %}
     </ul>
 </div>
@@ -18,7 +18,7 @@
     <h3>Most commented</h3>
     <ul>
         {% for post in most_commented %}
-        <li><a href="{{ path('post', { postid: post.id }) }}">{{ post.title }}</a></li>
+        <li><a href="{{ path('post', { postId: post.id }) }}">{{ post.title }}</a></li>
         {% endfor %}
     </ul>
 </div>
@@ -26,7 +26,7 @@
     <h3>Recent Comments</h3>
     <ul>
         {% for comment in comments %}
-        <li>{{ comment.username }} on <a href="{{ path('post', { postid: comment.post.id }) }}">{{ comment.post.title }}</a></li>
+        <li>{{ comment.username }} on <a href="{{ path('post', { postId: comment.post.id }) }}">{{ comment.post.title }}</a></li>
         {% endfor %}
     </ul>
 </div>
@@ -41,6 +41,6 @@
 <div class="widget">
     <h3>Tags</h3>
     {% for tag in tags %}
-        <a href="{{ path('tag', { tagid: tag.id }) }}">{{ tag.title }}</a>&nbsp;
+        <a href="{{ path('tag', { tagId: tag.id }) }}">{{ tag.title }}</a>&nbsp;
     {% endfor %}
 </div>

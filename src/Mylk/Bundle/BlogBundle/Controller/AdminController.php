@@ -87,12 +87,12 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-        $postId = $request->get("postid");
+        $postId = $request->get("postId");
         $post = $em->getRepository("MylkBlogBundle:Post")->findOneBy(array("id" => $postId));
 
         $form = $this->createForm(new PostType(), $post, array(
             "method" => "POST",
-            "action" => $this->generateUrl("admin_post_edit", array("postid" => $postId))
+            "action" => $this->generateUrl("admin_post_edit", array("postId" => $postId))
         ));
 
         if ($request->isMethod("POST")) {
@@ -106,7 +106,7 @@ class AdminController extends Controller
                 $em->flush();
 
                 $session->getFlashBag()->add("success", "Post was successfully updated!");
-                return $this->redirect($this->generateUrl("admin_post_edit", array("postid" => $postId)));
+                return $this->redirect($this->generateUrl("admin_post_edit", array("postId" => $postId)));
             } else {
                 $this->getErrorMessages($form);
             }
@@ -183,13 +183,13 @@ class AdminController extends Controller
         $session = $request->getSession();
 
         $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
-        $categoryId = $request->get("categoryid");
+        $categoryId = $request->get("categoryId");
 
         $category = $categoryRepo->findOneBy(array("id" => $categoryId));
 
         $form = $this->createForm(new CategoryType(), $category, array(
             "method" => "POST",
-            "action" => $this->generateUrl("admin_category_edit", array("categoryid" => $categoryId))
+            "action" => $this->generateUrl("admin_category_edit", array("categoryId" => $categoryId))
         ));
 
         if ($request->isMethod("POST")) {
@@ -199,7 +199,7 @@ class AdminController extends Controller
                 $em->flush();
 
                 $session->getFlashBag()->add("success", "Category was successfully updated!");
-                return $this->redirect($this->generateUrl("admin_category_edit", array("categoryid" => $categoryId)));
+                return $this->redirect($this->generateUrl("admin_category_edit", array("categoryId" => $categoryId)));
             } else {
                 $this->getErrorMessages($form);
             }
@@ -280,13 +280,13 @@ class AdminController extends Controller
         $session = $request->getSession();
 
         $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
-        $tagId = $request->get("tagid");
+        $tagId = $request->get("tagId");
 
         $tag = $tagRepo->findOneBy(array("id" => $tagId));
 
         $form = $this->createForm(new TagType(), $tag, array(
             "method" => "POST",
-            "action" => $this->generateUrl("admin_tag_edit", array("tagid" => $tagId))
+            "action" => $this->generateUrl("admin_tag_edit", array("tagId" => $tagId))
         ));
 
         if ($request->isMethod("POST")) {
@@ -296,7 +296,7 @@ class AdminController extends Controller
                 $em->flush();
 
                 $session->getFlashBag()->add("success", "Tag was successfully updated!");
-                return $this->redirect($this->generateUrl("admin_tag_edit", array("tagid" => $tagId)));
+                return $this->redirect($this->generateUrl("admin_tag_edit", array("tagId" => $tagId)));
             } else {
                 $this->getErrorMessages($form);
             }

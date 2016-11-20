@@ -21,10 +21,10 @@ admin_post_new:
     defaults: { _controller: MylkBlogBundle:Admin:postNew }
 
 admin_post_edit:
-    path: /post/edit/{postid}
+    path: /post/edit/{postId}
     defaults: { _controller: MylkBlogBundle:Admin:postEdit }
     requirements:
-        postid: \d+
+        postId: \d+
 
 admin_category_list:
     path: /category/list
@@ -35,10 +35,10 @@ admin_category_new:
     defaults: { _controller: MylkBlogBundle:Admin:categoryNew }
 
 admin_category_edit:
-    path: /category/edit/{categoryid}
+    path: /category/edit/{categoryId}
     defaults: { _controller: MylkBlogBundle:Admin:categoryEdit }
     requirements:
-        categoryid: \d+
+        categoryId: \d+
 
 admin_tag_list:
     path: /tag/list
@@ -49,8 +49,10 @@ admin_tag_new:
     defaults: { _controller: MylkBlogBundle:Admin:tagNew }
 
 admin_tag_edit:
-    path: /tag/edit
+    path: /tag/edit/{tagId}
     defaults: { _controller: MylkBlogBundle:Admin:tagEdit }
+    requirements:
+        tagId: \d+
 
 admin_comment_list:
     path: /comment/list
