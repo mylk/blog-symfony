@@ -49,7 +49,7 @@ class LoadMenuItemData extends AbstractFixture implements OrderedFixtureInterfac
             $menuItemEntity = new MenuItem();
             $menuItemEntity->setTitle($menuItem["title"])
                 ->setParent($menuItem["parent"] ? $this->getReference($menuItem["parent"]) : null)
-                ->setUrl($menuItem["title"])
+                ->setUrl($menuItem["url"])
                 ->setUrlDiscr($menuItem["url_discr"]);
 
             $manager->persist($menuItemEntity);

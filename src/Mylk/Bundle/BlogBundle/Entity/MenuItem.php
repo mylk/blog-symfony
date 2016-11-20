@@ -3,6 +3,7 @@
 namespace Mylk\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -33,10 +34,20 @@ class MenuItem
     protected $urlDiscr;
 
     /**
-     * @ORM\ManyToOne(targetEntity="MenuItem")
+     * @ORM\ManyToOne(targetEntity="MenuItem", inversedBy="children")
      * @ORM\JoinColumn(name="parent", referencedColumnName="id")
      */
     protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="parent")
+     */
+    protected $children;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -89,6 +100,42 @@ class MenuItem
         $this->parent = $parent;
 
         return $this;
+    }
+
+    public function getParentTreeTitles()
+    {
+        $titles = array();
+
+        $parent = $this->getParent();
+        while ($parent) {
+            $titles[] = $parent->getTitle();
+            
+            $parent = $parent->getParent();
+        }
+
+        $titles[] = $this->getTitle();
+
+        return \implode(" -> ", $titles);
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function getChildrenTree()
+    {
+        $menuItems = array();
+        $menuItems[] = $this;
+
+        $children = $this->getChildren();
+        foreach ($children as $child) {
+            $grandChildren = $child->getChildrenTree();
+            $grandChildren = \gettype($grandChildren) === "object" ? array($grandChildren) : $grandChildren;
+            $menuItems = \array_merge($menuItems, $grandChildren);
+        }
+
+        return $menuItems;
     }
 
     public function toArray()

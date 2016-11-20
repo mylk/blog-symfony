@@ -1,0 +1,47 @@
+{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+
+{% block javascripts %}
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/admin.js"></script>
+{% endblock %}
+
+{% block content %}
+    {% for error in app.session.flashbag.get("error") %}
+        <div class="alert alert-error">
+            {{ error }}
+        </div>
+    {% endfor %}
+
+    {% for success in app.session.flashbag.get("success") %}
+        <div class="alert alert-success">
+            {{ success }}
+        </div>
+    {% endfor %}
+
+    <form method="POST" action="{{ app.request.requestUri }}">
+        <table width="100%">
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>URL</th>
+                <th>Parent</th>
+                <th>Type</th>
+            </tr>
+            {% for menuItem in menuItems %}
+                <tr>
+                    <td width="30"><input type="checkbox" name="delete[]" value="{{ menuItem.id }}" /></td>
+                    <td width="30"><a href="{{ path('admin_menu_item_edit', { menuItemId: menuItem.id }) }}">{{ menuItem.title }}</a></td>
+                    <td width="150" align="center"><a href="{{ menuItem.url }}">{{ menuItem.url }}</a></td>
+                    {% if menuItem.parent %}
+                        <td width="180"><a href="{{ path('admin_menu_item_edit', { menuItemId: menuItem.parent.id }) }}">{{ menuItem.parent.title }}</a></td>
+                    {% else %}
+                        <td width="180">-</td>
+                    {% endif %}
+                    <td width="100" align="center">{{ menuItem.urlDiscr }}</td>
+                </tr>
+            {% endfor %}
+            <tr><td colspan="100%">&nbsp;</td></tr>
+            <tr><td colspan="100%"><input type="submit" value="Delete" /></td></tr>
+        </table>
+    </form>
+{% endblock%}

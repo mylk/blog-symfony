@@ -384,10 +384,82 @@ class AdminController extends Controller
             }
         }
 
-        $em->persist($comment);
         $em->flush();
 
         return new Response();
+    }
+
+    public function menuItemNewAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $menuItem = new MenuItem();
+        $form = $this->createForm(new MenuItemType(), $menuItem, array(
+            "method" => "POST",
+            "action" => $this->generateUrl("admin_menu_item_new")
+        ));
+
+        if ($request->isMethod("POST")) {
+            $form->handleRequest($request);
+
+            $em->persist($menuItem);
+            $em->flush();
+        }
+
+        return $this->render("MylkBlogBundle:Admin:menuItem.html.twig", array("form" => $form->createView()));
+    }
+
+    public function menuItemEditAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $menuItemId = $request->get("menuItemId");
+        $menuItem = $em->getRepository("MylkBlogBundle:MenuItem")->find($menuItemId);
+        $form = $this->createForm(new MenuItemType(), $menuItem, array(
+            "method" => "POST",
+            "action" => $this->generateUrl("admin_menu_item_edit", array("menuItemId" => $menuItemId))
+        ));
+
+        if ($request->isMethod("POST")) {
+            $form->handleRequest($request);
+
+            $em->persist($menuItem);
+            $em->flush();
+        }
+
+        return $this->render("MylkBlogBundle:Admin:menuItem.html.twig", array("form" => $form->createView()));
+    }
+
+    public function menuItemListAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $menuItemRepo = $em->getRepository("MylkBlogBundle:MenuItem");
+        $session = $request->getSession();
+
+        $menuItemIds = $request->get("delete");
+        if ($menuItemIds) {
+            $menuItems = array();
+            foreach ($menuItemIds as $menuItemId) {
+                $menuItem = $menuItemRepo->find($menuItemId);
+                $menuItems = \array_merge($menuItems, $menuItem->getChildrenTree());
+            }
+
+            // reverse to start deleting from grand children
+            // for foreign key constraints not to fail
+            $menuItems = \array_reverse($menuItems);
+
+            foreach ($menuItems as $menuItem) {
+                $em->remove($menuItem);
+            }
+            $em->flush();
+
+            $session->getFlashBag()->add("success", "Menu item(s) successfully removed!");
+            return $this->redirect($this->generateUrl("admin_menu_item_list"));
+        }
+
+        $menuItems = $menuItemRepo->findAll();
+
+        return $this->render("MylkBlogBundle:Admin:menuItemList.html.twig", array("menuItems" => $menuItems));
     }
 
     private function getErrorMessages($form)

@@ -1,0 +1,46 @@
+{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+
+{% block content %}
+    {{ form_start(form, { "attr": { "novalidate": "novalidate" }}) }}
+
+    {% if form_errors(form) %}
+        <div class="alert alert-error">{{ form_errors(form) }}</div>
+    {% endif %}
+
+    {% for error in app.session.flashbag.get("error") %}
+        <div class="alert alert-error">
+            {{ error }}
+        </div>
+    {% endfor %}
+
+    {% for success in app.session.flashbag.get("success") %}
+        <div class="alert alert-success">
+            {{ success }}
+        </div>
+    {% endfor %}
+
+    <table>
+        <tr>
+            <td>{{ form_label(form.title) }}</td>
+            <td>{{ form_widget(form.title) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.url) }}</td>
+            <td>{{ form_widget(form.url) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.parent) }}</td>
+            <td>{{ form_widget(form.parent) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.urlDiscr) }}</td>
+            <td>{{ form_widget(form.urlDiscr) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">{{ form_widget(form.save) }}</td>
+        </tr>
+        <tr style="display:none">
+            <td colspan="2">{{ form_rest(form) }}</td>
+        </tr>
+    </table>
+{% endblock %}

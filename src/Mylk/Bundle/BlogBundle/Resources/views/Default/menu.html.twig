@@ -19,10 +19,7 @@
  
             {# add the submenu items #}
             {% if "children" in menuItem | keys %}
-                {{ include(
-                    "MylkBlogBundle:Default:menu.html.twig",
-                    { "menu_items": menuItem.children }
-                ) }}
+                {{ include("MylkBlogBundle:Default:menu.html.twig", { "menu_items": menuItem.children }) }}
             {% endif %}
         </li>
     {% endfor %}

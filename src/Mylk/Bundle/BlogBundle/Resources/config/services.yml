@@ -3,6 +3,9 @@ services:
         class: Mylk\Bundle\BlogBundle\Service\RssFeedGeneratorService
         calls: [ [setupDependencies, [%rss_feed_title%, %rss_feed_url_homepage%, %rss_feed_url_feed%, %rss_feed_description%]] ]
 
+    mylk_blog.menu_generator:
+        class: Mylk\Bundle\BlogBundle\Service\MenuGeneratorService
+
     login_listener:
         class: Mylk\Bundle\BlogBundle\EventListener\LoginListener
         tags:
