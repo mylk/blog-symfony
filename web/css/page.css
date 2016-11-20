@@ -472,6 +472,11 @@ input.captcha {
     border-color: #f5e79e;
 }
 
+.error-404 {
+    width: 60%;
+    margin: 50px;
+}
+
 /* responsive */
 @-ms-viewport {
   width: device-width;
