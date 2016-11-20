@@ -1,4 +1,4 @@
-{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+{% extends "::baseAdmin.html.twig" %}
 
 {% block content %}
     <form method="POST" action="{{ app.request.requestUri }}">
@@ -21,4 +21,4 @@
             <tr><td colspan="100%"><input type="submit" value="Delete" /></td></tr>
         </table>
     </form>
-{% endblock%}
+{% endblock %}

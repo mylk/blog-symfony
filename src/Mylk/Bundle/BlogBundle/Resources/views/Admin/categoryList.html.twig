@@ -1,4 +1,4 @@
-{% extends "MylkBlogBundle:Admin:index.html.twig" %}
+{% extends "::baseAdmin.html.twig" %}
 
 {% block content %}
     {% for error in app.session.flashbag.get("error") %}
@@ -50,4 +50,4 @@
         </table>
     </form>
     {% endif %}
-{% endblock%}
+{% endblock %}
