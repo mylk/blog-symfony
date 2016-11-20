@@ -88,7 +88,10 @@ class AdminController extends Controller
         $session = $request->getSession();
 
         $postId = $request->get("postId");
-        $post = $em->getRepository("MylkBlogBundle:Post")->findOneBy(array("id" => $postId));
+        $post = $em->getRepository("MylkBlogBundle:Post")->find($postId);
+        if (!$post) {
+            throw $this->createNotFoundException();
+        }
 
         $form = $this->createForm(new PostType(), $post, array(
             "method" => "POST",
@@ -119,7 +122,6 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
-        $commentRepo = $em->getRepository("MylkBlogBundle:Comment");
         $session = $request->getSession();
 
         $delete = $request->get("delete");
@@ -127,7 +129,7 @@ class AdminController extends Controller
         if ($delete) {
             foreach ($delete as $postId) {
                 $post = $postRepo->find($postId);
-                $comments = $commentRepo->findBy(array("post" => $post));
+                $comments = $post->getComments();
 
                 if ($comments) {
                     foreach ($comments as $comment) {
@@ -182,10 +184,11 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-        $categoryRepo = $em->getRepository("MylkBlogBundle:Category");
         $categoryId = $request->get("categoryId");
-
-        $category = $categoryRepo->findOneBy(array("id" => $categoryId));
+        $category = $em->getRepository("MylkBlogBundle:Category")->find($categoryId);
+        if (!$category) {
+            throw $this->createNotFoundException();
+        }
 
         $form = $this->createForm(new CategoryType(), $category, array(
             "method" => "POST",
@@ -279,10 +282,11 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-        $tagRepo = $em->getRepository("MylkBlogBundle:Tag");
         $tagId = $request->get("tagId");
-
-        $tag = $tagRepo->findOneBy(array("id" => $tagId));
+        $tag = $em->getRepository("MylkBlogBundle:Tag")->find($tagId);
+        if (!$tag) {
+            throw $this->createNotFoundException();
+        }
 
         $form = $this->createForm(new TagType(), $tag, array(
             "method" => "POST",
@@ -379,7 +383,7 @@ class AdminController extends Controller
         if ($comment) {
             if ($outcome === "approved") {
                 $comment->setApproved(true);
-            } else if ($outcome === "rejected") {
+            } elseif ($outcome === "rejected") {
                 $comment->setApproved(false);
             }
         }
@@ -415,6 +419,10 @@ class AdminController extends Controller
 
         $menuItemId = $request->get("menuItemId");
         $menuItem = $em->getRepository("MylkBlogBundle:MenuItem")->find($menuItemId);
+        if (!$menuItem) {
+            throw $this->createNotFoundException();
+        }
+
         $form = $this->createForm(new MenuItemType(), $menuItem, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_menu_item_edit", array("menuItemId" => $menuItemId))

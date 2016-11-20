@@ -34,7 +34,7 @@ class DefaultController extends Controller
             $post->addView();
             $em->flush();
         } else {
-            $post = null;
+            throw $this->createNotFoundException();
         }
 
         return $this->renderPosts(array($post), $request);
@@ -43,10 +43,15 @@ class DefaultController extends Controller
     public function categoryViewAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
         $categoryId = $request->get("categoryId");
-        $posts = $postRepo->findBy(array("category" => $categoryId), array("createdAt" => "DESC"));
+        $category = $em->getRepository("MylkBlogBundle:Category")->find($categoryId);
+
+        if (!$category) {
+            throw $this->createNotFoundException();
+        }
+
+        $posts = $category->getPosts();
 
         return $this->renderPosts($posts, $request);
     }
@@ -58,6 +63,11 @@ class DefaultController extends Controller
 
         $tagId = $request->get("tagId");
         $tag = $tagRepo->find($tagId);
+
+        if (!$tag) {
+            throw $this->createNotFoundException();
+        }
+
         $posts = $tag->getPosts();
 
         return $this->renderPosts($posts, $request);
@@ -136,7 +146,7 @@ class DefaultController extends Controller
 
                     $em->persist($comment);
                     $em->flush();
-                } else if ($post && $post->getCommentsClosed() === true) {
+                } elseif ($post && $post->getCommentsClosed()) {
                     $session->getFlashBag()->add("error", "Comment submission failed. Comments are closed for this post.");
                 } else {
                     // user faked the hidden field that contains the post id?
@@ -169,7 +179,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $comments = array();
-        $comment_form = null;
+        $commentForm = null;
 
         // showing a single article
         if ($request->get("_route") === "post") {
@@ -177,7 +187,7 @@ class DefaultController extends Controller
 
             if ($post !== null) {
                 // generate comment form
-                $comment_form = $this->createForm(new CommentType(), new Comment(), array(
+                $commentForm = $this->createForm(new CommentType(), new Comment(), array(
                     "action" => $this->generateUrl("comment_submit") . "#submit-comment",
                     "method" => "POST"
                 ))
@@ -197,7 +207,7 @@ class DefaultController extends Controller
         return $this->render("MylkBlogBundle:Default:index.html.twig", array(
             "pagination" => $pagination,
             "comments" => $comments,
-            "comment_form" => $comment_form
+            "comment_form" => $commentForm
         ));
     }
 

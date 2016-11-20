@@ -24,6 +24,13 @@ class Category
      */
     protected $title;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    // while searching posts by tag, order by creation date of the related posts
+    protected $posts;
+
     public function getId()
     {
         return $this->id;
@@ -39,5 +46,10 @@ class Category
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }
