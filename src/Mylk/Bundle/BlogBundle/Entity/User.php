@@ -51,7 +51,7 @@ class User implements AdvancedUserInterface, \Serializable
     protected $isActive;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
      * @ORM\JoinTable(name="users_roles")
      */
     protected $roles;
