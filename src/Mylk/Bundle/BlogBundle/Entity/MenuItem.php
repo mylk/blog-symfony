@@ -29,9 +29,9 @@ class MenuItem
     protected $url;
 
     /**
-     * @ORM\Column(name="url_discr", type="string", length=20)
+     * @ORM\Column(name="type", type="string", length=20)
      */
-    protected $urlDiscr;
+    protected $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="MenuItem", inversedBy="children")
@@ -78,14 +78,14 @@ class MenuItem
         return $this;
     }
 
-    public function getUrlDiscr()
+    public function getType()
     {
-        return $this->urlDiscr;
+        return $this->type;
     }
 
-    public function setUrlDiscr($urlDiscr)
+    public function setType($type)
     {
-        $this->urlDiscr = $urlDiscr;
+        $this->type = $type;
 
         return $this;
     }
@@ -144,7 +144,7 @@ class MenuItem
             "id" => $this->getId(),
             "title" => $this->getTitle(),
             "url" => $this->getUrl(),
-            "urlDiscr" => $this->getUrlDiscr(),
+            "type" => $this->getType(),
             "parent" => ($this->getParent() !== null) ? $this->getParent()->getId() : null
         );
     }

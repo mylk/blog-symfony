@@ -1,7 +1,7 @@
 <ul>
     {% for menuItem in menu_items %}
         {# construct the link url #}
-        {% if menuItem.urlDiscr == "route" %}
+        {% if menuItem.type == "route" %}
             {% set menuItemUrl = path(menuItem.url) %}
         {% else %}
             {% set menuItemUrl = menuItem.url %}

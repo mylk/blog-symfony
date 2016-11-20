@@ -13,7 +13,7 @@ class MenuItemType extends AbstractType
         $builder
             ->add("title", "text")
             ->add("url", "text", array("label" => "URL"))
-            ->add("urlDiscr", "choice", array(
+            ->add("type", "choice", array(
                 "choices" => array(
                     "url" => "URL",
                     "route" => "Route"

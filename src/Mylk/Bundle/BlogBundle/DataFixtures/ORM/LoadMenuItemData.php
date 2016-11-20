@@ -14,28 +14,28 @@ class LoadMenuItemData extends AbstractFixture implements OrderedFixtureInterfac
             "title" => "Home",
             "parent" => null,
             "url" => "homepage",
-            "url_discr" => "route",
+            "type" => "route",
             "reference" => "menu-item-home"
         ),
         array(
             "title" => "About",
             "parent" => null,
             "url" => "#",
-            "url_discr" => "url",
+            "type" => "url",
             "reference" => "menu-item-about"
         ),
         array(
             "title" => "RSS",
             "parent" => null,
             "url" => "rss",
-            "url_discr" => "route",
+            "type" => "route",
             "reference" => "menu-item-rss"
         ),
         array(
             "title" => "Me",
             "parent" => "menu-item-about",
             "url" => "#",
-            "url_discr" => "url",
+            "type" => "url",
             "reference" => "menu-item-about-me"
         )
     );
@@ -50,7 +50,7 @@ class LoadMenuItemData extends AbstractFixture implements OrderedFixtureInterfac
             $menuItemEntity->setTitle($menuItem["title"])
                 ->setParent($menuItem["parent"] ? $this->getReference($menuItem["parent"]) : null)
                 ->setUrl($menuItem["url"])
-                ->setUrlDiscr($menuItem["url_discr"]);
+                ->setType($menuItem["type"]);
 
             $manager->persist($menuItemEntity);
 
