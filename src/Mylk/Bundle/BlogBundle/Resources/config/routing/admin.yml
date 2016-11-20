@@ -1,0 +1,76 @@
+admin_homepage:
+    path: /
+    defaults: { _controller: MylkBlogBundle:Admin:index }
+
+admin_login:
+    path: /login
+    defaults: { _controller: MylkBlogBundle:Admin:login }
+
+admin_login_check:
+    path: /login/check
+
+admin_logout:
+    path: /logout
+
+admin_post_list:
+    path: /post/list
+    defaults: { _controller: MylkBlogBundle:Admin:postList }
+
+admin_post_new:
+    path: /post/new
+    defaults: { _controller: MylkBlogBundle:Admin:postNew }
+
+admin_post_edit:
+    path: /post/edit/{postid}
+    defaults: { _controller: MylkBlogBundle:Admin:postEdit }
+    requirements:
+        postid: \d+
+
+admin_category_list:
+    path: /category/list
+    defaults: { _controller: MylkBlogBundle:Admin:categoryList }
+
+admin_category_new:
+    path: /category/new
+    defaults: { _controller: MylkBlogBundle:Admin:categoryNew }
+
+admin_category_edit:
+    path: /category/edit/{categoryid}
+    defaults: { _controller: MylkBlogBundle:Admin:categoryEdit }
+    requirements:
+        categoryid: \d+
+
+admin_tag_list:
+    path: /tag/list
+    defaults: { _controller: MylkBlogBundle:Admin:tagList }
+
+admin_tag_new:
+    path: /tag/new
+    defaults: { _controller: MylkBlogBundle:Admin:tagNew }
+
+admin_tag_edit:
+    path: /tag/edit
+    defaults: { _controller: MylkBlogBundle:Admin:tagEdit }
+
+admin_comment_list:
+    path: /comment/list
+    defaults: { _controller: MylkBlogBundle:Admin:commentList }
+
+admin_comment_approve:
+    path: /comment/approve
+    defaults: { _controller: MylkBlogBundle:Admin:commentApprove }
+
+admin_menu_item_new:
+    path: /menu_item/new
+    defaults: { _controller: MylkBlogBundle:Admin:menuItemNew }
+
+admin_menu_item_edit:
+    path: /menu_item/edit/{menuItemId}
+    defaults: { _controller: MylkBlogBundle:Admin:menuItemEdit }
+
+admin_menu_item_list:
+    path: /menu_item/list
+    defaults: { _controller: MylkBlogBundle:Admin:menuItemList }
+
+gregwar_captcha_routing:
+    resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"

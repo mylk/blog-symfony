@@ -1,0 +1,34 @@
+homepage:
+    path: /
+    defaults: { _controller: MylkBlogBundle:Default:index }
+
+search:
+    path: /search
+    defaults: { _controller: MylkBlogBundle:Default:search }
+
+post:
+    path: /post/{postid}
+    defaults: { _controller: MylkBlogBundle:Default:postView }
+
+category:
+    path: /category/{categoryid}
+    defaults: { _controller: MylkBlogBundle:Default:categoryView }
+
+tag:
+    path: /tag/{tagid}
+    defaults: { _controller: MylkBlogBundle:Default:tagView }
+
+archive:
+    path: /{year}/{month}
+    defaults: { _controller: MylkBlogBundle:Default:archiveView }
+    requirements:
+        year: \d+
+        month: \d+
+
+rss:
+    path: /rss
+    defaults: { _controller: MylkBlogBundle:Default:rss }
+
+comment_submit:
+    path: /comment/submit
+    defaults: { _controller: MylkBlogBundle:Default:commentSubmit }
