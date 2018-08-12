@@ -22,15 +22,14 @@ services:
             - ./:/application
         depends_on: [mysql]
         tty: true
+        env_file:
+            - 'build/variables.env'
     mysql:
         image: mysql:latest
         networks:
             - symfonyblog_net
-        environment:
-            MYSQL_ROOT_PASSWORD: toor
-            MYSQL_DATABASE: blog
-            MYSQL_USER: blog_user
-            MYSQL_PASSWORD: toor
+        env_file:
+            - 'build/variables.env'
 networks:
     symfonyblog_net:
         driver: "bridge"

@@ -12,6 +12,16 @@ For fun and to learn.
 
 # Start the app
 
+### Get the code
+
+Clone the app from this repository:
+
+    git clone https://github.com/mylk/blog-symfony.git
+
+Enter the application directory:
+
+    cd blog-symfony
+
 ## Having docker?
 
 If you have ```docker``` and ```docker-compose``` installed, you can run the application in a container:
@@ -25,17 +35,7 @@ Everything is ready and you don't need anything from the following section.
 
 ## Not having docker?
 
-### Get the code
-
-Clone the app from this repository
-
-    git clone https://github.com/mylk/blog-symfony.git
-
 ### Install dependencies
-
-Enter the application directory:
-
-    cd blog-symfony
 
 Get composer, if you don't have it already and run:
 
@@ -63,6 +63,7 @@ If this is not your case modify the following parameter in the aforementioned co
 
 Let Doctrine do the job for you:
 
+    app/console doctrine:database:create --if-not-exists
     app/console doctrine:schema:create
     app/console doctrine:schema:update --force
 
