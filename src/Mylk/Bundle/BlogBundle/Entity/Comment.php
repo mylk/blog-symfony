@@ -51,7 +51,7 @@ class Comment
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->approved = false;
+        $this->approved = null;
     }
 
     public function getId()

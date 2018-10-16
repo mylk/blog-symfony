@@ -34,7 +34,7 @@
                 <td width="30"><input type="checkbox" name="delete[]" value="{{ comment.id }}" /></td>
                 <td width="30"><a href="{{ path('post', { postId: comment.post.id }) }}">{{ comment.post.title | slice(0, 55) }}</a></td>
                 <td width="150" align="center">{{ comment.content | slice(0, 55) }}</td>
-                <td width="150" align="center">{{ comment.createdAt }}</td>
+                <td width="150" align="center">{{ comment.createdAt | date("Y-m-d H:i:s") }}</td>
                 <td width="100" align="center">{{ comment.username }}</td>
                 <td width="20" align="center" data-comment-id="{{ comment.id }}" data-approval-outcome="approved"><img src="{{ asset('img/approve.png') }}" /></td>
                 <td width="20" align="center" data-comment-id="{{ comment.id }}" data-approval-outcome="rejected"><img src="{{ asset('img/reject.png') }}" /></td>
