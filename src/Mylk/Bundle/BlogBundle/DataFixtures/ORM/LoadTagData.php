@@ -4,7 +4,7 @@ namespace Mylk\Bundle\BlogBundle\DataFixtures\ORM;
 
 use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use \Doctrine\Common\Persistence\ObjectManager;
+use \Doctrine\Persistence\ObjectManager;
 use Mylk\Bundle\BlogBundle\Entity\Tag;
 
 class LoadTagData extends AbstractFixture implements OrderedFixtureInterface

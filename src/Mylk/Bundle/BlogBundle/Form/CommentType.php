@@ -2,7 +2,13 @@
 
 namespace Mylk\Bundle\BlogBundle\Form;
 
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,9 +21,9 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("username", "text", array("required" => true))
-            ->add("email", "email", array("required" => true))
-            ->add("content", "textarea", array(
+            ->add("username", TextType::class, array("required" => true))
+            ->add("email", EmailType::class, array("required" => true))
+            ->add("content", TextareaType::class, array(
                 "label" => "Comment",
                 "required" => true,
                 "attr" => array(
@@ -25,9 +31,9 @@ class CommentType extends AbstractType
                     "cols" => 40
                 )
             ))
-            ->add("post", "hidden")
-            ->add("captcha", "captcha")
-            ->add("send", "submit");
+            ->add("post", HiddenType::class)
+            ->add("captcha", CaptchaType::class)
+            ->add("send", SubmitType::class);
     }
 
     /**

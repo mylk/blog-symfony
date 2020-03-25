@@ -2,7 +2,12 @@
 
 namespace Mylk\Bundle\BlogBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,29 +20,29 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("title", "text", array("required" => true))
-            ->add("content", "textarea", array(
+            ->add("title", TextType::class, array("required" => true))
+            ->add("content", TextareaType::class, array(
                 "required" => true,
                 "attr" => array(
                     "rows" => 8,
                     "columns" => 40
                 )
             ))
-            ->add("sticky", "checkbox", array("required" => false))
-            ->add("commentsProtected", "checkbox", array("required" => false))
-            ->add("commentsClosed", "checkbox", array("required" => false))
-            ->add("tags", "entity", array(
+            ->add("sticky", CheckboxType::class, array("required" => false))
+            ->add("commentsProtected", CheckboxType::class, array("required" => false))
+            ->add("commentsClosed", CheckboxType::class, array("required" => false))
+            ->add("tags", EntityType::class, array(
                 "class" => "MylkBlogBundle:Tag",
-                "property" => "title",
+                "choice_label" => "title",
                 "multiple" => true,
                 "required" => false
             ))
-            ->add("category", "entity", array(
+            ->add("category", EntityType::class, array(
                 "class" => "MylkBlogBundle:Category",
-                "property" => "title",
+                "choice_label" => "title",
                 "required" => true
             ))
-            ->add("save", "submit");
+            ->add("save", SubmitType::class);
     }
 
     /**

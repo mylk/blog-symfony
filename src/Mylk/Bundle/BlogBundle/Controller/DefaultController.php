@@ -115,7 +115,7 @@ class DefaultController extends Controller
         $postRepo = $em->getRepository("MylkBlogBundle:Post");
 
         $comment = new Comment();
-        $form = $this->createForm(new CommentType(), $comment);
+        $form = $this->createForm(CommentType::class, $comment);
 
         if ($request->isMethod("POST")) {
             $form->handleRequest($request);
@@ -187,7 +187,7 @@ class DefaultController extends Controller
 
             if ($post !== null) {
                 // generate comment form
-                $commentForm = $this->createForm(new CommentType(), new Comment(), array(
+                $commentForm = $this->createForm(CommentType::class, new Comment(), array(
                     "action" => $this->generateUrl("comment_submit") . "#submit-comment",
                     "method" => "POST"
                 ))

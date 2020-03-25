@@ -15,7 +15,7 @@ use Mylk\Bundle\BlogBundle\Form\MenuItemType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Security;
 
 class AdminController extends Controller
 {
@@ -31,7 +31,7 @@ class AdminController extends Controller
             $session->start();
         }
 
-        $lastErrorField = SecurityContextInterface::AUTHENTICATION_ERROR;
+        $lastErrorField = Security::AUTHENTICATION_ERROR;
 
         // get the login error if there is one
         if ($request->attributes->has($lastErrorField)) {
@@ -56,7 +56,7 @@ class AdminController extends Controller
         $session = $request->getSession();
 
         $post = new Post();
-        $form = $this->createForm(new PostType(), $post, array(
+        $form = $this->createForm(PostType::class, $post, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_post_new")
         ));
@@ -93,7 +93,7 @@ class AdminController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $form = $this->createForm(new PostType(), $post, array(
+        $form = $this->createForm(PostType::class, $post, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_post_edit", array("postId" => $postId))
         ));
@@ -157,7 +157,7 @@ class AdminController extends Controller
         $session = $request->getSession();
 
         $category = new Category();
-        $form = $this->createForm(new CategoryType(), $category, array(
+        $form = $this->createForm(CategoryType::class, $category, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_category_new")
         ));
@@ -190,7 +190,7 @@ class AdminController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $form = $this->createForm(new CategoryType(), $category, array(
+        $form = $this->createForm(CategoryType::class, $category, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_category_edit", array("categoryId" => $categoryId))
         ));
@@ -219,7 +219,7 @@ class AdminController extends Controller
 
         $delete = $request->get("delete");
 
-        $form = $this->createForm(new ConfirmType(), null, array(
+        $form = $this->createForm(ConfirmType::class, null, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_category_list")
         ));
@@ -255,7 +255,7 @@ class AdminController extends Controller
         $session = $request->getSession();
 
         $tag = new Tag();
-        $form = $this->createForm(new TagType(), $tag, array(
+        $form = $this->createForm(TagType::class, $tag, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_tag_new")
         ));
@@ -288,7 +288,7 @@ class AdminController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $form = $this->createForm(new TagType(), $tag, array(
+        $form = $this->createForm(TagType::class, $tag, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_tag_edit", array("tagId" => $tagId))
         ));
@@ -398,7 +398,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $menuItem = new MenuItem();
-        $form = $this->createForm(new MenuItemType(), $menuItem, array(
+        $form = $this->createForm(MenuItemType::class, $menuItem, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_menu_item_new")
         ));
@@ -425,7 +425,7 @@ class AdminController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $form = $this->createForm(new MenuItemType(), $menuItem, array(
+        $form = $this->createForm(MenuItemType::class, $menuItem, array(
             "method" => "POST",
             "action" => $this->generateUrl("admin_menu_item_edit", array("menuItemId" => $menuItemId))
         ));
