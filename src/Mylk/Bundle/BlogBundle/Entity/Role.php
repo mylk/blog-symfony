@@ -2,7 +2,7 @@
 
 namespace Mylk\Bundle\BlogBundle\Entity;
 
-use Symfony\Component\Security\Core\Role\RoleInterface;
+use Symfony\Component\Security\Core\Role\Role as SecurityRole;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="roles")
  * @ORM\Entity()
  */
-class Role implements RoleInterface
+class Role extends SecurityRole
 {
     public function __construct()
     {
